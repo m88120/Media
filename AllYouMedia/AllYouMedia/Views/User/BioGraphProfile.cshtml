@@ -1,0 +1,108 @@
+﻿@using AllYouMedia.Models
+@model BioUploadModel
+@{
+    ViewBag.Title = "Bio Graph Profile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<link href="~/Content/star-rating.css" rel="stylesheet" />
+<script src="~/Scripts/rating/jquery.min.js"></script>
+<script src="~/Scripts/rating/star-rating.js"></script>
+<div class="col-md-12">
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard-header content">
+            <div class="dashboard-action">
+                <h4 class="page-content-title float-xs-left">BIO PROFILE</h4>
+                <ul class="right-action float-xs-right">
+                    <li data-widget="collapse">
+                        <a aria-hidden="true"
+                           href="javascript:void(0)">
+                            <span aria-hidden="true" class="icon_minus-06"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard-box">
+                <div class="table-badges-section">
+                    <div class="col-md-2 col-xs-12 text-center">
+                        <div class="text-center padding-50 MgT20">
+                            <img src='@Model.ImageUrl' class="img-thumbnail img2" /><br />
+                        </div>
+                        <a href="@Url.Action("ChangeImage", "User" )">ADD/EDIT</a>
+                    </div>
+                    <div class="col-md-4">
+                        <table class="table table-striped table">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        Name
+                                    </td>
+                                    <td>
+                                        <b>
+                                            @Model.UserName
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        Membership
+                                    </td>
+                                    <td>
+                                        <b>
+                                            @Model.Role
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        My Category
+                                    </td>
+                                    <td>
+                                        <b>
+                                            @Model.Talent
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        My Location
+                                    </td>
+                                    <td>
+                                        <b>
+                                            @Model.Address
+                                        </b>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        My Rating
+                                    </td>
+                                    <td>
+                                        <div class="rating">
+                                            <div class="guestrate">
+                                                <input id="Number1" type="number" readonly="readonly" value='@Model.Rate'
+                                                       class="rating" />
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="ribbon-box left-ribbon-box default-left-ribbon-box">
+                            <div class="ribbon-position left-simple-ribbon left-ribbon-position">
+                                Bio
+                            </div>
+                            <p>
+                                <div class="text-justify">
+                                    @Model.Biography
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,145 @@
+﻿@{
+    var sessionCart = (AllYouMedia.Controllers.HomeController.SessionCart)ViewBag.SessionCart;
+    var itemCount = 0;
+    var deliveryAddressList = (IEnumerable<SelectListItem>)ViewBag.AddressList;
+}
+<div class="page-tital">
+    <div class="container">
+        <h1>Checkout</h1>
+        <span><a href="#_">Home</a>  -  checkout</span>
+    </div>
+</div>
+<div id="mid-part">
+    <div class="container">
+        <div class="checkout-form">
+            <div class="checkout-form-left">
+                <div class="checkout-form-main">
+                    <div class="checkout-form-top">
+                        <h3>Shipping information</h3>
+
+                        <div class="checkout-form-fluid">
+                            <ul>
+                                <li style=" width: 100% !important;">
+                                    <select id="ShippingAddressID" name="ShippingAddressID">
+                                        @if (deliveryAddressList.Count() > 0)
+                                        {
+                                            foreach (var item in deliveryAddressList)
+                                            {
+                                                <option value="@item.Value">@item.Text</option>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <option value="">-Please add delivery address from below-</option>
+                                        }
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="checkout-form-main">
+                        <div class="checkout-form-top">
+                            <h3>Add new shipping address </h3>
+                        </div>
+                        <div class="checkout-form-fluid">
+                            <form id="frmShippingAddress" data-parsley-validate="" action="/Home/AddShippingAddress" method="post">
+                                <ul>
+                                    <li><input type="text" placeholder="Address Line 1 (Flat, House no., Building, Company, Apartment)" id="AddressLine1" name="AddressLine1" required=""></li>
+                                    <li><input type="text" placeholder="Address Line 2 (Area, Colony, Street, Sector, Village)" id="AddressLine2" name="AddressLine2" required=""></li>
+                                    <li><input type="text" placeholder="City (Town/City)" id="City" name="City" required=""></li>
+                                    <li><input type="text" placeholder="Province/State" id="Province" name="Province" required=""></li>
+                                    <li>
+                                        <select id="Country" name="Country" required="">
+                                            <option value="">-Select Country-</option>
+                                            <option value="USA">USA</option>
+                                        </select>
+                                    </li>
+                                    <li><input type="text" placeholder="Pincode" id="PinCode" name="PinCode" required=""></li>
+                                    <li><input type="text" placeholder="Landmark" id="Landmark" name="Landmark"></li>
+                                    <li>
+                                        <p>
+                                            <button type="submit" class="btn btn-default">Save Address</button>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="checkout-form-right">
+                <div class="checkout-form-table">
+                    @if (sessionCart.CartItems.Count > 0)
+                    {
+                        <table style="width:100%;" cellspacing="0" cellpadding="0">
+                            <tbody>
+                                @foreach (var cartItem in sessionCart.CartItems)
+                                {
+                                    <tr>
+                                        <td style="width:20%;"><img src="@cartItem.PhotoIMG" alt="Image" style="max-width: 67px;margin-left: 2px;" /></td>
+                                        <td style="width:40%;">@cartItem.ItemName</td>
+                                        <td style="width:20%;"><p class="count">@cartItem.Qty</p></td>
+                                        <td style="width:20%;">@AllYouMedia.MvcApplication.CurrencySymbol @cartItem.SellPrice.ToString("N2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <script>location.href = "/";</script>
+                    }
+
+                </div>
+                <div class="tabel-sub-total">
+                    <ul style="padding-left: 0;">
+                        <li>
+                            <p>Subtotal </p>
+                            <span>@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.NetAmount.ToString("N2")</span>
+                        </li>
+                        <li>
+                            <p>Discount</p>
+                            <span>@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.TotalDiscount.ToString("N2")</span>
+                        </li>
+                        <li>
+                            <p>Shipping </p>
+                            <span>@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.Shipping.ToString("N2")</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tabel-total">
+                    <p>Total</p>
+                    <span>@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.PayableAmount.ToString("N2")</span>
+                </div>
+                @*<div class="table-inner">
+                        <p>Enter your coupon here</p>
+                        <span><input type="text" placeholder="Enter your coupon here"><button class="hvr-shutter-out-vertical">Apply Coupon</button></span>
+                    </div>*@
+                <div class="checkout-pay">
+                    @*<h4>Payment Option</h4>
+                        <div class="checkout-pay-card">
+                            <span>
+                                <input class="with-gap" name="group1" type="radio" id="test" />
+                                <label for="test"><img src="images/visa-card.png" alt=""></label>
+                            </span> <span>
+                                <input class="with-gap" name="group1" type="radio" id="test1" />
+                                <label for="test1"><img src="images/pay-pal.png" alt=""></label>
+                            </span>
+                        </div>*@
+                    <button class="hvr-shutter-out-vertical" onclick="placeOrder();" style="cursor:pointer;">Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script>
+        function placeOrder() {
+            var shippingAddressID = $("#ShippingAddressID").val();
+            if (shippingAddressID == null || shippingAddressID == "") { toastr.error("Shipping address is required"); return; }
+            location.href = "/Home/PlaceOrder?ShippingAddressID=" + shippingAddressID;
+        }
+    </script>
+}

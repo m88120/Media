@@ -1,0 +1,245 @@
+﻿@model AllYouMedia.Models.IndexModel
+@{
+    ViewBag.Title = "Product Detail";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+<style>
+    .product-tab-content {
+        padding: 10px;
+        margin-top: 10px;
+    }
+
+    table.cart-table {
+        margin-bottom: 0;
+        margin-top: 0px;
+    }
+</style>
+
+<section class="main-content-area">
+    <div class="container">
+        <!-- bradcame start -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="greentect_bradcame">
+                    <ul>
+                        <li><a href="@Url.Action("Index","Home")">home</a></li>
+                        <li><a href="@Url.Action("Index","Product")">Product</a></li>
+                        <li>Product Detail</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="single-product-page-area">
+            <div class="row">
+                <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                    <div class="single-product-image">
+                        <div class="single-pro-main-image">
+                            <a href="" class="text-center md-padding"><img src="@Model.ProductDetail.MediaURL" alt="optima" /></a>
+                        </div>
+                        <div class="single-pro-thumb">
+                            @*<ul class="thubm-caro" id="optima_gallery">
+                                    <li>
+                                        <a href="#" data-image="img/11.jpg" data-zoom-image="img/11.jpg"> <img src="img/11.jpg" alt="optima" /> </a>
+                                    </li>
+                                </ul>*@
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-7 col-md-7 col-lg-7">
+                    <div class="single-product-description">
+                        <div class="pro-desc">
+                            Product Title: <h2> @Model.ProductDetail.Name</h2>
+                            <div class="review_forum">
+                                <div class="rating-box">
+                                    <a title="1 star" href="#" class="rated"><i class="fa fa-star-o"></i></a>
+                                    <a title="2 star" href="#" class="rated"><i class="fa fa-star-o"></i></a>
+                                    <a title="3 star" href="#" class="rated"><i class="fa fa-star-o"></i></a>
+                                    <a title="4 star" href="#"><i class="fa fa-star-o"></i></a>
+                                    <a title="5 star" href="#"><i class="fa fa-star-o"></i></a>
+                                </div>
+                            </div>
+                            <br />
+                            <div class="pro-availability">
+                                <p class="availability">Availability :<span> In stock</span></p>
+                            </div>
+                            Price: <span class="regular-price"> @Model.ProductDetail.RetailPrice</span>
+                        </div>
+                        <div class="product-variation">
+                            <div class="product-quantity">
+                                <div class="cart-plus-minus">
+                                    <label>Quantity: </label>
+                                    @Html.TextBoxFor(model => model.ProductDetail.Quantity, new { @class = "cart-plus-minus-box", @value = "1", @min = "1", @type = "text", @name = "qtybutton", @maxlength = "2" })
+                                    @Html.ValidationMessageFor(model => model.ProductDetail.Quantity, "", new { @class = "validation" })
+                                </div>
+                                <div class="pro-add-to-cart">
+                                    <p><a title="Add to Cart" href="javascript:AjaxGoodRedirect('@Url.Action("AddCart", "Product",new { UID = Model.ProductDetail.UID })')">Add to cart</a></p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- product description tab start -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="product-more-info-tab">
+                        <!-- Nav tabs -->
+                        <ul class="more-info-tab nav nav-tabs">
+                            <li class="active"><a href="#proDescription" data-toggle="tab">description</a></li>
+                            @if (Model.ProductDetail.Type == "Album")
+                            {
+                                <li><a href="#albumlist" data-toggle="tab">Album List</a></li>
+                            }
+                            @if (Model.ProductDetail.Type == "Audio")
+                            {
+                                <li><a href="#Songlist" data-toggle="tab">Song Clip</a></li>
+                            }
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="product-tab-content tab-content">
+                            <div class="tab-pane active" id="proDescription">
+                                <div class="tab-description">
+                                    <h2>Details</h2>
+                                    <p>@Model.ProductDetail.DESCRIPTION </p>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="albumlist">
+                                <div class="tab-description">
+                                    <div class="CartGrid">
+                                        @{
+                                            var gridAlbum = new WebGrid(Model.AlbumList, canPage: true, rowsPerPage: 50, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "grid");
+                                            gridAlbum.Pager(WebGridPagerModes.NextPrevious);
+                                        }
+                                        <div id="gridAlbum">
+                                            @gridAlbum.GetHtml(htmlAttributes: new { id = "AlbumList" },
+                               tableStyle: "table cart-table",
+                               mode: WebGridPagerModes.All,
+                            firstText: "<< First",
+                            previousText: "< Prev",
+                            nextText: "Next >",
+                            lastText: "Last >>",
+                            headerStyle: "header",
+                            alternatingRowStyle: "alt",
+                            selectedRowStyle: "select",
+                            columns: gridAlbum.Columns(
+
+                                  gridAlbum.Column("S.N.", format: (item) => item.Sno),
+                            gridAlbum.Column("Media", format: @<text>
+                                    <audio width="200" height="70" preload="none" controls="controls">
+                                        <source type="audio/mp3" src="@item.FileUrl" />
+                                    </audio>
+                            </text>),
+                            gridAlbum.Column("Name", format: @<text>
+                                    <div class="cartpage-pro-dec">
+                                        <p>  @item.Name</p>
+                                    </div></text>),
+                            gridAlbum.Column("Price", format: @<text>
+                                    <div class="cart-pro-price">
+                                        <p>  @item.Price</p>
+                                    </div></text>),
+                                  gridAlbum.Column(format: @<text>
+                                    <div class="cartpage-item-cart">
+                                        <a href="javascript:AjaxGoodRedirect('@Url.Action("AddCart", "Product", new { UID = @item.UID })')" title="Add to Cart">Add to Cart</a>
+                                    </div>
+                                </text>)
+                     ))
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="Songlist">
+                                <div class="tab-description">
+                                    <div class="CartGrid">
+                                        @{
+                                            var gridSong = new WebGrid(Model.SongList, canPage: true, rowsPerPage: 50, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "grid");
+                                            gridSong.Pager(WebGridPagerModes.NextPrevious);
+                                        }
+                                        <div id="gridSong">
+                                            @gridSong.GetHtml(htmlAttributes: new { id = "SongList" },
+                               tableStyle: "table cart-table",
+                               mode: WebGridPagerModes.All,
+                            firstText: "<< First",
+                            previousText: "< Prev",
+                            nextText: "Next >",
+                            lastText: "Last >>",
+                            headerStyle: "header",
+                            alternatingRowStyle: "alt",
+                            selectedRowStyle: "select",
+                            columns: gridSong.Columns(
+
+                                  gridSong.Column("S.N.", format: (item) => item.Sno),
+                            gridSong.Column("Media", format: @<text>
+                                    <audio width="200" height="70" preload="none" controls="controls">
+                                        <source type="audio/mp3" src="@item.FileUrl" />
+                                    </audio>
+                            </text>),
+                            gridSong.Column("Name", format: @<text>
+                                    <div class="cartpage-pro-dec">
+                                        <p>  @item.Name</p>
+                                    </div></text>),
+                            gridSong.Column("Price", format: @<text>
+                                    <div class="cart-pro-price">
+                                        <p>  @item.Price</p>
+                                    </div></text>),
+                                  gridSong.Column(format: @<text>
+                                    <div class="cartpage-item-cart">
+                                        <a href="javascript:AjaxGoodRedirect('@Url.Action("AddCart", "Product", new { UID = @item.UID })')" title="Add to Cart">Add to Cart</a>
+                                    </div>
+                                </text>)
+                     ))
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- product description tab end -->
+        </div>
+        <div class="row upsell-product">
+            <div class="p-0-15 section-heading">
+                <h2><span>Related</span> Products</h2>
+            </div>
+            <div class="product-carousel-6">
+                @foreach (var item in Model.Product)
+                {
+                    <div class="single-product-item">
+                        <div class="product-image">
+                            <a href="#" title=""><img src="@item.MediaURL" alt="product image" /></a>
+                        </div>
+                        <div class="single-product-text">
+                            <h2><a class="product-title" href="single-product.html" title="">@item.Name</a></h2>
+                            <div class="product-price">
+                                <span class="regular-price">$ @item.RetailPrice</span>
+                            </div>
+                            <div class="pro-add-to-cart">
+                                <p><a href="@Url.Action("ProductDetail", "Product",new { UID= @item.Code})" title="Product Detail">View Detail</a></p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <!-- upsell product end -->
+    </div>
+</section>
+<script>
+    function AjaxGoodRedirect(urlAction) {
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data: {},
+            datatype: "JSON",
+            contentType: "application/json; charset=utf-8",
+            success: function (returndata) {
+                if (returndata.ok) {
+                    window.location = returndata.newurl;
+                }
+                else
+                    window.alert("Error!");
+            }
+        }
+        );
+    }
+</script>

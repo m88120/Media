@@ -1,0 +1,63 @@
+﻿@model AllYouMedia.Models.ContactModel
+@{
+    ViewBag.Title = "Contact Us";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using (Ajax.BeginForm("ContactUs", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ContactUs" }))
+{
+    <div id="ContactUs" class="content contact">
+        <div class="col-md-12">
+            <div class="col-xs-12 nav-tab-horizontal">
+                <div class="divider15"></div>
+                <div class="tab-content">
+                    <div role="tabpanel" id="add-contact" class="tab-pane active">
+                        <!-- ADD CONTACT START -->
+                        <h4 class="modal-title">Contact to Us</h4>
+                        <div class="divider15"></div>
+                        <div class="add-contact">
+                            <div class="row">
+                                <form>
+                                    <div class="col-md-3 col-xs-12">
+                                        <div class="upload-img">
+                                            <img src="~/assets/global/image/img_400x400.png" />
+                                            <span class="btn flat-buttons btn-primary btn-file text-xs-center">
+                                                <i class="icon_cloud-upload_alt "></i>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="divider-sm-spacing"></div>    
+                                    <div class="col-md-9 col-xs-12 text-xs-left add-contact-form">
+                                        <div class="form-group">
+                                            <label for="LoginName" class="float-xs-left">Login Name:</label>
+                                            @Html.TextBoxFor(model => model.LoginName, new { @class = "contact-input float-xs-left", placeholder = "Enter Login Name", maxlength = "50" })
+                                            @Html.ValidationMessageFor(model => model.LoginName, "", new { @class = "validation float-xs-right" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Email" class="float-xs-left">Email:</label>
+                                            @Html.TextBoxFor(model => model.Email, new { @class = "contact-input float-xs-left", placeholder = "Enter Email", maxlength = "100" })
+                                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validation float-xs-right" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Subject" class="float-xs-left">Subject:</label>
+                                            @Html.TextBoxFor(model => model.Subject, new { @class = "contact-input float-xs-left", placeholder = "Enter Subject", maxlength = "100" })
+                                            @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "validation float-xs-right" })
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="Message" class="float-xs-left">Message:</label>
+                                            @Html.TextAreaFor(model => model.Message, new { @class = "contact-input float-xs-left", placeholder = "Enter Message", maxlength = "140" })
+                                            @Html.ValidationMessageFor(model => model.Message, "", new { @class = "validation float-xs-right" })
+                                        </div>
+                                        <div class="add-contact-btn float-xs-right">
+                                            <button type="submit" class="btn flat-buttons btn-primary">Send Message</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>

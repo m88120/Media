@@ -1,0 +1,109 @@
+﻿@using AllYouMedia.Models
+@model AddShippingInfoModel
+@{
+    ViewBag.Title = "Add Shipping Info";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using (Ajax.BeginForm("AddShippingInfo", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Shipping" }))
+{
+    <div id="Shipping" class="col-md-12 profile-contain">
+        <div class="col-xl-6 col-md-6 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-xs-12">
+                        <h4 class="page-content-title">Purchase Information</h4>
+                        <div class="divider15"></div>
+                        <div class="personal-info-box">
+                            <div class="row">
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Customer Name :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.CustomerName, new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Product Name :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.ProductName, new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Purchase Date :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.PurchaseDate, new { @class = "form-control", @readonly = "readonly" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="form-group">
+                                        @Html.HiddenFor(model => model.CustomerLoginName, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="form-group">
+                                        @Html.HiddenFor(model => model.hdnUID, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tab-pane active btn-margin" id="basic-buttons">
+                                        <a href="@Url.Action("ProductTools","User")" class="btn btn-secondary flat-buttons float-xs-left">Back</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class="col-xl-6 col-md-6 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-xl-12 col-md-12 col-xs-12">
+                        <h4 class="page-content-title">Shipping Information</h4>
+                        <div class="divider15"></div>
+                        <div class="personal-info-box">
+                            <div class="row">
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">* Courier Name :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.CourierName, new { @class = "form-control", placeholder = "Enter Courier Name", maxlength = "100" })
+                                        @Html.ValidationMessageFor(model => model.CourierName, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">* Tracking Number :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.TrackingNumber, new { @class = "form-control", placeholder = "Enter Tracking Number", maxlength = "20" })
+                                        @Html.ValidationMessageFor(model => model.TrackingNumber, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">* Shipping Date :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.ShippingDate, new { @class = "datepicker form-control", placeholder = "Select Shipping Date", maxlength = "10" })
+                                        @Html.ValidationMessageFor(model => model.ShippingDate, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">* Expected Delivery Date :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.ExpectedDeliveryDate, new { @class = "datepicker form-control", placeholder = "Select Expected Delivery Date", maxlength = "10" })
+                                        @Html.ValidationMessageFor(model => model.ExpectedDeliveryDate, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tab-pane active btn-margin" id="basic-buttons">
+                                        <button type="submit" class="btn btn-primary flat-buttons waves-effect waves-button">Add Shipping Info</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>

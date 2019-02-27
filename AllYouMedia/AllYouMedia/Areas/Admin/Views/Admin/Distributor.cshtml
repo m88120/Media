@@ -1,0 +1,101 @@
+﻿@model AllYouMedia.Areas.Admin.Models.UserReportModel
+@{
+    ViewBag.Title = "User Report";
+    ViewBag.Active = "Distributor";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutLTE.cshtml";
+}
+<div class="content-header">
+    <h1>
+        @ViewBag.Title
+    </h1>
+</div>
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12 profile-contain">
+            <div class="box">
+                <div class="box-body" ng-controller="Distributor">
+                    <form action="#" class="form-horizontal" style="overflow:hidden;">
+                        <div style="overflow:hidden;" class="clearfix">
+                            <div class="col-md-6">
+                                <div class="form-group"><label class="col-sm-2 control-label">Login Name</label><div class="col-sm-10"><select class="form-control" ng-model="UserData.UserID"><option ng-repeat="user in UserData.UserList" value="{{user.Value}}">{{user.Text}}</option></select></div></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Date From</label><div class="col-sm-10"><input type="text" id="txtDateFrom" placeholder="Select DateFrom" ng-model="From" class="form-control" maxlength="10" data-input /></div></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">City</label><div class="col-sm-10"><input type="text" id="txtCity" placeholder="Enter City" ng-model="City" class="form-control" maxlength="50" /></div></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">College / University</label><div class="col-sm-10"><input type="text" id="txtCollege" placeholder="Enter College/University" ng-model="College" class="form-control" maxlength="50" /></div></div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group"><label class="col-sm-2 control-label">Status</label><div class="col-sm-10"><select class="form-control" ng-model="Status"><option data-ng-repeat="data3 in StatusList" value="{{data3.Value}}">{{data3.Text}}</option></select></div></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Date to</label><div class="col-sm-10"><input type="text" id="txtDateTo" placeholder="Select DateTo" ng-model="To" class="form-control" maxlength="10" data-input /></div></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Country</label><div class="col-sm-10"><input type="text" id="txtState" placeholder="Enter State" ng-model="Country" class="form-control" maxlength="50" /></div></div>
+                                <div class="form-group"><label class="col-sm-2 control-label">Major</label><div class="col-sm-10"><select class="form-control" ng-model="Major"><option data-ng-repeat="data3 in MajorList" value="{{data3.Value}}">{{data3.Text}}</option></select></div></div>
+                            </div>
+                        </div>
+                        <div class="text-right"><button id="Search" ng-click="Search()" class="btn btn-primary flat-buttons" type="button" style="margin-right: 15px;">Search</button></div>
+                        <div style="margin-top: 10px"></div>
+                        <div class="col-md-12 col-sm-12 col-xs-12 responsive_table_main">
+                            <div class="input-group well col-md-12">
+                                <div class="col-md-4">
+                                    <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                        <th><a href="" ng-click="orderByField='LoginName'; reverseSort = !reverseSort">Login Name</a></th>
+                                        <th><a href="" ng-click="orderByField='UserName'; reverseSort = !reverseSort">User Name</a></th>
+                                        <th><a href="" ng-click="orderByField='Country'; reverseSort = !reverseSort">Country</a></th>
+                                        <th><a href="" ng-click="orderByField='EnrollmentDate'; reverseSort = !reverseSort">Join Date</a></th>
+                                        @*<th><a href="" ng-click="orderByField='College'; reverseSort = !reverseSort">College</a></th>*@
+                                        <th><a href="" ng-click="orderByField='Major'; reverseSort = !reverseSort">Major</a></th>
+                                        <th><a href="" ng-click="orderByField='Role'; reverseSort = !reverseSort">Role</a></th>
+                                        <th><a href="" ng-click="orderByField='Status'; reverseSort = !reverseSort">Status</a></th>
+                                        <th>Edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.Sno}}</td>
+                                        <td>{{data.LoginName}}</td>
+                                        <td>{{data.UserName}}</td>
+                                        <td>{{data.Country}}</td>
+                                        <td>{{data.EnrollmentDate}}</td>
+                                        @*<td>{{data.College}}</td>*@
+                                        <td>{{data.Major}}</td>
+                                        <td>{{data.Role}}</td>
+                                        <td><div ng-bind-html="data.Status" data-ng-bind-html="data.Status"></div></td>
+                                        <td><a href="@Url.Action("UserEdit", "Admin")?LoginName={{data.LoginName}}" class="btn btn-primary btn-sm flat-buttons">EDIT</a></td>
+                                    </tr>
+                                    <tr ng-show="!dataList.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                            </div>
+                            <div class="updateSpinner" ng-show="loader.loading">
+                                Please wait...
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular-sanitize.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Content/AngularJs/DistributorReport.js")"></script>
+    <script>
+        $(document).ready(function () {
+            $("#txtDateFrom").datepicker();
+            $("#txtDateTo").datepicker();
+        });
+    </script>
+}

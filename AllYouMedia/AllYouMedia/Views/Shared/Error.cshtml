@@ -1,0 +1,68 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="bootstrap default admin template">
+    <meta name="viewport" content="width=device-width">
+    <title>Error</title>
+    <!-- START GLOBAL CSS -->
+    <!-- FONT, Botostrap and other global which is included everywhere in pages -->
+    <link href="~/assets/global/plugins/Waves/dist/waves.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/icons_fonts/elegant_font/elegant.min.css" rel="stylesheet" />
+    <!-- This section will have CSS FOR ALL LAYOUT.-->
+    <link href="~/assets/global/css/components.min.css" rel="stylesheet" />
+    <!-- END TEMPLATE GLOBAL CSS -->
+    <!-- START LAYOUT CSS -->
+    <!-- This section will have CSS for this layout(left-menu,top-menu) ONLY -->
+    <link href="~/assets/layouts/layout-material-menu/css/layout.css" rel="stylesheet" />
+    <link href="~/assets/global/css/error.css" rel="stylesheet" />
+    <!-- END LAYOUT CSS -->
+</head>
+<body>
+    <div class="wrapper contain-error">
+        <div class="main-contain-error">
+            <div class="main-contain-inner-error">
+                <div class="error-des text-xs-center">
+                    <div class="error-image"><img src="~/assets/global/image/404-image.png" alt="error page" /></div>
+                    <h1>oops! Page not found :(</h1>
+                    <p>You Seem To Be Trying To Find His Way Home</p>
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (HttpContext.Current.User.IsInRole("Admin"))
+                        {
+                            <h4><a href="@Url.Action("Index", "Admin")" class="btn btn-primary flat-buttons">Back To Home</a></h4>
+                        }
+                        else if (HttpContext.Current.User.IsInRole("SuperAdmin"))
+                        {
+                            <h4><a href="@Url.Action("Index", "Admin")" class="btn btn-primary flat-buttons">Back To Home</a></h4>
+                        }
+                        else
+                        {
+                            <h4><a href="@Url.Action("Index", "User")" class="btn btn-primary flat-buttons">Back To Home</a></h4>
+                        }
+                        
+                    }
+                    else
+                    {
+                        <h4><a href="@Url.Action("Index", "Home")" class="btn btn-primary flat-buttons">Back To Home</a></h4>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- START CORE JAVASCRIPT -->
+    <script src="~/assets/global/plugins/jquery/dist/jquery.min.js"></script>
+    <script src="~/assets/global/plugins/tether/dist/js/tether.min.js"></script>
+    <script src="~/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="~/assets/global/plugins/Waves/dist/waves.min.js"></script>
+    <script src="~/assets/global/plugins/ModalWindowEffects/js/classie.js"></script>
+</body>
+</html>
+

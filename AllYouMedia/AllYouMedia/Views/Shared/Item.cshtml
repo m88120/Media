@@ -1,0 +1,271 @@
+﻿@{
+    ViewBag.Title = "Item";
+    ViewBag.Active = "Item";
+    if (User.IsInRole("Admin"))
+    {
+        Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutLTE.cshtml";
+    }
+    else
+    {
+        Layout = "~/Views/Shared/_UserLayout.cshtml";
+    }    
+}
+@section styles{
+    <link href="/Content/AdminLTE/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/AdminLTE/plugins/datatables/Buttons-1.5.0/css/buttons.bootstrap.css" rel="stylesheet" />
+    <link href="/Content/AdminLTE/plugins/datatables/Editor-2018-01-02-1.7.0/css/editor.bootstrap.css" rel="stylesheet" />
+    <link href="/Content/AdminLTE/plugins/datatables/Select-1.2.4/css/select.bootstrap.min.css" rel="stylesheet" />
+
+}
+<section class="content">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-header">
+                    <h3 class="box-title">Item</h3>
+                </div>
+                <div class="box-body">
+                    <table id="Product" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Sub Category</th>
+                                <th>Name</th>
+                                <th>Display</th>
+                                <th>Base Price</th>
+                                <th>Sell Price</th>
+                                <th>Stock Applicable?</th>
+                                <th>Stock Qty</th>
+                                <th>Promoted?</th>
+                                <th>Featured?</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div class="modal fade" id="itemImages" tabindex="-1" role="dialog" aria-labelledby="itemImagesLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="itemImagesLabel">Item Images</h4>
+            </div>
+            <div class="modal-body">
+                <div class="DTE_Field DTE_Field_Type_text">
+                    <label data-dte-e="label" class="col-lg-4 control-label" for="">Display Photo</label>
+                    <div data-dte-e="input-control" class="col-lg-7 controls">
+                        <div>
+                            <div id="div_PhotoIMG" style="max-width: 600px; max-height: 600px;"></div>
+                            <input id="DTE_Field_PhotoIMG" type="file" class="form-control" name="PhotoIMG" accept=".jpg,.jpeg" onchange="uploadPhotoIMG(this);" />
+                        </div>
+                    </div>
+                    <div class="col-lg-1"><i class="fa fa-refresh fa-spin" style="display:none;"></i></div>
+                </div>
+                <div class="DTE_Field DTE_Field_Type_text" style="margin-top:10px;">
+                    <label data-dte-e="label" class="col-lg-4 control-label" for="">Content</label>
+                    <div data-dte-e="input-control" class="col-lg-7 controls">
+                        <div>
+                            <div id="div_ContentURL" style="max-width: 600px; max-height: 600px;"></div>
+                            <input id="DTE_Field_ContentURL" type="file" class="form-control" name="ContentURL" accept="image/*,video/*,document/*,audio/*" onchange="uploadContentURL(this);" />
+                        </div>
+                    </div>
+                    <div class="col-lg-1"><i class="fa fa-refresh fa-spin" style="display:none;"></i></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-default">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="/Content/AdminLTE/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="/Content/AdminLTE/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+    <script src="~/Content/AdminLTE/plugins/datatables/Buttons-1.5.0/js/dataTables.buttons.js"></script>
+    <script src="~/Content/AdminLTE/plugins/datatables/Buttons-1.5.0/js/buttons.bootstrap.js"></script>
+    @*<script src="~/Content/AdminLTE/plugins/datatables/Editor-2018-01-02-1.7.0/js/dataTables.editor.min.js"></script>
+        <script src="~/Content/AdminLTE/plugins/datatables/Editor-2018-01-02-1.7.0/js/editor.bootstrap.min.js"></script>*@
+    <script src="~/Content/AdminLTE/plugins/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+    <script src="~/Content/AdminLTE/plugins/datatables/customEditors.js"></script>
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js"></script>
+    <script>
+        var columnArray = [
+                    //{ data: null },
+                    { data: "SubCategory", editField: "SubCategoryID" },
+                    { data: "Name" },
+                    {
+                        data: "PhotoIMG", render: function (data) { return blankStringIfNull(data) == '' ? '' : '<img src="' + data + '" style="max-width:100px;" />'; },
+                        defaultContent: "No image",
+                        title: "Image"
+                    },
+                    { data: "BasePrice" },
+                    { data: "SellPrice" },
+                    { data: "IsStockApplicable" },
+                    { data: "StockQty" },
+                    { data: "IsPromoted" },
+                    { data: "IsFeatured" },
+        ];
+        var editorArray = [
+                    { label: "Sub Category", name: "SubCategoryID", type: "select", optionsPair: { label: 'Text', value: 'Value' }, validationIsRequired: true },
+                    { label: "Name", name: "Name", validationIsRequired: true, },
+                    { label: "Base Price", name: "BasePrice", validationIsRequired: true, },
+                    { label: "Sell Price", name: "SellPrice", validationIsRequired: true, },
+                    { label: "Is Stock Applicable", name: "IsStockApplicable", type: 'checkbox' },
+                    { label: "Stock Qty", name: "StockQty", validationIsRequired: true, type: 'number', defaultValue: 0 },
+                    { label: "Minimum Purchase Qty", name: "MinPurchaseQty", validationIsRequired: true, type: 'number', defaultValue: 0 },
+                    { label: "Maximum Purchase Qty", name: "MaxPurchaseQty", validationIsRequired: true, type: 'number', defaultValue: 0 },
+                    { label: "Short Description", name: "ShortDescription", validationIsRequired: true, },
+                    { label: "Long Description", name: "LongDescription", type: 'textarea', },
+                    { label: "Is Promoted", name: "IsPromoted", type: 'checkbox' },
+                    { label: "Is Featured", name: "IsFeatured", type: 'checkbox' },
+        ];
+        var table = null;
+        $(document).ready(function () {
+            table = $('#Product').DataTable({
+                //"processing": true,
+                "serverSide": true,
+                //lengthChange: false,
+                ajax: {
+                    url: "/SharedAuth/ItemList", "type": "POST",
+                    "data": function (d) {
+                        //d.RateListID = $("#RateListID").val();
+                    }
+                },
+                columns: columnArray,
+                select: true,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                "order": [[1, 'asc']]
+            });
+            //table.on('draw.dt', function () {
+            //    table.column(0, { search: 'applied', order: 'applied' }).nodes().each(function (cell, i) {
+            //        cell.innerHTML = i + 1;
+            //    });
+            //});
+
+            var editorOption = { ajaxUrl: '/SharedAuth/ItemCurd', table: table, fields: editorArray };
+            var editor = new customEditors(editorOption);
+
+            // Display the buttons
+            new $.fn.dataTable.Buttons(table, [
+                {
+                    text: 'Create',
+                    className: 'Create',
+                    action: function (e, dt, node, config) {
+                        editor.modalClass = "modal-lg";
+                        editor.openAddPopup();
+                    }
+                },
+                {
+                    text: 'Edit',
+                    className: 'Edit',
+                    action: function (e, dt, node, config) {
+                        var selectedRows = table.rows({ selected: true });
+                        if (selectedRows.count() > 0) {
+                            editor.modalClass = "modal-lg";
+                            editor.editRecordObject = selectedRows.data()[0];
+                            editor.openEditPopup();
+                        }
+                    }
+                },
+                {
+                    text: 'Delete',
+                    className: 'Delete',
+                    action: function (e, dt, node, config) {
+                        var selectedRows = table.rows({ selected: true });
+                        if (selectedRows.count() > 0) {
+                            editor.editRecordObject = selectedRows.data()[0];
+                            editor.openRemovePopup();
+                        }
+                    }
+                },
+                {
+                    text: 'Upload Display Photo and Content',
+                    className: 'ItemImages',
+                    action: function (e, dt, node, config) {
+                        var selectedRows = table.rows({ selected: true });
+                        if (selectedRows.count() > 0) {
+                            var editRecordObject = selectedRows.data()[0];
+                            var itemImagesModal = $("#itemImages");
+                            $("#DTE_Field_PhotoIMG").val('');
+                            $("#DTE_Field_ContentURL").val('');
+                            getItemImages(editRecordObject);
+                            itemImagesModal.modal();
+                            itemImagesModal.data('editRecordObject', editRecordObject);
+                        }
+                    }
+                },
+            ]);
+
+            table.buttons().container().appendTo($('.col-sm-6:eq(0)', table.table().container()));
+            table.buttons(['.Edit', '.Delete', '.ItemImages']).disable();
+        });
+        function getItemImages(Item) {
+            if (blankStringIfNull(Item.PhotoIMG) != '') $("#div_PhotoIMG").parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').show();
+            else $("#div_PhotoIMG").parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').hide();
+            if (blankStringIfNull(Item.ContentURL) != '') $("#div_ContentURL").parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').show();
+            $("#div_ContentURL").parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').hide();
+        }
+        function uploadPhotoIMG(elem) {
+            if ($(elem).prop('files').length > 0) {
+                var file = $(elem).prop('files')[0];
+                var editRecordObject = $("#itemImages").data('editRecordObject');
+                uploadFileToS3(editRecordObject.DT_RowId, file, 'ItemPhotoIMG', elem, false);
+            }
+        }
+        function uploadContentURL(elem) {
+            if ($(elem).prop('files').length > 0) {
+                var file = $(elem).prop('files')[0];
+                var editRecordObject = $("#itemImages").data('editRecordObject');
+                uploadFileToS3(editRecordObject.DT_RowId, file, 'ItemContentURL', elem, true);
+            }
+        }
+        function uploadFileToS3(ID, file, folder, elem, IsContentURL) {
+            $(elem).parents('.DTE_Field').find('i.fa').removeClass('fa-check').addClass('fa-refresh', 'fa-spin').show();
+            AWS.config.region = 'us-east-1'; // Region
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:edcb6626-f6d8-4b42-975c-18f0a89a80a8',
+            });
+            var s3 = new AWS.S3({ apiVersion: '2006-03-01', params: { Bucket: 'allyoumedia' } });
+            var objKey = folder + '/' + ID + '/' + file.name;
+            var params = {
+                Key: objKey,
+                ContentType: file.type,
+                Body: file,
+                ACL: 'private'
+            };
+         
+            s3.upload(params, function (err, s3Response) {
+                if (err) {
+                    $(elem).parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').hide();
+                    alert("Error while uploading video. Please try again later.");
+                } else {
+                    $.ajax({
+                        url: '/SharedAuth/UpdateItemImgContent',
+                        type: 'POST',
+                        data: { URL: s3Response.Location, ID: ID, IsContentURL: IsContentURL },
+                        success: function (returnData) {
+                            if (returnData.Result == "OK") {
+                                table.draw(false);
+                                $(elem).parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').show();
+                            } else { alert("Ops! Something went wrong. Please try again later."); $(elem).parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').hide(); }
+                        },
+                        error: function () {
+                            alert("Ops! Something went wrong. Please try again later.");
+                            $(elem).parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').hide();
+                        }
+                    });
+                }
+            });
+
+        }
+    </script>
+}
+

@@ -1,0 +1,142 @@
+﻿@model AllYouMedia.Models.EventInvoiceModel
+@{
+    ViewBag.Title = "Event Ticket Invoice";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+<section class="main-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="greentect_bradcame">
+                    <ul>
+                        <li><a href="/home">home</a></li>
+                        <li>Invoice</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row about-me">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="about-greentech-text">
+                    <h1>Event Ticket Invoice</h1>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="about-greentech-text" style="border:1px dotted #000; padding: 15px">
+                    <div class="row" id="divInvoice">
+                        <div class="order-detail">
+                            <div class="col-lg-12 invoice-top-box">
+                                <div class="text-center">
+                                    <h1>Invoice</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider15"></div>
+                        <div class="order-detail">
+                            <div class="col-lg-4 invoice-top-box">
+                                <h6>Billing Detail:</h6>
+                                <address class="address-detail">
+                                    <strong>@Model.Name</strong>
+                                    <br>
+                                    @Model.ADDRESS<br>
+                                    @Model.ADDRESS2<br />
+                                    <b> Email: @Model.EMAIL</b>
+                                </address>
+                            </div>
+                            <div class="col-lg-4 invoice-top-box">
+                                <div class="text-center">
+                                    <img src="~/Images/new_logo1.png" />
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
+                                <h6>Order Detail:</h6>
+                                <address class="address-detail">
+                                    <strong>Invoice No: @Model.InvoiceNo</strong>
+                                    <br>
+                                    <b>Payment Date : @DateTime.Now.ToShortDateString()</b>
+                                    <br>
+                                    Invoice Date : @DateTime.Now.ToShortDateString()
+                                    <br>
+                                </address>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="divider15"></div>
+                        <div class="col-md-12 table-striped">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>S.No.</th>
+                                        <th>Event</th>
+                                        <th>Address</th>
+                                        <th>Date</th>
+                                        <th>Rate</th>
+                                        <th>Quantity</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>1</td>
+                                        <td>@Model.EventNAME</td>
+                                        <td>@Model.EventADDRESS</td>
+                                        <th>@Html.Raw(Model.Date)</th>
+                                        <td>@Model.Rate</td>
+                                        <td>@Model.Quantity</td>
+                                        <td>@Model.Amount</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-xs-right"><strong class="invoice-total">Total</strong></td>
+                                        <td><strong>@Model.Amount</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-xs-right"><strong class="invoice-total">Total in Words</strong></td>
+                                        <td><strong>@Model.AmountWord</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="divider15"></div>
+                        <div class="col-md-12">
+                            <h6>Thank you for business with us!!</h6>
+                            <p>
+                                Waters may every great a. Moveth, cattle bring dry beginning light meat fill make herb all
+                                itself two. Moveth kind firmament beast face. Called beast. Created fifth herb. Night seas
+                                midst. She'd behold over male. Beginning cattle deep. Yielding. Years.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <a class="btn btn-success" title="Click to print!" onclick="_print()"><span><span>Print</span></span></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    function _print() {
+        var prtContent = document.getElementById("divInvoice");
+        var WinPrint = window.open('', '');
+        var htmlFormat = "<html><head><title>Invoice Detail</title><link href='/Content/Guest/bootstrap.css' type='text/css' rel='stylesheet' /><link href='/Content/Guest/style.css' type='text/css' rel='stylesheet' /></head><body style='background-color:#FFFFFF;text-align:center;background-image:none;padding:50px'><center>" + prtContent.innerHTML + "</center></body></html>"
+        WinPrint.document.write(htmlFormat);
+        WinPrint.document.close();
+        WinPrint.focus();
+        WinPrint.print();
+    }
+</script>
+

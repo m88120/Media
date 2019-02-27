@@ -1,0 +1,152 @@
+﻿@model IEnumerable<AllYouMedia.Models.ChangeImageModel>
+@{
+    ViewBag.Title = "Change Image";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style>
+    .image-profile img {
+        width: 220px;
+    }
+</style>
+
+<div class="col-md-12 profile-contain">
+    <div class="col-md-12">       
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 col-xs-12 contacts">
+                    <div class="content text-xs-center">
+                        <div class="image-profile">
+                            <img src="@item.ImageUrl" alt="Profile image" />
+                        </div>
+                        <div class="clearfix"></div><br />
+                        <button id="" data-id="@item.UID" data-target="@item.ImageUrl" class="btn btn-outline-primary flat-buttons waves-effect waves-button ProfileImage">Make Profile Image</button><br /><br />
+                        <button id="" data-id="@item.UID" data-target="@item.ImageUrl" class="btn btn-outline-danger flat-buttons waves-effect waves-button ImageDelete">Delete</button>
+                    </div>
+                </div>
+            }       
+        </div>
+</div>
+@using (Ajax.BeginForm("ChangeImage", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "ChangeImage" }, new { enctype = "multipart/form-data" }))
+{
+    <div id="ChangeImage" class="col-md-12">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <div class="content">
+                    <div class="col-md-12">
+                        <div class="divider-lg-spacing divider-xs-spacing"></div>
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <input type="file" class="form-control" name="file" id="file" />
+                        </div>
+                        <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="tab-pane active btn-margin" id="basic-buttons">
+                                <button type="submit" name="actionType" value="Upload" class="btn btn-primary flat-buttons waves-effect waves-button">Upload</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ImageDelete').click(function () {
+            var AAA = $(this).data('id');
+            var BBB = $(this).data('target');
+            OnDeleteClick(AAA,BBB)
+        });
+    });
+    function OnDeleteClick(AAA,BBB) {
+        swal({
+            title: "Are you sure?",
+            text: "Delete this Image!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Delete it!",
+            cancelButtonText: "No, cancel Please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+       function (isConfirm) {
+           if (isConfirm) {
+               var DeleteUrl = '/User/DeleteBioImage';
+               $.ajax({
+                   type: "GET",
+                   url: DeleteUrl,
+                   contentType: "application/json; charset=utf-8",
+                   data: { UID: AAA, MediaUrl: BBB },
+                   dataType: "json",
+                   success: function (message) {
+                       isSuccess = message;
+                   },
+                   error: function () {
+                       isSuccess = message;
+                   }
+               }).done(function () {
+                   if (isSuccess == "1") {
+                       swal("Deleted!", "Your Image has been Deleted.", "success");
+                       location.reload();
+                   }
+                   else {
+                       swal("Ooops!", "Something Went Wrong! Try Again", "error");
+                   }
+               });
+           } else {
+               swal("Cancelled", "Your Image is safe :)", "error");
+               return false;
+           }
+       });
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ProfileImage').click(function () {
+            var AAA = $(this).data('id');
+            OnSetClick(AAA)
+        });
+    });
+    function OnSetClick(AAA) {
+        swal({
+            title: "Are you sure?",
+            text: "Set this as Profile Image!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#087380",
+            confirmButtonText: "Yes, Set it!",
+            cancelButtonText: "No, cancel Please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+       function (isConfirm) {
+           if (isConfirm) {
+               var SetUrl = '/User/SetProfileImage';
+               $.ajax({
+                   type: "GET",
+                   url: SetUrl,
+                   contentType: "application/json; charset=utf-8",
+                   data: { UID: AAA },
+                   dataType: "json",
+                   success: function (message) {
+                       isSuccess = message;
+                   },
+                   error: function () {
+                       isSuccess = message;
+                   }
+               }).done(function () {
+                   if (isSuccess == "1") {
+                       swal("Changed!", "Your Profile Image has been Changed.", "success");
+                       location.reload();
+                   }
+                   else {
+                       swal("Ooops!", "Something Went Wrong! Try Again", "error");
+                   }
+               });
+           } else {
+               swal("Cancelled", "Your Current Profile Image is safe :)", "error");
+               return false;
+           }
+       });
+    }   
+</script>

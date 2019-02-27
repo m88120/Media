@@ -1,0 +1,79 @@
+﻿@model IEnumerable<AllYouMedia.Areas.Admin.Models.PageModel>
+
+<script src=@Url.Content("~/Scripts/ckeditor/ckeditor.js")></script>
+<script src=@Url.Content("~/Scripts/ckeditor/adapters/jquery.js")></script>
+
+<div class="profile-contain">
+    <div class="content">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @foreach (var item in Model)
+                {
+                    <div class="user-name-profile col-xl-6 col-md-6 col-xs-12">
+                        Page Url
+                        <div class="form-group">
+                            <label class="form-control dotted" id="Url">@Html.Raw(item.PageUrl)</label>
+                            @Html.TextBoxFor(model => item.PageUrl, new { @class = "hidden", @id = "PageUrl", @readonly = "readonly" })
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-xl-12 col-md-12 col-xs-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading panel-primary">
+                                <h4 class="panel-title">
+                                    <i class="fa fa-list margin-right-5"></i> Page HTML :
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <div class="form-group">
+                                    @Html.TextAreaFor(model => item.PageHTML, new { @class = "PageHtml form-control", @id = "PageHtml" })
+                                </div>
+                            </div>                          
+                        </div>
+                    </div>                  
+                    <div class="clearfix"></div>
+                    <div class="divider20"></div>
+                    <div class="col-md-2 col-xs-12">
+                        <a class="btn btn-outline-primary flat-buttons waves-effect" href="@Url.Action("PageManagement", "Admin")">Back</a>
+                    </div>
+                    <div class="col-md-10 col-xs-12">
+                        <button id="View" class="btn btn-primary active flat-buttons waves-effect waves-button pull-right"
+                                type="button">
+                            View
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $(document).ready(function () {
+        jQuery(".PageHtml").ckeditor();
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#View").click(function () {
+            var value = CKEDITOR.instances['PageHtml'].getData()
+            $.ajax({
+                type: "POST",
+                url: '/Admin/Admin/PageView',
+                data: { Url: $("#PageUrl").val(), Html: value },
+                success: function (data) {
+                    $("#divPageEdit").addClass("hidden");
+                    $("#divPageView").removeClass("hidden");
+                    $("#divPageView").html(data);
+                },
+                error: function () {
+                    alert("Content load failed.");
+                }
+            });
+        });
+    });
+</script>
+
+
+

@@ -1,0 +1,69 @@
+﻿
+@model AllYouMedia.Areas.Admin.Models.CategoryManagenentModel
+@{
+    ViewBag.Title = "Suggest Category";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    textarea {
+        resize: vertical;
+    }
+</style>
+<div class="profile-contain">
+    <div class="col-md-12">
+        <div class="col-xl-12 col-md-12 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-4">
+                        @using (Ajax.BeginForm("SuggestCategory", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Category" }))
+                        {
+                            <div id="Category" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <h4 class="page-content-title">Add Suugested Category</h4>
+                                <div class="well">
+                                    <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                        <div class="left-name-profile float-xs-left">Menu :</div>
+                                        <div class="form-group">
+                                            @Html.DropDownListFor(model => model.MenuList, new SelectList(Model.MenuList, "Value", "Text", ViewData["MenuList"]), new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(model => model.MenuList, "", new { @class = "validation" })
+                                        </div>
+                                    </div>
+                                    <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                        <div class="left-name-profile float-xs-left">Category Name :</div>
+                                        <div class="form-group">
+                                            @Html.TextBoxFor(model => model.CategoryName, new { @class = "form-control", placeholder = "Enter Category Name", maxlength = "50" })
+                                            @Html.ValidationMessageFor(model => model.CategoryName, "", new { @class = "validation" })
+                                        </div>
+                                    </div>
+                                    <div class="divider-lg-spacing"></div>
+                                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                        <div class="tab-pane active btn-margin" id="basic-buttons">
+                                            <input id="Save" type="submit" name="actionType" value="Add" class="btn btn-primary hidden" />
+                                        </div>
+                                    </div>
+                                    <div class="divider15"></div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-8">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h4 class="page-content-title">Suggested Category Report</h4>
+                            @Html.Partial("~/Areas/Admin/Views/Admin/_SuggestCategoryReport.cshtml")
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Content/AngularJs/CategoryReport.js")"></script>
+}
+
+
+
+
+

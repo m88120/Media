@@ -1,0 +1,213 @@
+﻿@model IEnumerable<AllYouMedia.Models.CartModel>
+@{
+    ViewBag.Title = "Cart";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<link href="~/Content/sweetalert.css" rel="stylesheet" />
+<script src="~/Scripts/sweetalert-dev.js"></script>
+<style>
+    .quantity {
+        position: relative;
+    }
+
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+    }
+
+    .quantity input {
+        width: 70px;
+        height: 42px;
+        line-height: 1.65;
+        display: block;
+        padding: 0;
+        margin: 0 0 0 15px;
+        padding-left: 20px;
+        border: 1px solid #eee;
+    }
+</style>
+<section class="main-content-area" style="margin-bottom:50px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- cart table start -->
+                <div class="cart-page-main-area">
+                    <h2>Shopping Cart</h2>
+                    <div class="table-responsive">
+                        <div class="CartGrid">
+                            @{
+                                var grid = new WebGrid(Model, canPage: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "grid");
+                                grid.Pager(WebGridPagerModes.NextPrevious);
+                            }
+                            <div id="grid">
+                                @grid.GetHtml(htmlAttributes: new { id = "result" },
+                               tableStyle: "table cart-table",
+                               mode: WebGridPagerModes.All,
+                            firstText: "<< First",
+                            previousText: "< Prev",
+                            nextText: "Next >",
+                            lastText: "Last >>",
+                            headerStyle: "header",
+                            alternatingRowStyle: "alt",
+                            selectedRowStyle: "select",
+                            columns: grid.Columns(
+
+                            grid.Column("S.N.", format: (item) => item.SrNo),
+                            grid.Column("IMAGE", format: @<text>
+                                <div class="cartpage-image" style="display:@item.ItemType1">
+                                    <img class="img-responsive img-rounded img-thumbnail" width="70" height="70" src="@item.IMAGE" />
+                                </div>
+                                <div class="cartpage-image" style="display:@item.ItemType2">
+                                    <img class="img-responsive img-rounded img-thumbnail" width="70" height="70" src="@item.IMAGE" />
+                                </div>
+                            </text>),
+                            grid.Column("Name", format: @<text>
+                                    <div class="cartpage-pro-dec">
+                                        <p>  @item.Name</p>
+                                    </div></text>),
+                            grid.Column("Rate", format: @<text>
+                                    <div class="cart-pro-price">
+                                        <p>  @item.Rate</p>
+                                    </div></text>),
+                            grid.Column("QTY", format: @<text><div class="quantity"><input id="@item.itemUID" maxlength="3" min="1" type="number" data-id="@item.itemUID" class="form-control" value="@item.QTY" /></div></text>),
+                              grid.Column("Amount", format: @<text>
+                                    <div class="cart-pro-price">
+                                        <p>  @item.Amount</p>
+                                    </div></text>),
+                                  grid.Column("Tax", format: @<text>
+                                    <div class="cart-pro-price">
+                                        <p>  @item.Tax</p>
+                                    </div></text>),
+                                  grid.Column("NetAmount", format: @<text>
+                                    <div class="cart-pro-price">
+                                        <p>  @item.NetAmount</p>
+                                    </div></text>),
+                            grid.Column(format: @<text>
+                                    <div class="cartpage-item-remove">
+                                        <a href="javascript:void(0);" title="Delete" data-id="@item.itemUID" class="Delete" id="@item.itemUID">Remove</a>
+                                    </div>
+                            </text>)
+                     ))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- cart table end -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <div class="cartpage-button">
+                    <div class="button-left">
+                        <a href="@Url.Action("Index","Product")" class="add-tag-btn cartpage-btn-1">Continue Shopping</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                <!-- total-amount start -->
+                <div class="cart-page-single-area cartpage-total-amount">
+                    <div class="cartpage-total-price">
+                        <div class="total-price-box">
+                            <p><span class="sub-t">Subtotal <span class="sub-t-p">@ViewBag.SubTotal</span></span></p>
+                            <p><span class="sub-t">Shipping <span class="sub-t-p">@ViewBag.Shipping</span></span></p>
+                            <p><span class="grand-t">Grand Total <span class="grand-t-p">@ViewBag.GrossAmount</span></span></p>
+                        </div>
+                        <a href="@Url.Action("Checkout", "Payment", new { Amount = ViewBag.TotalAmount })" class="add-tag-btn">Proceed to Checkout</a>
+                    </div>
+                </div>
+                <!-- total-amount end -->
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('a.Delete').click(function () {
+            var AAA = $(this).data('id');
+            OnDeleteClick(AAA)
+        });
+    });
+    function OnDeleteClick(AAA) {
+        swal({
+            title: "Are you sure?",
+            text: "Delete this Cart Item!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Delete it!",
+            cancelButtonText: "No, cancel Please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+       function (isConfirm) {
+           if (isConfirm) {
+               var DeleteUrl = '/Product/DeleteCartItem';
+               $.ajax({
+                   type: "GET",
+                   url: DeleteUrl,
+                   contentType: "application/json; charset=utf-8",
+                   data: { UID: AAA },
+                   dataType: "json",
+                   success: function (message) {
+                       isSuccess = message;
+                   },
+                   error: function () {
+                       isSuccess = message;
+                   }
+               }).done(function () {
+                   if (isSuccess == "1") {
+                       swal("Deleted!", "Your Cart Item has been Deleted.", "success");
+                       location.reload();
+                   }
+                   else {
+                       swal("Ooops!", "Something Went Wrong! Try Again", "error");
+                   }
+               });
+           } else {
+               swal("Cancelled", "Your Cart Item is safe :)", "error");
+               return false;
+           }
+       });
+    }
+</script>
+<script type="text/javascript">
+    $("input[type=number]").bind('keyup input', function () {
+        var id = $(this).data('id');
+        var Q = $("#" + id).val()
+        if (Q < 1) {
+            return false;
+        }
+        var UpdateUrl = '/Product/UpdateCartItem';
+        $.ajax({
+            type: "GET",
+            url: UpdateUrl,
+            contentType: "application/json; charset=utf-8",
+            data: { UID: $(this).data('id'), QTY: $("#" + id).val() },
+            success: function (message) {
+                isSuccess = message;
+            },
+            error: function () {
+                swal("Ooops!", "Something Went Wrong! Try Again", "error");
+            }
+        }).done(function () {
+            if (isSuccess == "1") {
+                swal("Updated!", "Product quantity updated in your cart!", "success");
+                setTimeout(function () {
+                    location.reload();
+                }, 2000);
+            }
+            else {
+                swal("Cancelled", "Something Went Wrong! Try Again", "error");
+            }
+        });
+    });
+</script>

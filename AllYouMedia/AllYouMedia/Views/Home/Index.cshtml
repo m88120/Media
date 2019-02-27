@@ -1,0 +1,159 @@
+﻿@{
+    var featuredItems = (List<AllYouMedia.DataAccess.EntityLayer.DBEntity.Item>)ViewBag.FeaturedItemList;
+    var promotedItems = (List<AllYouMedia.DataAccess.EntityLayer.DBEntity.Item>)ViewBag.PromotedItemList;
+    ViewBag.Active = "Home";
+}
+@section styles{
+    <style>
+        .product-box img{
+            max-height: 90px;
+        }
+    </style>
+    
+}
+<!-- Start Slider -->
+<div id="slider">
+    <div id="owl-demo" class="owl-carousel">
+        <div class="item">
+            <div class="slider-img" style="background:url(/Content/images/banner.jpg) no-repeat center center;">
+                @*Best Places <br>
+                    to sell your <br>
+                    <h1>handmade goods</h1>*@
+            </div>
+        </div>
+        @*<div class="item">
+                <div class="slider-img" style="background:url(/Content/images/slider-image01.jpg) no-repeat center top;">
+                    Best Places <br>
+                    to sell your <br>
+                    <h1>handmade goods</h1>
+                </div>
+            </div>
+            <div class="item">
+                <div class="slider-img" style="background:url(/Content/images/slider-image01.jpg) no-repeat center top;">
+                    Best Places <br>
+                    to sell your <br>
+                    <h1>handmade goods</h1>
+                </div>
+            </div>*@
+    </div>
+</div>
+<!-- End Slider -->
+<!-- Start Mid Part -->
+<div id="mid-part">    
+    <div class="container">
+        <div class="mid-top">
+            <ul>
+                <li><img src="/Content/images/icon01.png" alt=""> <h3>Connect</h3>@*<p>Connect with creative talents globally.</p>*@</li>
+                <li><img src="/Content/images/icon02.png" alt=""> <h3>Create</h3>@*<p>Create your product or likeness here.</p>*@</li>
+                <li><img src="/Content/images/icon03.png" alt=""> <h3>Earn</h3>@*<p>Sell your or others creative product through our network.</p>*@</li>
+                <li class="register-area-li" style="background-color: yellow; cursor: pointer;" onclick="location.href = '/Home/Membership';"><img src="/Content/images/sign-up-image.png" alt=""> <h3>Sign Up</h3>@*<p>Become a member.</p>*@</li>
+            </ul>
+        </div>
+        <div class="today-pro">
+            <div class="tital">
+                <div style="display: table;margin: auto;">
+                    <img src="/Content/images/spotlight.png" style="width: 100px;display: table-cell;float: left;">
+                    <div style="display: table-cell;vertical-align: middle;">
+                        <h2 style="">THE SPOTLIGHT</h2>
+                        <span style="font-size:16px;">FEATURED ARTIST</span>
+                    </div>
+                    <img src="/Content/images/spotlight.png" style="width: 100px;display: table-cell;">
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                @foreach (var item in promotedItems)
+                {
+                    <div class="col-lg-2 col-md-6">
+                        <div class="product-box">
+                            <img src="@item.PhotoIMG">
+                            <h3><a href="/Home/ProductDetail?ItemID=@item.ID" class="truncate">@item.Name</a></h3>
+                            <h4>@AllYouMedia.MvcApplication.CurrencySymbol @item.SellPrice.ToString("N2")</h4>
+
+                            @if (string.IsNullOrEmpty(item.AspNetUser.PhotoIMG))
+                            {<img src="/Content/images/user01.jpg" class="product-user"> }
+                            else
+                            {<img src="@item.AspNetUser.PhotoIMG" class="product-user"> }
+                            @if (item.AspNetUserID == 1)
+                            {
+                                <p><a href="#_">From - AllYouMedia</a></p>
+                            }
+                            else
+                            {
+                                <p><a href="#_">From - @item.AspNetUser.Name</a></p>
+                            }
+                            @*<p><a href="#_">Jewelry Category</a></p>*@
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="product-cat">
+        <div class="container">
+            <div class="tital">
+                <h2>Product Category</h2>
+                @*<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>*@
+            </div>
+            <ul>
+                <li><a href="/Home/ProductListingByCatType?CT=-100"><img src="/Content/images/cate01.png"> <h3>Music</h3></a></li>
+                <li><a href="/Home/ProductListingByCatType?CT=-104"><img src="/Content/images/cate02.png"> <h3>Art</h3></a></li>
+                <li><a href="/Home/ProductListingByCatType?CT=-106"><img src="/Content/images/cate03.png"> <h3>Apparel</h3></a></li>
+                <li><a href="/Home/ProductListingByCatType?CT=-105"><img src="/Content/images/cate04.png"> <h3>Crafts</h3></a></li>
+                <li><a href="/Home/ProductListingByCatType?CT=-102"><img src="/Content/images/cate05.png"> <h3>Books</h3></a></li>
+                <li><a href="/Home/ProductListingByCatType?CT=-107"><img src="/Content/images/cate06.png"> <h3>Photos</h3></a></li>
+                <li><a href="/Home/ProductListingByCatType?CT=-108"><img src="/Content/images/cate07.png"> <h3>Jewelry</h3></a></li>
+                <li><a href="/Home/ProductListingByCatType?CT=-101"><img src="/Content/images/cate08.png"> <h3>Event</h3></a></li>
+                <li><a href="/Home/ProductListingByCatType?CT=-103"><img src="/Content/images/cate09.png"> <h3>Film</h3></a></li>
+                <li><a href="#_"><img src="/Content/images/cate10.png"> <h3>MORE TO COME</h3></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="featured-product">
+        <div class="container">
+            <div class="tital">
+                <h2>Featured Products</h2>
+                @*<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>*@
+            </div>
+            <div class="clearfix"></div>
+            <div class="row">
+                @foreach (var item in featuredItems)
+                {
+                    <div class="col-lg-3 col-md-6">
+                        <div class="product-box">
+                            <img src="@item.PhotoIMG">
+                            <h3><a href="/Home/ProductDetail?ItemID=@item.ID" class="truncate">@item.Name</a></h3>
+                            <h4>@AllYouMedia.MvcApplication.CurrencySymbol @item.SellPrice.ToString("N2")</h4>
+                            @if (string.IsNullOrEmpty(item.AspNetUser.PhotoIMG))
+                            {<img src="/Content/images/user01.jpg" class="product-user"> }
+                            else
+                            {<img src="@item.AspNetUser.PhotoIMG" class="product-user"> }
+                            @if (item.AspNetUserID == 1)
+                            {
+                                <p><a href="#_">From - AllYouMedia</a></p>
+                            }
+                            else
+                            {
+                                <p><a href="#_">From - @item.AspNetUser.Name</a></p>
+                            }
+                            @*<p><a href="#_">Jewelry Category</a></p>*@
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="why-us">
+        <div class="container">
+            <ul>
+                <li><img src="/Content/images/image04.png"> <h4>Customer Satisfaction</h4></li>
+                <li><img src="/Content/images/image05.png"> <h4>Secure shopping</h4></li>
+                <li><img src="/Content/images/image06.png"> <h4>Customer Satisfaction</h4></li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+<!-- End Mid Part -->

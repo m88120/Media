@@ -1,0 +1,169 @@
+﻿@model AllYouMedia.Models.CheckoutModel
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("Checkout", "Payment", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Login" }))
+{
+    <section class="main-content-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                    <div class="checkout-main-area">
+                        <div class="panel-group greentech-panel-group greentech-panel-icon" id="greentechaccordion">                           
+                            <div class="greentech-panel panel panel-default">
+                                <div id="collapseOne" class="panel-collapse collapse in">
+                                    <div class="panel-body greentech-panel-body">
+                                        <div class="checkout-method">
+                                            <div class="row">
+                                                <div class="row">
+                                                    <div class="method-right col-xs-12 col-sm-12">
+                                                        <h2>Checkout</h2>
+                                                    </div>
+                                                    <hr />
+                                                    <div class="clearfix"></div>
+                                                    <div class="method-right col-xs-12 col-sm-6 col-md-6">
+                                                        <div class="form-group well">
+                                                            <label>Payment Option<sup>*</sup></label><br />
+                                                            @Html.RadioButtonFor(m => m.PaymentOption, "1", new { @checked = false })
+                                                            <img src="~/Images/payment/creditcard.png" />
+                                                            @Html.ValidationMessageFor(m => m.PaymentOption, "", new { @class = "text-danger" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="method-right col-xs-12 col-sm-6 col-md-6">
+                                                        <div class="form-group well">
+                                                            <label>Payable Amount <sup></sup></label><br />
+                                                            @Html.TextBoxFor(m => m.Fee, new { @class = "form-control", @readonly = "readonly" })
+                                                            @Html.HiddenFor(m => m.hdnFee, new { @id = "hdnFee" })
+                                                            @Html.HiddenFor(m => m.hdnAmount, new { @id = "hdnAmount" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="method-right col-xs-12 col-sm-6 col-md-6">
+                                                        <div class="form-group well">
+                                                            <label>You Are Existing User? <sup></sup></label><br />
+                                                            @Html.CheckBoxFor(model => model.User, new { onchange = "valueChanged()" })
+                                                            if Yes,Click Here
+                                                        </div>
+                                                        <div class="form-group">
+                                                            @Html.HiddenFor(m => m.hdnUID, new { @id = "hdnUID" })
+                                                            @Html.HiddenFor(m => m.hdnPUID, new { @id = "hdnPUID" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="col-md-12">
+                                                        <div id="DivUser" class="col-md-12 well">
+                                                            <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>*User Name</label>
+                                                                    @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>*Email</label>
+                                                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>*Country</label>
+                                                                    @Html.TextBoxFor(m => m.Country, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.Country, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>*State</label>
+                                                                    @Html.TextBoxFor(m => m.State, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>*City</label>
+                                                                    @Html.TextBoxFor(m => m.City, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>*Address</label>
+                                                                    @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                <div class="form-group">
+                                                                    <label>*Zipcode</label>
+                                                                    @Html.TextBoxFor(m => m.Zip, new { @class = "form-control" })
+                                                                    @Html.ValidationMessageFor(m => m.Zip, "", new { @class = "text-danger" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                <div class="form-group">
+                                                                    @Html.HiddenFor(m => m.hdnReff)
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @if (ViewBag.PaidUser)
+                                                        {
+                                                            <div id="DivPaidUser" class="col-md-12 well hidden">
+                                                                <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>*Login Name</label>
+                                                                        @Html.TextBoxFor(m => m.LoginName, new { @class = "form-control" })
+                                                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                                <div class="method-right col-xs-12 col-sm-4 col-md-4">
+                                                                    <div class="form-group">
+                                                                        <label>*Password</label>
+                                                                        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                                                        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                    <div class="method-right col-xs-12 col-sm-12">
+                                                        <div id="PaymentLink" class="block-button-right">
+                                                            <input type="submit" value="Pay Now" class="add-tag-btn" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script type="text/javascript">
+    function valueChanged() {
+        if ($('#User').is(":checked")) {
+            $("#DivUser").addClass("hidden");
+            $("#DivPaidUser").removeClass("hidden");
+        }
+        else {
+            $("#DivUser").removeClass("hidden");
+            $("#DivPaidUser").addClass("hidden");
+        }
+    }
+</script>
+

@@ -1,0 +1,182 @@
+﻿@model AllYouMedia.Models.OnlineProductionModel
+@{
+    ViewBag.Title = "Online Production";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style>  
+    .userlist-content .userlist-box .image-userlist {
+        width: 70px !important;
+    }
+
+    h5, h6 {
+        font-size: 10px !important;
+    }
+</style>
+<div class="col-md-12">
+    <div class="col-md-12">
+        <section id="content-wrapper">
+            <div class="">
+                <div class="content userlist-content">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="dashboard-box">
+                            <div class="table-badges-section">
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <button type="button" id="btnMUSIC" class="btn btn-primary flat-buttons">Online MUSIC Production</button>
+                                </div> <div id="divFilm" class="col-md-3 col-sm-12 col-xs-12">
+                                    <button type="button" id="btnFILM" class="btn btn-primary flat-buttons">Online FILM Production</button><label>(Coming Soon)</label>
+                                </div> <div id="divDesign" class="col-md-3 col-sm-12 col-xs-12">
+                                    <button type="button" id="btnDESIGN" class="btn btn-primary flat-buttons">Online DESIGN Production</button><label>(Coming Soon)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div id="divMusic" class="dashboard-box hidden">
+                            <hr />
+                            <div class="table-badges-section">
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <button type="button" class="btn btn-primary flat-buttons">ULTRA Production</button><label>(Simple 7 Track Studio)</label>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <button type="button" class="btn btn-primary flat-buttons">ADVANCE Production</button><label>(Coming Soon)</label>
+                                </div>
+                                <div class="col-md-2 col-sm-12 col-xs-12">
+                                    <button type="button" class="btn btn-primary flat-buttons">ELITE Production</button><label>(Stay Tuned)</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="row">
+                            <div class="col-md-2 col-sm-2 col-xs-12">
+                                <div class="userlist-box text-xs-center" style="margin-top:-20px;">
+                                    <h4>Organizer</h4>
+                                    <div class="image-userlist">
+                                        <img alt="user image" src="@Model.ImageUrl">
+                                    </div>
+                                    <h5 class="name-userlist">@Model.Name</h5>
+                                    <div class="border-userlist"></div>
+                                    <h6 class="post-userlist">@Model.ProductionSubName</h6>
+                                    <h6 class="post-userlist">@Model.Address</h6>
+                                </div>
+                            </div>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <div class="col-md-0 col-xs-12">
+                                    <div class="userlist-box text-xs-center">
+                                        <div class="image-userlist">
+                                            <img alt="user image" src="~/Images/MediaProduction/Img3.jpg">
+                                        </div>
+                                        <h5 class="name-userlist">SINGER</h5>
+                                        <div class="border-userlist"></div>
+                                        <h6 class="post-userlist">LONDON</h6>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-0 col-xs-12">
+                                    <div class="userlist-box text-xs-center">
+                                        <div class="image-userlist">
+                                            <img alt="user image" src="~/Images/MediaProduction/Img8.jpg">
+                                        </div>
+                                        <h5 class="name-userlist">SINGER</h5>
+                                        <div class="border-userlist"></div>
+                                        <h6 class="post-userlist">PARIS</h6>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-0 col-xs-12">
+                                    <div class="userlist-box text-xs-center">
+                                        <div class="image-userlist">
+                                            <img alt="user image" src="~/Images/MediaProduction/Img2.jpg">
+                                        </div>
+                                        <h5 class="name-userlist">DRUMMER</h5>
+                                        <div class="border-userlist"></div>
+                                        <h6 class="post-userlist">NEW-YORK</h6>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-0 col-xs-12">
+                                    <div class="userlist-box text-xs-center">
+                                        <div class="image-userlist">
+                                            <img alt="user image" src="~/Images/MediaProduction/Img1.jpg">
+                                        </div>
+                                        <h5 class="name-userlist">GUITARIST</h5>
+                                        <div class="border-userlist"></div>
+                                        <h6 class="post-userlist">CHINA</h6>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-0 col-xs-12">
+                                    <div class="userlist-box text-xs-center">
+                                        <div class="image-userlist">
+                                            <img alt="user image" src="~/Images/MediaProduction/Img7.jpg">
+                                        </div>
+                                        <h5 class="name-userlist">GUITARIST</h5>
+                                        <div class="border-userlist"></div>
+                                        <h6 class="post-userlist">CANADA</h6>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-0 col-xs-12">
+                                    <div class="userlist-box text-xs-center">
+                                        <div class="image-userlist">
+                                            <img alt="user image" src="~/Images/MediaProduction/Img4.jpg">
+                                        </div>
+                                        <h5 class="name-userlist">KEYBOARD</h5>
+                                        <div class="border-userlist"></div>
+                                        <h6 class="post-userlist">ANGELES</h6>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-0 col-xs-12">
+                                    <div class="userlist-box text-xs-center">
+                                        <div class="image-userlist">
+                                            <img alt="user image" src="~/Images/MediaProduction/Img5.jpg">
+                                        </div>
+                                        <h5 class="name-userlist">WRITER</h5>
+                                        <div class="border-userlist"></div>
+                                        <h6 class="post-userlist">BRAZIL</h6>
+
+                                    </div>
+                                </div>
+                                <div class="col-md-0 col-xs-12">
+                                    <div class="userlist-box text-xs-center">
+                                        <div class="image-userlist">
+                                            <img alt="user image" src="~/Images/MediaProduction/Img6.jpg">
+                                        </div>
+                                        <h5 class="name-userlist">RAPPER</h5>
+                                        <div class="border-userlist"></div>
+                                        <h6 class="post-userlist">ATLANTA</h6>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider15"></div>
+                            <div class="col-md-2 col-sm-2 col-xs-12"></div>
+                            <div class="col-md-10 col-sm-10 col-xs-12">
+                                <div class="col-md-12 col-sm-12 col-xs-12">
+                                    <img src="~/Images/MediaProduction/Media1.png" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnMUSIC').on('click', function () {
+            $("#divDesign").toggleClass("hidden");
+            $("#divFilm").toggleClass("hidden");
+            $("#divMusic").toggleClass("hidden");
+        });
+        $('#btnFILM').on('click', function () {
+            $("#divMusic").addClass("hidden");
+        });
+        $('#btnDESIGN').on('click', function () {
+            $("#divMusic").addClass("hidden");
+        });
+    });
+</script>

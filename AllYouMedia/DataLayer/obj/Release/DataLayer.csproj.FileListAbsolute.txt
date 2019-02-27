@@ -1,0 +1,16 @@
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\DataLayer\bin\Release\DataLayer.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\DataLayer\bin\Release\DataLayer.pdb
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\DataLayer\bin\Release\BusinessEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\DataLayer\bin\Release\BusinessEntity.pdb
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\DataLayer\obj\Release\DataLayer.csprojResolveAssemblyReference.cache
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\DataLayer\obj\Release\DataLayer.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\DataLayer\obj\Release\DataLayer.pdb
+D:\2019\AllYouMedia\DataLayer\bin\Release\DataLayer.dll
+D:\2019\AllYouMedia\DataLayer\bin\Release\DataLayer.pdb
+D:\2019\AllYouMedia\DataLayer\bin\Release\BusinessEntity.dll
+D:\2019\AllYouMedia\DataLayer\bin\Release\BusinessEntity.pdb
+D:\2019\AllYouMedia\DataLayer\obj\Release\DataLayer.csprojAssemblyReference.cache
+D:\2019\AllYouMedia\DataLayer\obj\Release\DataLayer.csproj.CoreCompileInputs.cache
+D:\2019\AllYouMedia\DataLayer\obj\Release\DataLayer.csproj.CopyComplete
+D:\2019\AllYouMedia\DataLayer\obj\Release\DataLayer.dll
+D:\2019\AllYouMedia\DataLayer\obj\Release\DataLayer.pdb

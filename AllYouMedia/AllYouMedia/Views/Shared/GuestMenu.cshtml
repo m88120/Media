@@ -1,0 +1,27 @@
+﻿@model AllYouMedia.Models.IndexModel
+
+<div class="left-category-menu left-category-menu-home-2">
+    <ul>
+        @foreach (var item in Model.Menu)
+        {
+            var SubMenuItem = Model.SubMenu.Where(m => m.MenuUID == item.UID);
+            <li>
+                <a id="mnuProductLeft" data-id='@item.UID'></a>
+                <p>@item.Text</p>
+                <div class="left-cat-dropdown left-cat-1">
+                    <div class="single-cat-dropdown">
+                        <div class="single-cat-item">
+                            <a href="@Url.Action("Index", "Product",new { CUID= @item.UID})" class="single-cat-dropdown-title">@item.Text</a>
+                            @foreach (var item1 in SubMenuItem.GroupBy(x => x.AlbumUID).Select(y => y.First()))
+                            {                               
+                                <a href="@Url.Action("Index", "Product",new { SUID= @item1.UID})">
+                                    @item1.Name
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </li>
+        }
+    </ul>
+</div>

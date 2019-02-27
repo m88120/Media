@@ -1,0 +1,67 @@
+﻿@model AllYouMedia.Models.EarningModel
+@{
+    ViewBag.Title = "Earning";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="col-md-12 profile-contain">
+
+        <div class="col-xl-12 col-md-12 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="Earning">
+                        <h4 class="page-content-title">Earning History</h4>
+                        <div class="responsive_table_main">
+                            <div class="input-group well col-md-4">
+                                <div class="col-md-4">
+                                    <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                        <th><a href="" ng-click="orderByField='Today'; reverseSort = !reverseSort">Today</a></th>
+                                        <th><a href="" ng-click="orderByField='Week'; reverseSort = !reverseSort">Week</a></th>
+                                        <th><a href="" ng-click="orderByField='Month'; reverseSort = !reverseSort">Month</a></th>
+                                        <th><a href="" ng-click="orderByField='Year'; reverseSort = !reverseSort">Year</a></th>
+                                        <th><a href="" ng-click="orderByField='Total'; reverseSort = !reverseSort">Total</a></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.Sno}}</td>
+                                        <td>{{data.Today}}</td>
+                                        <td>{{data.Week}}</td>
+                                        <td>{{data.Month}}</td>
+                                        <td>{{data.Year}}</td>
+                                        <td>{{data.Total}}</td>
+                                    </tr>
+                                    <tr ng-show="!dataList.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                            </div>
+                            <div class="updateSpinner" ng-show="loader.loading">
+                                Please wait...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Content/AngularJs/Earning.js")"></script>
+}
+

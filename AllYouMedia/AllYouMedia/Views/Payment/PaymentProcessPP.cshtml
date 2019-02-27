@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1">
+    <title>Payment Process...</title>
+</head>
+<body>
+    <form id="form1">
+        <div style="clear:both; text-align:center; padding-top:40px; height:100px;">
+            <div class="Spinner" style="top:60px;"></div>
+        </div>
+        <div style="clear:both; text-align:center; font-family:Verdana; font-size:14px; padding-top:20px;">
+            Don't click on back button or refresh the page. Payment process is going on
+            <br />
+            Please wait...
+        </div>
+        <script type="text/javascript">
+            document.forms[0].submit();
+        </script>
+    </form>
+</body>
+</html>

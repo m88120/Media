@@ -1,0 +1,86 @@
+﻿@model IEnumerable<AllYouMedia.Areas.Admin.Models.PageModel>
+@{
+    ViewBag.Title = "Page Management";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="profile-contain">
+    <div class="col-md-12">
+        <div class="col-xl-12 col-md-12 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12 responsive_table_main">
+                        <div class="clearfix"></div>
+                        @using (Ajax.BeginForm("Index", "Page", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PageTable" }))
+                        {
+                            <table id="tblData" class="table tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+                                <tr>
+                                    <td>
+                                        <div class="col-md-3">
+                                            Page Url<br />
+                                            <input type="text" class="form-control" id="txtPageUrl" onkeyup="Search()" placeholder="enter PageUrl" />
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <div id="divPageList">
+                                            @Html.Partial("~/Areas/Admin/Views/Admin/_PageList.cshtml", Model)
+                                        </div>
+                                        <div id="divPageEdit" class="hidden">
+                                            @Html.Partial("~/Areas/Admin/Views/Admin/_PageEdit.cshtml", Model)
+                                        </div>
+                                        <div id="divPageView" class="hidden">
+                                            @Html.Partial("~/Areas/Admin/Views/Admin/_PageView.cshtml", Model)
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    function Search() {
+        var PageUrl = $("#txtPageUrl").val();      
+        $.ajax({
+            url: '/Admin/Admin/PageSearch',
+            type: 'POST',
+            datatype: "html",
+            data: { Url: PageUrl },
+            success: function (data) {
+                $("#divPageList").removeClass("hidden");
+                $("#divPageEdit").addClass("hidden");
+                $("#divPageView").addClass("hidden");
+                $('#divPageList').html(data);              
+            },
+            error: function () {
+                alert("Content load failed.");
+            }
+        });
+    }
+</script>
+<script>
+    $('#grid').on('click', '.Edit', function () {         
+            $.ajax({
+                type: "GET",
+                url: '/Admin/Admin/PageEdit',
+                contentType: "application/json; charset=utf-8",
+                data: { PageUrl: $(this).data('id') },
+                datatype: "html",
+                success: function (data) {
+                    $("#divPageList").addClass("hidden");
+                    $("#divPageEdit").removeClass("hidden");
+                    $("#divPageEdit").html(data);
+                    jQuery(".PageHtml").ckeditor();
+                },
+                error: function () {
+                    alert("Content load failed.");
+                }
+            });
+        });
+</script>

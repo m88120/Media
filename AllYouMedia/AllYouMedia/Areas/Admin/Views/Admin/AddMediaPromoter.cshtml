@@ -1,0 +1,173 @@
+﻿@model AllYouMedia.Areas.Admin.Models.AdminRegisterModel
+@{
+    ViewBag.Title = "Add Area Promoter";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Ajax.BeginForm("AddMediaPromoter", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "AddMediaPromoter" }))
+{
+    <div id="AddMediaPromoter" class="col-md-12 profile-contain">
+        <div class="col-md-12 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h4 class="page-content-title">Personal Information</h4>
+                        <div class="divider15"></div>
+                        <div class="personal-info-box">
+                            <div class="row">
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">User Name :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.UserName, new { @class = "form-control", placeholder = "Enter Name" })
+                                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Email :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter Email" })
+                                        @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Mobile :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Mobile, new { @class = "form-control", placeholder = "Enter Mobile" })
+                                        @Html.ValidationMessageFor(model => model.Mobile, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Country :</div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(model => model.Country, new SelectList(Model.Country, "Value", "Text", ViewData["Country"]), new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.Country, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">State :</div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(model => model.State, new SelectList(Model.State, "Value", "Text", ViewData["State"]), new { @class = "form-control" })
+                                        @Html.ValidationMessageFor(model => model.State, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">City :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.City, new { @class = "form-control", placeholder = "Enter City", maxlength = "50" })
+                                        @Html.ValidationMessageFor(model => model.City, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Address :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Address, new { @class = "form-control", placeholder = "Enter Address" })
+                                        @Html.ValidationMessageFor(model => model.Address, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">ZipCode :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.ZipCode, new { @class = "form-control", placeholder = "Enter ZipCode", maxlength = "8" })
+                                        @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Recruiter ID :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.RecruiterID, new { @class = "form-control", placeholder = "Enter Recruiter ID" })
+                                        @Html.ValidationMessageFor(model => model.RecruiterID, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">College :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.College, new { @class = "form-control", placeholder = "Enter College", maxlength = "100" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Major :</div>
+                                    <div class="form-group">
+                                        @Html.DropDownListFor(model => model.Major, new SelectList(Model.Major, "Value", "Text"), new { @id = "Major", @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div id="MajorOther" class="user-name-profile col-xl-4 col-md-4 col-xs-12 hidden">
+                                    <div class="left-name-profile float-xs-left">Major Other :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Major_Other, new { @id = "Major_Other", @class = "form-control", placeholder = "Enter Other Major", maxlength = "50" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Password :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.Password, new { @class = "form-control", @type = "password", placeholder = "Enter Password" })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Confirm Password :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.ConfirmPassword, new { @class = "form-control", @type = "password", placeholder = "Enter Confirm Password" })
+                                        @Html.ValidationMessageFor(model => model.ConfirmPassword, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Bio Description :</div>
+                                    <div class="form-group">
+                                        @Html.TextAreaFor(model => model.BioDescription, new { @class = "form-control", @rows = "5", placeholder = "Enter BioDescription", maxlength = "650" })
+                                        @Html.ValidationMessageFor(model => model.BioDescription, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divider-lg-spacing"></div>                  
+                    <div class="divider-lg-spacing"></div>
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="tab-pane active btn-margin" id="basic-buttons">
+                            <a href="@Url.Action("Distributor","Admin")" class="btn btn-secondary flat-buttons waves-effect waves-button float-xs-left">Back</a>
+                            <button type="submit" class="btn btn-primary flat-buttons waves-effect waves-button float-xs-right">Add</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#Country").change(function () {
+            $("#State").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetStates", "Admin")',
+                dataType: 'json',
+                data: { uid: $("#Country").val() },
+                success: function (states) {
+                    $.each(states, function (i, state) {
+                        $("#State").append('<option value="' + state.Value + '">' +
+                            state.Text + '</option>');
+                    });
+                }, error: function (ex) { $("#State").append('<option value="' + "" + '">' + "<< Select State>>" + '</option>'); }
+            }); return false;
+        })
+    });
+    $(document).ready(function () {
+        $("#Major").change(function () {
+            var Major = $("#Major").val();
+            if (Major == "Other") {
+                $("#MajorOther").removeClass("hidden");
+            }
+            else {
+                $("#MajorOther").addClass("hidden");
+            }
+        })
+    });
+</script>
+

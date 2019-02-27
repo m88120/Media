@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Marketing Link";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="col-md-12">
+        <section id="content-wrapper">
+            <div class="">
+                <div class="content userlist-content">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="dashboard-box">
+                            <h4 class="page-content-title">Marketing Links</h4>
+                            <div class="responsive_table_main">
+                                <table class="table tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+                                    <tr>
+                                        <td>
+                                            1.
+                                        </td>
+                                        <td>
+                                            For Event Tickets
+                                        </td>
+                                        <td>
+                                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                                                <a target="_blank" style="font-size:15px;" href="@Url.Action("Index","Event", new { reff = User.Identity.Name.ToLower() })" rel="nofollow">@Request.Url.Authority/Event?reff=@HttpContext.Current.User.Identity.Name.ToLower()</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("EventTicketReport", "User")" class="btn btn-primary flat-buttons">Event Ticket Refferal Report</a>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            2.
+                                        </td>
+                                        <td>
+                                            For Register New User
+                                        </td>
+                                        <td>
+                                            <div class="alert alert-info alert-dismissible fade in" role="alert">
+                                                <a target="_blank" style="font-size:15px;" href='/register?reff=@HttpContext.Current.User.Identity.Name.ToLower()' rel="nofollow">@Request.Url.Authority/register?reff=@HttpContext.Current.User.Identity.Name.ToLower()</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("UserRefferalReport", "User")" class="btn btn-primary flat-buttons">User Refferal Report</a>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>

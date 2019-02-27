@@ -1,0 +1,204 @@
+﻿@model AllYouMedia.Models.CusomerHistoryModel
+@{
+    ViewBag.Title = "Customer History";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@using (Ajax.BeginForm("CustomerHistory", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "History" }))
+{
+    <div id="History" class="col-md-12 profile-contain">    
+            <div class="col-xl-12 col-md-12 col-xs-12">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <h4 class="page-content-title">Customer History</h4>
+                            <div class="responsive_table_main">
+                                <table class="table tablesaw tablesaw-stack" data-tablesaw-mode="stack">
+                                    <thead>
+                                        <tr>
+                                            <th>Customer Name</th>
+                                            <th>Purchase Date</th>
+                                            <th>Product Purchased</th>
+                                            <th>Product Type</th>
+                                            <th>Amount</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>
+                                                John Clark
+                                            </td>
+                                            <td>
+                                                Nov 19 2016
+                                            </td>
+                                            <td>
+                                                Children of Invention
+                                            </td>
+                                            <td>
+                                                Film
+                                            </td>
+                                            <td>
+                                                $19.99
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm flat-buttons" data-toggle="modal" data-target="#formmodal">Contact</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Susan Thomas
+                                            </td>
+                                            <td>
+                                                Nov 15 2016
+                                            </td>
+                                            <td>
+                                                The One I Knew
+                                            </td>
+                                            <td>
+                                                Song Single
+                                            </td>
+                                            <td>
+                                                $1.24
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm flat-buttons" data-toggle="modal" data-target="#formmodal">Contact</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Mike Johnson
+                                            </td>
+                                            <td>
+                                                Nov 14 2016
+                                            </td>
+                                            <td>
+                                                Diamond Bracelet
+                                            </td>
+                                            <td>
+                                                Jewelry
+                                            </td>
+                                            <td>
+                                                $175.00
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm flat-buttons" data-toggle="modal" data-target="#formmodal">Contact</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Janet Marshall
+                                            </td>
+                                            <td>
+                                                Nov 4 2016
+                                            </td>
+                                            <td>
+                                                Mens Woven Hat
+                                            </td>
+                                            <td>
+                                                Accessories
+                                            </td>
+                                            <td>
+                                                $27.00
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm flat-buttons" data-toggle="modal" data-target="#formmodal">Contact</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Richard Collins
+                                            </td>
+                                            <td>
+                                                Nov 1 2016
+                                            </td>
+                                            <td>
+                                                Hold On
+                                            </td>
+                                            <td>
+                                                Music Album
+                                            </td>
+                                            <td>
+                                                $14.99
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm flat-buttons" data-toggle="modal" data-target="#formmodal">Contact</button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>
+                                                Crystal Houston
+                                            </td>
+                                            <td>
+                                                Oct 27 2016
+                                            </td>
+                                            <td>
+                                                The Door View
+                                            </td>
+                                            <td>
+                                                Art Painting
+                                            </td>
+                                            <td>
+                                                $340.00
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-primary btn-sm flat-buttons" data-toggle="modal" data-target="#formmodal">Contact</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-md-12 col-xs-12 hidden">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="CustomerHistory">
+                            <div class="responsive_table_main">
+                                <div class="input-group well">
+                                    <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                                </div>
+                                <div class="clearfix"></div>
+                                <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+                                    <thead>
+                                        <tr>
+                                            <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                            <th><a href="" ng-click="orderByField='UserName'; reverseSort = !reverseSort">UserName</a></th>
+                                            <th><a href="" ng-click="orderByField='MediaName'; reverseSort = !reverseSort">MediaName</a></th>
+                                            <th><a href="" ng-click="orderByField='Date'; reverseSort = !reverseSort">Date</a></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                            <td>{{data.Sno}}</td>
+                                            <td>{{data.UserName}}</td>
+                                            <td>{{data.MediaName}}</td>
+                                            <td>{{data.Date}}</td>
+                                        </tr>
+                                        <tr ng-show="!dataList.length">
+                                            <td colspan="12">
+                                                No data. Found
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div class="text-center">
+                                    <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                                </div>
+                                <div class="updateSpinner" ng-show="loader.loading">
+                                    Please wait...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+}
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Content/AngularJs/CustomerHistory.js")"></script>
+    <script src="~/Scripts/angular-sanitize.js"></script>
+}

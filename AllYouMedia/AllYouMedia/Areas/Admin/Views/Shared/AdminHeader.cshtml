@@ -1,0 +1,221 @@
+﻿@model AllYouMedia.Areas.Admin.Models.AdminHeaderModel
+@*<header id="header">
+        <div class="header-inner">
+            <div class="header-width">
+                <div class="col-sm-6 col-xl-6 header-right">
+                    <div class="header-inner-right">
+                        <div class="float-default mail">
+                            <div class="right-icon">
+                                <a href="javascript:void(0)" data-toggle="dropdown" data-open="true" aria-expanded="true">
+                                    <i class="fa fa-tasks"></i>
+                                    <span class="mail-no">0</span>
+                                </a>
+                                <div class="dropdown-menu messagetoggle" role="menu">
+                                    <div class="nav-tab-horizontal">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link flat-buttons active" data-toggle="tab" href="#messages"
+                                                   role="tab">Activities</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="messages" role="tabpanel" data-plugin="custom-scroll" data-height="320">
+                                            <ul class="userMessagedrop">
+                                                @foreach (var item in Model.Activity)
+                                                {
+                                                <li>
+                                                    <a>
+                                                        <div class="media">
+                                                            <div class="media-body">
+                                                                <h6>@item.Type</h6>
+                                                                <p>@item.Reference</p>
+                                                                <div class="meta-tag text-nowrap">
+                                                                    <time datetime="2016-12-10T20:27:48+07:00"
+                                                                          class="text-muted">
+                                                                        @item.ActionDate
+                                                                    </time>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </a>
+                                                </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="float-default mail">
+                            <div class="right-icon">
+                                <a href="javascript:void(0)" data-toggle="dropdown" data-open="true" aria-expanded="true">
+                                    <i class="icon_mail_alt"></i>
+                                    <span class="mail-no">@Convert.ToString(new BusinessEntity.ConcreateEntity.MasterDataEntity().GetTalentUnreadMessage())</span>
+                                </a>
+                                <div class="dropdown-menu messagetoggle" role="menu">
+                                    <div class="nav-tab-horizontal">
+                                        <ul class="nav nav-tabs" role="tablist">
+                                            <li class="nav-item">
+                                                <a class="nav-link flat-buttons active" data-toggle="tab" href="#messages"
+                                                   role="tab">Message</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-content">
+                                        <div class="tab-pane active" id="messages" role="tabpanel" data-plugin="custom-scroll" data-height="320">
+                                            <ul class="userMessagedrop">
+                                                @foreach (var item in Model.Message)
+                                                {
+                                                    <li>
+                                                        <a href="@Url.Action("Message", "Admin")">
+                                                            <div class="media">
+                                                                <div class="media-left float-xs-left">
+                                                                    <span class="label label-primary">
+                                                                        <i class="fa fa-mail-reply-all"></i>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="media-body">
+                                                                    <h6>@item.Subject</h6>
+                                                                    <p>@item.Message</p>
+                                                                    <div class="meta-tag text-nowrap">
+                                                                        <time datetime="2016-12-10T20:27:48+07:00"
+                                                                              class="text-muted">
+                                                                            @item.SentDate
+                                                                        </time>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </li>
+                                                }
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-dropdown">
+                            <div class="btn-group">
+                                <a href="#" class="user-header dropdown-toggle" data-toggle="dropdown"
+                                   data-animation="slideOutUp" aria-haspopup="true"
+                                   aria-expanded="false">
+                                    <img src="@Model.Image" />
+                                </a>
+                                <div class="dropdown-menu drop-profile">
+                                    <div class="userProfile">
+                                        <img src="@Model.Image" />
+                                    </div>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="btn btn-primary float-xs-left left-spacing flat-buttons" href="@Url.Action("ChangePassword", "Admin")" role="button">Change Password</a>
+                                    <a class="btn btn-danger float-xs-right right-spacing flat-buttons" href="@Url.Action("Logout", "Admin")" role="button">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>*@
+
+<header class="main-header">
+    <!-- Logo -->
+    <a href="/" class="logo"><img src="/Images/new_logo1.png" style="height: 50px;"></a>
+    <nav class="navbar navbar-static-top" role="navigation">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                <!-- Messages: style can be found in dropdown.less-->
+                <li class="dropdown messages-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="label label-success">O/O</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">Messages</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                @foreach (var item in Model.Message)
+                                {
+                                    <li>
+                                        <!-- start message -->
+                                        <a href="@Url.Action("Message", "Admin")">
+                                            <div class="pull-left">
+                                                <i class="fa fa-envelope-o"></i>
+                                            </div>
+                                            <h4>
+                                                @item.Subject
+                                                <small><i class="fa fa-clock-o"></i> @item.SentDate</small>
+                                            </h4>
+                                            <p>@item.Message</p>
+                                        </a>
+                                    </li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="footer"><a href="@Url.Action("Message", "Admin")">See All Messages</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label label-warning">0</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">Activities</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                @foreach (var item in Model.Activity)
+                                {
+                                <li>
+                                    <a href="#">
+                                        <h6>
+                                            @item.Type
+                                            <small class="pull-right">@item.ActionDate</small>
+                                        </h6>
+                                        <h6>@item.Reference</h6>
+                                    </a>
+                                </li>
+                                }
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="#">View all tasks</a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- User Account: style can be found in dropdown.less -->
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="hidden-xs">@User.Identity.Name</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!-- User image -->
+                        <li class="user-header">
+                            <p>
+                                @User.Identity.Name
+                                <small>Admin</small>
+                            </p>
+                        </li>
+                        <!-- Menu Body -->
+                        <li class="user-body">
+                        </li>
+                        <!-- Menu Footer-->
+                        <li class="user-footer">
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-default btn-flat">Profile</a>
+                            </div>
+                            <div class="pull-right">
+                                <a href="/Account/Logout" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>

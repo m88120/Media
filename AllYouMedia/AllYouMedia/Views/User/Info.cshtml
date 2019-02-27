@@ -1,0 +1,1340 @@
+﻿@{
+    ViewBag.Active = "Info";
+    ViewBag.Title = "Info";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@section styles{
+    <style>
+        h4 {
+            font-size: 13px;
+            line-height: 36px;
+           
+        }
+        .question1 h4 {
+            color: #fff;
+        }
+         .box-question {
+            background: #00a65a none repeat scroll 0 0;
+            padding: 10px;
+        }
+
+        .box-question1 {
+            background: #f0f0f0 none repeat scroll 0 0;
+            padding: 10px;
+        }
+
+        .question > li {
+            color: #000;
+            display: block;
+            text-align: left;
+            margin: 5px 0;
+        }
+
+        .question {
+            margin-left: 0px;
+        }
+
+        .question1 {
+            color: #333;
+            cursor: pointer;
+        }
+
+        .ans1 {
+            border-top: 1px solid #333;
+            background-color: #fff !important;
+            margin-top: 15px;
+            padding: 10px;
+            display: none;
+        }
+
+        ul, ol {
+            margin-bottom: 21px;
+            margin-left: 3px;
+        }
+
+        li {
+            font-weight: 300;
+            line-height: 18px;
+        }
+
+        .tablesaw tbody th, .tablesaw td {
+            font-size: 1em !important;
+            vertical-align: middle;
+        }
+
+        .personal-info-box ul, ol {
+            padding-left: 0 !important;
+        }
+
+        .more_info {
+            margin-top: -15px;
+            width: 8%;
+        }
+
+        .tooltip1 {
+            position: relative;
+            display: inline-block;
+            margin-left: -4px;
+        }
+
+            .tooltip1 .tooltiptext {
+                visibility: hidden;
+                width: 300px;
+                text-align: left;
+                background-color: #555;
+                color: #fff;
+                border-radius: 6px;
+                padding: 5px 0;
+                position: absolute;
+                z-index: 1;
+                bottom: 125%;
+                opacity: 0;
+                transition: opacity 1s;
+                padding: 6px;
+                font-size: 14px;
+            }
+
+            .tooltip1:hover .tooltiptext {
+                visibility: visible;
+                opacity: 1;
+            }
+
+        .tooltiptext li {
+            line-height: 15px !important;
+            padding-left: 5px;
+        }
+    </style>
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Info</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body" style="overflow:hidden;">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="BrochureInfo">
+                        <div class="profile-contain">
+                            <div class="content">
+                                <div class="row">
+                                    <div class="col-md-12">                                        
+                                        <div class="personal-info-box">
+                                            <div class="">
+                                                <ul class="question">
+                                                    <li class="has-children">
+                                                        <div class="box-question">
+                                                            <div id="que14" class="question1">
+                                                                <h4>
+                                                                    1. THE MEMBERSHIP <i id='Q14' class="fa fa-plus pull-right">
+                                                                    </i>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="ans14" class="ans1">
+                                                                <p>
+                                                                    <b>ALL TALENT </b>– FOR ALL WHOM WANT TO MANIFEST OR ENHANCE YOUR CREATIVE TALENT, LIKENESS AND ARTISTIC GOALS. ENJOY EVERYTHING FROM CROSS-INDUSTRY NETWORKING, VIRAL FAN GROWTH TOOLS, INVENTIVE SHOWCASING AND MARKETING, ONLINE PRODUCTION; TO LEGAL SUPPORT, MEMBER PROTECTION AND MORE. ALL TALENT TOOLS OFFER EVERYTHING YOU AS A TALENT WILL NEED TO GROW, CREATE AND SUCCEED.
+
+                                                                </p>
+                                                                <p>
+                                                                    <b> PRODUCTION </b>– FOR CREATIVE TALENTS WITH FINISHED PRODUCT(S) READY TO SELL; USING OUR INCENTIVE DRIVEN DISTRIBUTION BASE  [MEDIA PROMOTERS; EXPLAINED BELOW] TO EXPONENTIALLY SELL YOUR CREATION(S)  [MUSIC, FILM, ART, JEWELRY, APPAREL, ACCESSORIES, PHOTOS, EVENT TICKETS AND MEMBERSHIPS] GLOBALLY. FEATURING A CASH EARNING SHOWCASING PLATFORM TO HELP YOU INCREASE SELLS AND FANS WITH PERFORMANCE AND SKILL BUILDING POWER YOU NEED TO EXCEL. PRODUCTION MEMBERS ALSO RECEIVE ALL THE AWESOME VITAL BENEFITS OF OUR ALL TALENT MEMBERSHIP.
+
+                                                                </p>
+                                                                <p>
+                                                                    <b>MEDIA PROMOTER </b>– IS FOR EVERYONE, TALENT OR NOT, AN INNOVATIVE WAY TO MAKE MONEY, HAVE FUN AND RECEIVE INCREDIBLE DISCOUNTS ON HOT PRODUCTS [MUSIC, FILM, ART, JEWELRY, APPAREL, ACCESSORIES, PHOTOS, EVENT TICKETS AND MEMBERSHIPS]. LOADED WITH EXCLUSIVE PARTIES, CONCERTS AND EVENT PASSES, DISCOUNTS AND PARTY FAVORS; POTENTIALLY WORK WITH AND CHANCES TO HANG WITH YOUR FAVORITE ARTIST OR STAR AND MORE; INNOVATING OPPORTUNITIES FOR YOU TO MAKE A TON OF MONEY FOR PENNY’S A DAY AT YOUR OWN SCHEDULE. PLUS, GET THE BUSINESS TIPS MANAGING YOUR OWN BIZ AND KNOWLEDGE THAT WILL BENEFIT YOU FOR LIFE!
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="has-children">
+                                                        <div class="box-question">
+                                                            <div id="que1" class="question1">
+                                                                <h4>
+                                                                    2. UNDERSTANDING THE TALENT SERVICES <i id='Q1' class="fa fa-plus pull-right">
+                                                                    </i>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="ans1" class="ans1">
+                                                                <p>
+                                                                    *ADVANCED TALENT SHOWCASING – WE PROVIDE SHOWCASE EVENTS TO HELP YOU WIN CASH AND
+                                                                    GET EXPOSURE.
+                                                                </p>
+                                                                <p>
+                                                                    *GLOBAL VIRAL DISTRIBUTION – WE OFFER A DISTRIBUTION WHERE EVERYONE CAN EARN SELLING
+                                                                    A TALENTS FINISHED ..CREATION/PRODUCT.
+                                                                </p>
+                                                                <p>
+                                                                    *ONLINE PRODUCTION – WE OFFER ONLINE PRODUCTION FOR MUSIC, FILM AND DESIGN.
+                                                                </p>
+                                                                <p>
+                                                                    *TALENT RATING SYSTEM – WE OFFER A SYSTEM THAT ALLOWS OUR TALENT MEMBERS TO RATE
+                                                                    EACH OTHER INTERACTIONS.
+                                                                </p>
+                                                                <p>
+                                                                    *AFFORDABLE MARKETING PACKAGES – WE OFFER INEXPENSIVE MARKETING UNITS TO HELP GET
+                                                                    YOU ADDED EXPOSURE.
+                                                                </p>
+                                                                <p>
+                                                                    *MEDIA INFINITY SYSTEM (MEDIA INFINITY) – WE OFFER A TOOL THAT CAN EASILY AND SEAMLESSLY
+                                                                    COMBINE OUR MEMBERS ..MEDIA BASES.
+                                                                </p>
+                                                                <p>
+                                                                    *LEGAL CONTRACTS – WE OFFER STANDARD CONTRACTS OUR MEMBERS CAN USE BETWEEN OTHER
+                                                                    MEMBERS.
+                                                                </p>
+                                                                <p>
+                                                                    *MANAGEMENT SERVICES – WE WILL OFFER VETTED OUTSOURCES MANAGEMENT AND LEGAL SERVICES
+                                                                    TO THOSE WHO ..DESIRE MORE ATTENTION TO THEIR TALENT CAREERS.
+                                                                </p>
+                                                                <p>
+                                                                    *TALENT PROTECTION SYSTEM – WE OFFER ADDED PROTECTION BETWEEN OUR MEMBERS TO HELP
+                                                                    FOSTER A SECURE ..ENVIRONMENT.
+                                                                </p>
+                                                                <p>
+                                                                    *TALENT SUPPORT SERVICES – WE OFFER SUPPORT SERVICES SUCH AS INDUSTRY NEWS, SUGGESTIONS
+                                                                    AND VALUE ..ADDED FEATURES THAT WILL ENHANCE OUR TALENTS MEMBER EXPERIENCE.
+                                                                </p>
+                                                                <p>
+                                                                    *TALENT LEARNING PORTAL – WE OFFER AN ASSORTMENT OF LEARNING TOOLS, EDITORIAL AND
+                                                                    CLASSES TO HELP GUIDE OFFER THE ONLY PORTAL TO INTERCONNECT ALL TALENT INDUSTRIES.
+                                                                </p>
+                                                                <p>
+                                                                    *CONNECTING TALENT INDUSTRIES – WE OFFER THE ONLY PORTAL TO INTERCONNECT ALL TALENT
+                                                                    INDUSTRIES.
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="has-children MgT20">
+                                                        <div class="box-question">
+                                                            <div id="que5" class="question1">
+                                                                <h4>
+                                                                    3.HOW A TALENT (PRODUCTION MEMBER) EARNS MONEY <i id='Q5' class="fa fa-plus pull-right"></i>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="ans5" class="ans1">
+                                                                <ul class="question">
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que13" class="question1">
+                                                                                <h4>
+                                                                                    PAYOUT BREAKDOWN  <i id='Q13' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans13" class="ans1">
+                                                                                <h4>A PRODUCTION MEMBER IS A TALENT WHO HAS FINISHED PRODUCT(S) READY TO SELL</h4>
+                                                                                <br />
+                                                                                <h4>
+                                                                                    <b>EXAMPLE OF A PRODUCTION MEMBER (TALENT) PRODUCT BREAKDOWN PAYOUT</b>
+                                                                                </h4>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table3" style="font-family: Arial; border-collapse: collapse;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            TALENT PRODUCT
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            CREATIVE TALENT EARNINGS
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            75% OF CORE PRODUCT
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            ALL YOU MEDIA EXPENSES
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            COMPANY CORE EXPENSES
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            ONLINE PROCESSING FEE
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3%  + .25₵ (TYPICALLY)
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            MEDIA PROMOTER NET PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            NET PROFIT
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <p>
+                                                                                    <b>CORE PROFIT </b>– THE PROFIT CREATIVE TALENTS EARN
+                                                                                </p>
+                                                                                <p>
+                                                                                    <b>NET PROFIT </b>– THE PROFIT MEDIA PROMOTERS EARN
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que8" class="question1">
+                                                                                <h4>
+                                                                                    TALENT INDUSTRIES TYPICAL FEE’S AND RATES <i id='Q8' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans8" class="ans1">
+                                                                                <h4>
+                                                                                    <b>SITUATIONS VARY AND WE ENCOURAGE YOU DO YOU OWN RESEARCH</b>
+                                                                                </h4>
+                                                                                <br />
+                                                                                <h4>
+                                                                                    TYPICAL MUSIC INDUSTRY CHARGES </b>
+                                                                                </h4>
+                                                                                <p> <strong>MUSIC</strong> – THE AVERAGE MUSIC ARTIST GIVE UP TO 98% OF THEIR OWNERSHIP OF SONGS</p>
+                                                                                <p> <strong>MUSIC</strong> ADVANCES ARE OFTEN CONSIDERED BAD LOANS WITH EXTREMELY HIGH INTEREST RATES</p>
+
+                                                                                <h4> TYPICAL FILM INDUSTRY CHARGES </h4>
+                                                                                <p> <strong>FILM</strong> – THE AVERAGE FILM HOUSE CAN CHARGE UP TO <strong>90% FOR</strong> FILM DISTRIBUTION</p>
+
+                                                                                <h4>  TYPICAL BOOK CHARGES </h4>
+                                                                                <p><strong>BOOK PUBLISHERS</strong> – THE AVERAGE BOOK WRITER GIVES UP TO 70% OF THEIR RIGHTS TO PUBLISHING</p>
+
+                                                                                <h4>TYPICAL ARTIST (FINE ART, SCULPTURES, ETC.)</h4>
+                                                                                <p>  <strong>ART</strong> – THE AVERAGE ART GALLERY CAN CHARGE UP TO 80% OF THE PRICE TO SELL YOUR ART</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que6" class="question1">
+                                                                                <h4>
+                                                                                    TALENT PAYOUT BREAKDOWN EXAMPLE<i id='Q6' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans6" class="ans1">
+                                                                                <h4>
+                                                                                    <b>EXAMPLE </b>– IF A FINE ART PAINTER SALES A PAINTING FOR $100.00
+                                                                                </h4>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table3" style="font-family: Arial; border-collapse: collapse;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            RETAIL PRICE OF PAINTING
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            $100.00
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            COMPANY EXPENSES
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            GROSS REVENUES
+                                                                                            <div class="tooltip1">
+                                                                                                <img src="~/Images/more_info.png" class="more_info" />
+                                                                                                <span class="tooltiptext">
+                                                                                                    <strong>Why All You Media Retains 18%.</strong>
+                                                                                                    <ul>
+                                                                                                        <li>This helps pay for marketing to recruit the Distribution base(Media Promoters) to sell your products</li>
+                                                                                                        <li>This helps pay for Events to showcase your Product/Talent</li>
+                                                                                                        <li>This helps pay for many other costs to help you succeed further</li>
+                                                                                                    </ul>
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $18.00
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            ONLINE TRANSACTION FEE’S
+                                                                                            <div class="tooltip1">
+                                                                                                <img src="~/Images/more_info.png" class="more_info" />
+                                                                                                <span class="tooltiptext">
+                                                                                                    <strong>The Transaction fee</strong> is controlled by the credit card or financial institutions that alloe us to take payments by way of credit card or debit card.
+
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3% + .25₵
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $3.25
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            CORE PROFIT
+                                                                                            <div class="tooltip1">
+                                                                                                <img src="~/Images/more_info.png" class="more_info" />
+                                                                                                <span class="tooltiptext">75% of Core Profit: Are revenues left after the company and the credit/debit card processing company's are paid.</span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            =
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $78.75
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            PAINTER MAKES
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            75% of CORE PROFIT
+                                                                                            <div class="tooltip1">
+                                                                                                <img src="~/Images/more_info.png" class="more_info" />
+                                                                                                <span class="tooltiptext">75% of Core Profit: Are revenues left after the company and the credit/debit card processing comapny's are paid.</span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $59.06
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            NET PROFIT FOR Media PROMOTER
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            NET PROFIT
+                                                                                            <div class="tooltip1">
+                                                                                                <img src="~/Images/more_info.png" class="more_info" />
+                                                                                                <span class="tooltiptext">
+                                                                                                    <strong>NET PROFIT</strong> are revenue left after the company, the credit card/debit card processing company and talent are paid. our media promoter team are paid up to 95% of the net profit.
+
+                                                                                                </span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $19.69
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que4" class="question1">
+                                                                                <h4>
+                                                                                    PAYOUT BREAKDOWN PER SERVICE/PRODUCT  <i id='Q4' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans4" class="ans1">
+                                                                                <p>
+                                                                                    <b>CORE PROFIT </b>– IS THE PROFIT THAT CREATIVE TALENTS
+                                                                                </p>
+                                                                                <p>
+                                                                                    <b>EARN NET PROFIT </b>– IS THE PROFIT THE MEDIA PROMOTERS TOTAL TEAM EARNS
+                                                                                </p>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table3" style="font-family: Arial; border-collapse: collapse;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            MEMBERSHIPS
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            TALENT PRODUCT
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            OTHER PRODUCTS
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            ALL YOU MEDIA EXPENSES
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            60%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            18%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            22%
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            ONLINE PROCESSING FEE’S
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3% + .25₵
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3% + .25₵
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3% + .25₵
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            CREATIVE TALENT EARNINGS
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            N/A
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            75% CORE PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            N/A
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            PRODUCT MANUFACTURER
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            N/A
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            N/A
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            VARIES
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Media PROMOTER NET PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            95% of the NET PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            95% of the NET PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            95% of the NET PROFIT
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                @*<h4>
+                                                                                        EXAMPLE OF PAYOUT BREAK DOWN
+                                                                                    </h4>
+                                                                                    <h4>
+                                                                                        Example: IF A FINE ART PAINTER SELLS A PAINTING FOR $100.00
+                                                                                    </h4>
+                                                                                    <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                           id="Table4" style="font-family: Arial;">
+                                                                                        <tr class="table-header">
+                                                                                            <th scope="col">
+                                                                                            </th>
+                                                                                            <th scope="col">
+                                                                                                RETAIL PRICE OF PAINTING
+                                                                                            </th>
+                                                                                            <th scope="col">
+                                                                                                $100.00
+                                                                                            </th>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                COMPANY EXPENSES
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                30% GROSS REVENUES
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                $30.00
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                ONLINE TRANSACTION FEE
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                3%
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                $3
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                ONLINE TRANSACTION FEE
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                +25₵
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                .25₵
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                CORE PROFIT
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                =
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                $66.98
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                PAINTER MAKES
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                75% OF CORE PROFIT
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                $50.24
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                NET PROFIT FOR Media PROMOTERS
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                NET PROFIT
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                $16.74
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    </table>*@
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                    <li class="MgT20">
+                                                        <div class="box-question">
+                                                            <div id="que2" class="question1">
+                                                                <h4>
+                                                                    4. HOW MEDIA PROMOTERS EARN MONEY<i id='Q2' class="fa fa-plus pull-right"></i>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="ans2" class="ans1">
+                                                                <ul class="question">
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que9" class="question1">
+                                                                                <h4>
+                                                                                    PRODUCTS MEDIA PROMOTERS SELL<i id='Q9' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans9" class="ans1">
+                                                                                <h4>
+                                                                                    PRODUCTS MEDIA PROMOTERS SELL:
+                                                                                </h4>
+                                                                                <p>
+                                                                                    -CREATIVE TALENT MONTHLY MEMBERSHIPS FEES YOU RECRUIT AND YOUR TEAM RECRUITS (SEE
+                                                                                    CHART BELOW AND TIERS).
+                                                                                </p>
+                                                                                <p>
+                                                                                    -MEDIA PROMOTER MONTHLY MEMBERSHIPS FEES YOU RECRUIT AND YOUR TEAM RECRUITS (SEE CHART
+                                                                                    BELOW AND TIERS).
+                                                                                </p>
+                                                                                <p>
+                                                                                    -INDEPENDENT MUSIC (DIGITAL)
+                                                                                </p>
+                                                                                <p>
+                                                                                    -INDEPENDENT FILM (DIGITAL)
+                                                                                </p>
+                                                                                <p>
+                                                                                    -DIGITAL BOOK (E-BOOKS)
+                                                                                </p>
+                                                                                <p>
+                                                                                    -EVENT TICKET SALE (SHOWCASES, PARTIES, CONCERTS, FASHION SHOWS, ETC.)
+                                                                                </p>
+                                                                                <p>
+                                                                                    -INDEPENDENT CLOTHING APPAREL -INDEPENDENT JEWELRY -INDEPENDENT ACCESSORIES
+                                                                                </p>
+                                                                                <p>
+                                                                                    -INDEPENDENT HAND CRAFTED CREATIONS
+                                                                                </p>
+                                                                                <p>
+                                                                                    -TO BE ANNOUNCED (BRAND NAME CLOTHING APPAREL)
+                                                                                </p>
+                                                                                <p>
+                                                                                    -TO BE ANNOUNCED (BRAND NAME ELECTRONICS)
+                                                                                </p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que11" class="question1">
+                                                                                <h4>
+                                                                                    MEDIA PROMOTERS LEVEL, TEAM & PERCENTAGE PAYOUTS <i id='Q11' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans11" class="ans1">
+                                                                                <h4>
+                                                                                    MEDIA PROMOTERS LEVEL, TEAM & PERCENTAGE PAYOUTS:
+                                                                                </h4>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table3" style="font-family: Arial; border-collapse: collapse;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                            LEVELS
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            PAYOUTS
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            ON YOUR TEAM
+                                                                                        </th>
+
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            SCOUT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            5%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            1 to 24
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            FAN
+                                                                                            <div class="tooltip1">
+                                                                                                <img src="~/Images/more_info.png" class="more_info" />
+                                                                                                <span class="tooltiptext">DIRECTLY RECRUITING AT LEAST 25 TEAM MEMBERS ENABLES YOU TO START MAKING A PERCENTAGE FROM MONTHLY MEMBERSHIP FEES BASED ON YOUR LEVEL.</span>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            15%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            25 to 124
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            FANATIC
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            20%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            125 to 624
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            MOGUL
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            25%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            625 to 3124
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            TITAN
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            30%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UP TO 3125
+                                                                                        </td>
+
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td></td>
+                                                                                        <td>
+                                                                                            95%
+                                                                                        </td>
+                                                                                        <td></td>
+
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table4" style="font-family: Arial;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                            TIERS
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            RECRUITS
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            1 = YOU
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UPTO 3125
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            2
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UPTO 500
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            3
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UPTO 250
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            4
+                                                                                        <td>
+                                                                                            UPTO 100
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            5
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UPTO 50
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que3" class="question1">
+                                                                                <h4>
+                                                                                    UNDERSTANDING THE MEDIA PROMOTER TIERS <i id='Q3' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans3" class="ans1">
+                                                                                <h4>
+                                                                                    THE GRAPH BELOW WILL HELP YOU UNDERSTAND HOW MANY PEOPLE YOU CAN PROFIT FROM ON
+                                                                                    YOUR TEAM
+                                                                                </h4>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table1" style="font-family: Arial; border-collapse: collapse;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                            TIER EXPLANATION
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            TIERS
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            RECRUITS
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            YOUR DIRECT RECRUITMENT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            1
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UP TO 3125
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            YOUR DIRECT RECRUITS THEIR RECRUIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            2
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UP TO 500
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            YOU + TIER 2 + THEIR RECRUITS
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UP TO 250
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            YOU + TIER 2 + TIER 3 + THEIR RECRUITS
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            4
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UP TO 100
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            YOU + TIER 2 + TIER 3 + TIER 4 + THEIR RECRUITS
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            5
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            UP TO 50
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <h4>
+                                                                                    ANOTHER WAY OF UNDERSTANDING TIERS AND HOW YOU ARE COMPENSATED
+                                                                                </h4>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table2" style="font-family: Arial; border-collapse: collapse;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                            Tier
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            1
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            YOU PROFIT FROM UP TO 3125 RECRUITS YOU ENROLL DIRECTLY
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            2
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            YOU PROFIT FROM UP TO 500 RECRUITS YOUR DIRECT RECRUIT SIGNED UP
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            3
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            YOU PROFIT FROM UP TO 250 YOUR TIER 2 RECRUIT SIGNED UP
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            4
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            YOU PROFIT FROM UP TO 100 YOUR TIER 3 RECRUIT SIGNED UP
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            5
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            YOU PROFIT FROM UP TO 50 YOUR TIER 4 RECRUIT SIGNED UP
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td></td>
+                                                                                        <td>
+                                                                                            IF YOU EXCEED 3125 RECRUITS, YOU AUTOMATICALLY START A NEW BUSINESS AT ONE RECRUIT
+                                                                                            RETAINING YOUR EXISTING 3125 RECRUITS OF YOUR FIRST BUSINESS TEAM
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que10" class="question1">
+                                                                                <h4>
+                                                                                    EXAMPLE OF MEDIA PROMOTERS PAYOUT BREAKDOWN <i id='Q10' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans10" class="ans1">
+                                                                                <p>
+                                                                                    <b>CORE PROFIT </b>– THE PROFIT CREATIVE TALENTS EARN
+                                                                                </p>
+                                                                                <p>
+                                                                                    <b>NET PROFIT </b>– THE PROFIT MEDIA PROMOTERS EARN
+                                                                                </p>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table3" style="font-family: Arial; border-collapse: collapse;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            MEMBERSHIPS
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            TALENT PRODUCT
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            OTHER PRODUCTS
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            ALL YOU MEDIA EXPENSES
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            60%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            18%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            22%
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            ONLINE PROCESSING FEE’S
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3% + .25₵
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3% + .25₵
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3% + .25₵
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            CREATIVE TALENT EARNINGS
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            N/A
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            52% CORE PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            N/A
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            PRODUCT MANUFACTURER
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            N/A
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            N/A
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            VARIES
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            Media PROMOTER NET PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            95% of the NET PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            95% of the NET PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            95% of the NET PROFIT
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <h4>
+                                                                                    <b> EXAMPLE OF PAYOUT BREAK DOWN</b>
+                                                                                </h4>
+                                                                                <h4>
+                                                                                    Example: IF A FINE ART PAINTER SELLS A PAINTING FOR $100.00
+                                                                                </h4>
+                                                                                <table class="table table-bordered table-striped" cellspacing="0" rules="all" border="1"
+                                                                                       id="Table4" style="font-family: Arial;">
+                                                                                    <tr class="table-header">
+                                                                                        <th scope="col">
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            RETAIL PRICE OF PAINTING
+                                                                                        </th>
+                                                                                        <th scope="col">
+                                                                                            $100.00
+                                                                                        </th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            COMPANY EXPENSES
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            18% GROSS REVENUES
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $18.00
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            ONLINE TRANSACTION FEE
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            3.25%
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $3.25
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            CORE PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            =
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $78.75
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            PAINTER MAKES
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            75% OF CORE PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $59.06
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>
+                                                                                            NET PROFIT FOR Media PROMOTERS
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            NET PROFIT
+                                                                                        </td>
+                                                                                        <td>
+                                                                                            $19.69
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                </table>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que15" class="question1">
+                                                                                <h4>
+                                                                                    TALENT INDUSTRY PAY FACTS <i id='Q15' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans15" class="ans1">
+                                                                                <h4>
+                                                                                    <b>SITUATIONS VARY AND WE ENCOURAGE YOU DO YOU OWN RESEARCH</b>
+                                                                                </h4>
+                                                                                <br />
+                                                                                <h4>
+                                                                                    TYPICAL MUSIC INDUSTRY CHARGES </b>
+                                                                                </h4>
+                                                                                <p> <strong>MUSIC</strong> – THE AVERAGE MUSIC ARTIST GIVE UP TO 98% OF THEIR OWNERSHIP OF SONGS</p>
+                                                                                <p> <strong>MUSIC</strong> ADVANCES ARE OFTEN CONSIDERED BAD LOANS WITH EXTREMELY HIGH INTEREST RATES</p>
+
+                                                                                <h4> TYPICAL FILM INDUSTRY CHARGES </h4>
+                                                                                <p> <strong>FILM</strong> – THE AVERAGE FILM HOUSE CAN CHARGE UP TO <strong>90% FOR</strong> FILM DISTRIBUTION</p>
+
+                                                                                <h4>  TYPICAL BOOK CHARGES </h4>
+                                                                                <p><strong>BOOK PUBLISHERS</strong> – THE AVERAGE BOOK WRITER GIVES UP TO 70% OF THEIR RIGHTS TO PUBLISHING</p>
+
+                                                                                <h4>TYPICAL ARTIST (FINE ART, SCULPTURES, ETC.)</h4>
+                                                                                <p>  <strong>ART</strong> – THE AVERAGE ART GALLERY CAN CHARGE UP TO 80% OF THE PRICE TO SELL YOUR ART</p>
+
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                    <li class="MgT20">
+                                                                        <div class="box-question">
+                                                                            <div id="que12" class="question1">
+                                                                                <h4>
+                                                                                    RULES OF ENGAGEMENT (OUR SUGGESTIONS TO HELP YOU SUCCEED <i id='Q12' class="fa fa-plus pull-right">
+                                                                                    </i>
+                                                                                </h4>
+                                                                            </div>
+                                                                            <div id="ans12" class="ans1">
+                                                                                <h4>
+                                                                                    <b> RULES OF ENGAGEMENT (OUR SUGGESTIONS)</b>
+                                                                                </h4>
+                                                                                <br />
+                                                                                <p> <b style="font-weight: bold;">TELL, DON’T SELL </b>– JUST TELL PEOPLE ABOUT US, DON’T PESTER ANYONE. A REMINDER OR TWO CAN’T HURT IF A WEEK OR TWO HAS PASSED. WE ANTICIPATE THE SITE AND PRODUCTS WILL SELL THEMSELVES</p>
+                                                                                <p>
+                                                                                    <b style="font-weight: bold;">
+                                                                                        HAVE EXCITEMENT
+                                                                                    </b>– EXCITEMENT IS EVERYTHING, THE MORE EXCITED YOU ARE THE MORE LIKELY YOU WILL NATURALLY GET SOMEONE ELSE EXCITED.
+                                                                                </p>
+                                                                                <p><b style="font-weight: bold;">THE MORE YOU KNOW THE MORE CREDIBLE YOU ARE </b>– SIMPLY KNOW EVERYTHING ABOUT OUR PROGRAM.</p>
+                                                                                <p>
+                                                                                    <b style="font-weight: bold;">
+                                                                                        POWER IN NUMBERS
+                                                                                    </b> – THE MORE PEOPLE YOU TELL, THE HIGHER PROBABILITY OF INTERESTED PEOPLE.
+                                                                                </p>
+                                                                                <p><b style="font-weight: bold;">  LET REJECTION BE YOUR STRENGTH </b> –THERE WILL BE THOSE WHO WILL NOT WANT TO JOIN FOR ONE REASON OR ANOTHER; LET REJECTION EMPOWER AND MOTIVATE YOU TO ASSURE THE NEXT PERSON NOT ONLY JOINS BUT IS AS SUCCESSFUL AS YOU!</p>
+                                                                            </div>
+                                                                        </div>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="divider-lg-spacing"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+        </div>
+    </div><!-- /.col -->
+</div>
+@section scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#que1").click(function () {
+                $("#ans1").toggle("slow", function () {
+                });
+                $("#Q1").toggleClass('fa-plus fa-minus');
+            });
+            $("#que2").click(function () {
+                $("#ans2").toggle("slow", function () {
+                });
+                $("#Q2").toggleClass('fa-plus fa-minus');
+            });
+            $("#que3").click(function () {
+                $("#ans3").toggle("slow", function () {
+                });
+                $("#Q3").toggleClass('fa-plus fa-minus');
+            });
+            $("#que4").click(function () {
+                $("#ans4").toggle("slow", function () {
+                });
+                $("#Q4").toggleClass('fa-plus fa-minus');
+            });
+            $("#que5").click(function () {
+                $("#ans5").toggle("slow", function () {
+                });
+                $("#Q5").toggleClass('fa-plus fa-minus');
+            });
+            $("#que6").click(function () {
+                $("#ans6").toggle("slow", function () {
+                });
+                $("#Q6").toggleClass('fa-plus fa-minus');
+            });
+            $("#que7").click(function () {
+                $("#ans7").toggle("slow", function () {
+                });
+                $("#Q7").toggleClass('fa-plus fa-minus');
+            });
+            $("#que8").click(function () {
+                $("#ans8").toggle("slow", function () {
+                });
+                $("#Q8").toggleClass('fa-plus fa-minus');
+            });
+            $("#que9").click(function () {
+                $("#ans9").toggle("slow", function () {
+                });
+                $("#Q9").toggleClass('fa-plus fa-minus');
+            });
+            $("#que10").click(function () {
+                $("#ans10").toggle("slow", function () {
+                });
+                $("#Q10").toggleClass('fa-plus fa-minus');
+            });
+            $("#que11").click(function () {
+                $("#ans11").toggle("slow", function () {
+                });
+                $("#Q11").toggleClass('fa-plus fa-minus');
+            });
+            $("#que12").click(function () {
+                $("#ans12").toggle("slow", function () {
+                });
+                $("#Q12").toggleClass('fa-plus fa-minus');
+            });
+            $("#que13").click(function () {
+                $("#ans13").toggle("slow", function () {
+                });
+                $("#Q13").toggleClass('fa-plus fa-minus');
+            });
+            $("#que14").click(function () {
+                $("#ans14").toggle("slow", function () {
+                });
+                $("#Q14").toggleClass('fa-plus fa-minus');
+            });
+            $("#que15").click(function () {
+                $("#ans15").toggle("slow", function () {
+                });
+                $("#Q15").toggleClass('fa-plus fa-minus');
+            });
+            $("#que16").click(function () {
+                $("#ans16").toggle("slow", function () {
+                });
+                $("#Q16").toggleClass('fa-plus fa-minus');
+            });
+            $("#que17").click(function () {
+                $("#ans17").toggle("slow", function () {
+                });
+                $("#Q17").toggleClass('fa-plus fa-minus');
+            });
+            $("#que18").click(function () {
+                $("#ans18").toggle("slow", function () {
+                });
+                $("#Q18").toggleClass('fa-plus fa-minus');
+            });
+            $("#que19").click(function () {
+                $("#ans19").toggle("slow", function () {
+                });
+                $("#Q19").toggleClass('fa-plus fa-minus');
+            });
+            $("#que20").click(function () {
+                $("#ans20").toggle("slow", function () {
+                });
+                $("#Q20").toggleClass('fa-plus fa-minus');
+            });
+            $("#que21").click(function () {
+                $("#ans21").toggle("slow", function () {
+                });
+                $("#Q21").toggleClass('fa-plus fa-minus');
+            });
+        });
+
+    </script>
+}
+

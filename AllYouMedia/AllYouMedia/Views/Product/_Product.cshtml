@@ -1,0 +1,133 @@
+﻿@model IEnumerable<AllYouMedia.Models.ProductModel>
+
+<style>
+    .productbox {
+        height: 330px !important;
+        margin-bottom: 25px !important;
+    }
+
+    .centered {
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+        .centered img {
+            border: medium none;
+            height: 200px;
+            max-width: 100%;
+        }
+</style>
+@if (Model.Count() >= 1)
+{
+    foreach (var item in Model)
+    {
+        <div class="col-xs-12 col-sm-6 col-md-4 productbox">
+            <div class="single-product-item section-items">
+                <div class="single-product-img  centered">
+                    <img class="img-responsive" src="@item.MediaURL" />
+                    <div class="single-product-overlay">
+                        <div class="rating-box">
+                            Category: @item.CategoryNAME
+                        </div>
+                        <div class="product-quick-view">
+                            <ul>
+                                <li><a title="View Product Detail" class="lnkDetail" href="javascript:void(0);" data-id="@item.Code" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-copy"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="single-product-text">
+                    <h2><a class="product-title detail" href="javascript:void(0);" data-id="@item.Code" title="@item.Name" data-toggle="modal" data-target=".bs-example-modal-lg">@item.Name</a></h2>
+                    <div class="product-price">
+                        <span class="regular-price">@AllYouMedia._CodeClass.GetCurrency(item.RetailPrice)</span>
+                    </div>
+                    <div class="pro-add-to-cart">
+                        <p><a href="@Url.Action("ProductDetail", "Product", new { UID = @item.Code })" title="Product Detail">View Detail</a></p>
+                    </div>
+                    <div class="pro-add-to-cart">
+                        <p><a href="javascript:AjaxGoodRedirect('@Url.Action("AddCart", "Product", new { UID = @item.Code })')" title="Add to Cart">Add to Cart</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <div class="col-xs-12 col-sm-12 col-md-12">
+        <div class="alert alert-danger text-center" role="alert">
+            <h4 class="alert-heading">Oops!</h4>
+            <br />
+            <p class="mb-0">
+                No Product Found in this Category !
+            </p>
+            <p class="mb-0">
+               Please Serach for other Category !
+            </p>
+        </div>      
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    var lnkGetProductDetail = '/Product/ProductSelectByCode';
+    $(function () {
+        $(".lnkDetail").click(function () {
+            $.ajax({
+                type: "GET",
+                url: lnkGetProductDetail,
+                contentType: "application/json; charset=utf-8",
+                data: { Code: $(this).data('id') },
+                datatype: "html",
+                success: function (data) {
+                    $("#divProductDetail").html(data);
+                },
+                error: function () {
+                    $("#divProductDetail").html("");
+                }
+            });
+        });
+    });
+</script>
+<script>
+    var lnkGetProductDetail = '/Product/ProductSelectByCode';
+    $(function () {
+        $('a.detail').click(function () {
+            $.ajax({
+                type: "GET",
+                url: lnkGetProductDetail,
+                contentType: "application/json; charset=utf-8",
+                data: { Code: $(this).data('id') },
+                datatype: "html",
+                success: function (data) {
+                    $("#divProductDetail").html(data);
+                },
+                error: function () {
+                    $("#divProductDetail").html("");
+                }
+            });
+        });
+    });
+</script>
+<script>
+    function AjaxGoodRedirect(urlAction) {
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data: {},
+            datatype: "JSON",
+            contentType: "application/json; charset=utf-8",
+            success: function (returndata) {
+                if (returndata.ok) {
+                    window.location = returndata.newurl;
+                }
+                else
+                    window.alert("Error!");
+            }
+        }
+        );
+    }
+</script>
+
+

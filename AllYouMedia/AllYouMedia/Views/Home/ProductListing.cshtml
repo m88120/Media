@@ -1,0 +1,82 @@
+﻿@{
+    var subCategories = (List<AllYouMedia.DataAccess.EntityLayer.DBEntity.SubCategory>)ViewBag.SubCategoryList;
+    var items = (List<AllYouMedia.DataAccess.EntityLayer.DBEntity.Item>)ViewBag.ItemList;
+}
+<div class="page-tital">
+    <div class="container">
+        <h1>Product Listing</h1>
+        <span><a href="#_">Home</a>  -  Product Listing</span>
+    </div>
+</div>
+<div id="mid-part">
+    <div class="container">
+        <div class="page-left">
+            <div class="left-box">
+                <h2>Shop By Category</h2>
+                <ul>
+                    @foreach (var subCategory in subCategories)
+                    {
+                        <li><a href="/Home/ProductListing?SubCategoryID=@subCategory.ID">@subCategory.Name</a></li>
+                    }
+                </ul>
+            </div>
+            @*<div class="left-box">
+                    <h2>Shop By Jewellery</h2>
+                    <ul>
+                        <li><a href="#_">Bracelets</a></li>
+                        <li><a href="#_">Earrings</a></li>
+                        <li><a href="#_">Necklaces</a></li>
+                        <li><a href="#_">Rings</a></li>
+                        <li><a href="#_">Bracelets</a></li>
+                        <li><a href="#_">Earrings</a></li>
+                        <li><a href="#_">Necklaces</a></li>
+                        <li><a href="#_">Rings</a></li>
+                    </ul>
+                </div>*@
+        </div>
+        <div class="page-right">
+            <div class="page-right-heading">
+                <div class="search-input"><input name="" type="text" placeholder="Enter Product name or Title"></div>
+                <div class="form-row-right">
+                    <label>Sort by </label>
+                    <div class="select">
+                        <select>
+                            <option>Price: Low to High</option>
+                            <option>Option 1</option>
+                            <option>Option 2</option>
+                        </select>
+                        <div class="select__arrow"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="product-listing">
+                <ul>
+                    @foreach (var item in items)
+                    {
+                        <li>
+                            <div class="product-box">
+                                <img src="@item.PhotoIMG" />
+                                <h3><a href="/Home/ProductDetail?ItemID=@item.ID" class="truncate" title="@item.Name">@item.Name</a></h3>
+                                <h4>@AllYouMedia.MvcApplication.CurrencySymbol @item.SellPrice.ToString("N2")</h4>
+                                @if (string.IsNullOrEmpty(item.AspNetUser.PhotoIMG))
+                                {<img src="/Content/images/user01.jpg" class="product-user"> }
+                                else
+                                {<img src="@item.AspNetUser.PhotoIMG" class="product-user"> }
+                                @if (item.AspNetUserID == 1)
+                                {
+                                    <p><a href="#_">From - AllYouMedia</a></p>
+                                }
+                                else
+                                {
+                                    <p><a href="#_">From - @item.AspNetUser.Name</a></p>
+                                }
+                                @*<p><a href="#_">Jewelry Category</a></p>*@
+                            </div>
+                        </li>
+                    }
+                </ul>
+                @*<button type="button" class="load_button">Load More</button>*@
+            </div>
+        </div>
+    </div>
+</div>

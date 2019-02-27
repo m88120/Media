@@ -1,0 +1,334 @@
+﻿@model AllYouMedia.Models.RegisterModel
+@{
+    Layout = null;
+    var membershipList = Enum.GetValues(typeof(AllYouMedia.Code.SharedLibrary.MemberTypeEnum)).Cast<AllYouMedia.Code.SharedLibrary.MemberTypeEnum>().Select(v => new SelectListItem { Text = ((int)v == 2 ? "All Talent (If you don't have a product to sell)" : (int)v == 3 ? "Production (Sell Your Product)" : (int)v == 4 ? "Media Promoter" : v.ToString()), Value = ((int)v).ToString() }).ToList();
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>All You Media</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Part -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700" rel="stylesheet">
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico??id=@AllYouMedia.MvcApplication.BuldVersion" />
+    <!-- CSS Part -->
+    <link href="/Content/css/main.css?id=@AllYouMedia.MvcApplication.BuldVersion" rel="stylesheet" />
+    <link href="/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/css/animate.css" rel="stylesheet" />
+    <!-- All Categories CSS -->
+    <link rel="stylesheet" href="/Content/css/all-categories.css" type="text/css">
+    <!-- Carousel Assets -->
+    <link href="/Content/css/owl.carousel.css" rel="stylesheet">
+    <link href="/Content/css/owl.theme.css" rel="stylesheet">
+    <link href="/Content/toastr.min.css" rel="stylesheet" />
+    <link href="/Content/css/font-awesome.css" rel="stylesheet" />
+    <style>
+
+        .custom-scroll::-webkit-scrollbar {
+            height: 12px;
+            width: 12px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Start -->
+    <header>
+        <div class="container">
+            <div class="logo"><a href="/"><img src="/Content/images/logo.png" alt="logo"></a></div>
+        </div>
+    </header>
+    <!-- Header End -->
+    <div class="page-tital">
+        <div class="container">
+            <h1>Register</h1>
+        </div>
+    </div>
+    <section class="login-page">
+        <div class="login-box">
+            <div class="login-left"><h2>Register</h2></div>
+            <div class="login-right">
+                <h2>Register new membership</h2>
+                <form action="/Account/Register" method="post" data-parsley-validate="">
+                    @Html.HiddenFor(x => x.ReturnURL)
+                    <p>@Html.DropDownListFor(x => x.MembershipType, membershipList, new { @class = "input-feild", required = "" }) @Html.ValidationMessageFor(x => x.MembershipType)</p>
+                    <div id="categorySection">
+                        <p id="container_CategoryType" style="display:none;">
+                            <label>All Talent Categories</label>
+                            <select class="form-control" id="CategoryType" name="CategoryTypeID" onchange="categoryTypeChanged(this);"></select>
+                        </p>
+                        <p id="container_Category" style="display:none;">
+                            <label>Talents</label>
+                            <select class="form-control" id="Category" name="CategoryID" onchange="categoryChanged(this);"></select>
+                        </p>
+                        <p id="container_GenderSpecific" style="display:none;">
+                            <label>Talent Gender</label>
+                            <select class="form-control" id="GenderSpecific" name="GenderID" onchange="GenderSpecificChanged(this);"></select>
+                        </p>
+                        <p id="container_Genre" style="display:none;">
+                            <label>Genre</label>
+                            <select class="form-control" id="Genre" name="Genre" onchange="GenreChanged(this);"></select>
+                        </p>
+                        <p id="container_Instrument" style="display:none;">
+                            <label>Instrument</label>
+                            <select class="form-control" id="Instrument" name="Instrument" onchange="InstrumentChanged(this);"></select>
+                        </p>
+                        <p id="container_Instrument" style="display:none;">
+                            <label>Instrument Specification</label>
+                            <select class="form-control" id="InstrumentSpecification" name="InstrumentSpecification"></select>
+                        </p>
+                        <p id="container_SubCategory" style="display:none;">
+                            <label>Level 2 Category</label>
+                            <select class="form-control" id="SubCategory" name="SubCategoryID" onchange="subCategoryChanged(this);"></select>
+                        </p>
+                        <p id="container_Attribute" style="display:none;">
+                            <label>Level 3 Category</label>
+                            <select class="form-control" id="Attribute" name="AttributeID"></select>
+                        </p>
+                        @*<p id="container_Attribute">
+            <select class="js-example-basic-multiple form-control" name="states[]" multiple="multiple">
+                <option value="AL">Alabama</option>
+                <option value="WY">Wyoming</option>
+            </select>
+        </p>*@
+                        <p><button class="btn" type="button" onclick="goToUserDetails();" style="margin-right:10px;" id="btnNext">Next</button></p>
+                    </div>
+                    <div id="userDetailsSection">
+                        <p class="name">@Html.TextBoxFor(x => x.UserName, new { @class = "input-feild", placeholder = "Email", type = "email", required = "" })@Html.ValidationMessageFor(x => x.UserName)</p>
+                        <p>@Html.TextBoxFor(x => x.Password, new { @class = "input-feild", placeholder = "Password", type = "password", required = "", data_parsley_minlength = "7" })@Html.ValidationMessageFor(x => x.Password)</p>
+                        <p>@Html.TextBoxFor(x => x.ConfirmPassword, new { @class = "input-feild", placeholder = "Confirm Password", type = "password", required = "", data_parsley_equalto = "#Password", data_parsley_equalto_message = "This value should be the same as Password" })@Html.ValidationMessageFor(x => x.ConfirmPassword)</p>
+                        <p>@Html.TextBoxFor(x => x.Name, new { @class = "input-feild", placeholder = "Full Name", required = "" })@Html.ValidationMessageFor(x => x.Name)</p>
+                        <p>@Html.TextBoxFor(x => x.PhoneNumber, new { @class = "input-feild", placeholder = "Mobile", required = "", data_parsley_type = "digits", data_parsley_length = "[12, 12]", data_parsley_length_message = "Mobile number should be 12 digits, (without '+' and starting with country code).", data_parsley_digits_message = "Mobile number should be only in digits." })@Html.ValidationMessageFor(x => x.PhoneNumber)</p>
+                        <p>@Html.TextBoxFor(x => x.RefferCode, new { @class = "input-feild", placeholder = "Special/ Discount Code" })@Html.ValidationMessageFor(x => x.RefferCode)</p>
+                        <p><button class="btn" type="button" onclick="backToCategory();" style="margin-right:10px;" id="btnBack">Back</button><button class="btn" type="submit">Register</button></p>
+                    </div>
+                </form>
+                <p class="dont">Have an account? <a href="/Account/Login?ReturnURL=@Model.ReturnURL">Login Now</a></p>
+            </div>
+        </div>
+    </section>
+    <!-- Start Footer -->
+    <footer>
+
+        <div class="clearfix"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 flinks">
+                    <h3>My Account</h3>
+                    <ul>
+                        <li><a href="#_">Log in</a></li>
+                        <li><a href="#_">Register</a></li>
+                        <li><a href="#_">My Cart</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 flinks">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#_">About Us</a></li>
+                        <li><a href="#_">Contact Us</a></li>
+                        <li><a href="#_">Area Promoter</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 flinks">
+                    <h3>Social Links</h3>
+                    <ul>
+                        <li><a href="#_">Facebook</a></li>
+                        <li><a href="#_">Twitter</a></li>
+                        <li><a href="#_">Pintrest</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 flinks">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email : <a href="mailto:you@allyoumedia.com">you@allyoumedia.com</a></li>
+                        <li><a href="#_"><img src="/Content/images/godaddy-icon.jpg" alt=""></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyrights">© @DateTime.Now.Year  Allyoumedia.     <a href="#_">Terms of Use</a>  |  <a href="#_">Privacy Policy</a></div>
+    </footer>
+    <!-- End Footer -->
+    <!-- JS Part -->
+    <script src="/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/jquery.menu-aim.js"></script>
+    <script src="/Content/js/viewportchecker.js"></script>
+    <script src="/Content/js/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script src="/Scripts/toastr.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            toastr.success('@TempData["Success"]', 'Success');
+        </script>
+    }
+    @if (TempData["Alert"] != null)
+    {
+        <script>
+            toastr.info('@TempData["Alert"]', 'Alert');
+        </script>
+    }
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+            $("#MembershipType").change(function () {
+                getAndBindCategoryType();
+            });
+            getAndBindCategoryType();
+        });
+      
+        function getAndBindCategoryType() {
+
+            var membershipType = Number($("#MembershipType").val());
+            var containerCatType = $("#container_CategoryType");
+            var containerCat = $("#container_Category");
+            if (membershipType === 2 || membershipType === 3) {
+                containerCatType.show();
+                containerCat.show();
+                createDropdown('/Account/GetCategoryTypeByMembershipType', { MembershipType: membershipType }, $("#CategoryType"));
+                $("#btnNext").parent().show(); $("#btnBack").parent().hide();
+                $("#categorySection").show(); $("#userDetailsSection").hide();
+            }
+            else {
+                containerCatType.hide();
+                containerCat.hide();
+                $("#btnNext").parent().hide(); $("#btnBack").hide();
+                $("#categorySection").hide(); $("#userDetailsSection").show();
+            }
+        }
+        function categoryTypeChanged(elem) {
+            $("#GenderSpecific").parent().hide()
+            var membershipType = Number($("#MembershipType").val());
+            var categoryType = $(elem).val();
+            createDropdown('/Account/GetCategoryByCategoryTypeMembershipType', { MembershipType: membershipType, CategoryTypeID: categoryType }, $("#Category"), true);
+            if (membershipType == 2) {
+                if (Number(categoryType) === -100)
+                    toastr.info('ALL MUSIC SINGLES AT $1.24<br/>ALL MUSIC ALBUMS (UP TO 15 MUSIC SLOTS) AT $15.99<br/>', 'Alert');
+                else if (Number(categoryType) === -103)
+                    toastr.info('ALL MOVIE/FILM AT SET AT $17.99 (ONE FILM UP TO 1.5 GBS)', 'Alert');
+            }
+        }
+        function categoryChanged(elem) {
+            var membershipType = Number($("#MembershipType").val());
+            $("#GenderSpecific").parent().hide()
+            $("#Genre").parent().hide()
+            $("#Instrument").parent().hide()
+            $("#InstrumentSpecification").parent().hide()
+            //lert
+            var category = $(elem).val();
+            if (Number(category) > 0) {
+                if (Number($("#CategoryType").val()) == 15) {
+                    if (Number(category) == 95 || Number(category) == 96 || Number(category) == 100 || Number(category) == 106 || Number(category) == 107 || Number(category) == 108 || Number(category) == 109 || Number(category) == 105) { 
+                    createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, CategoryID: category }, $("#GenderSpecific"), true);
+                }
+                else {
+                    createDropdown('/Account/GetGenreType', { MembershipType: membershipType, CategoryID: category }, $("#Genre"), true);
+            }
+                }
+                else {
+                    createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, CategoryID: category }, $("#GenderSpecific"), true);
+                }
+            }
+        }
+        function GenderSpecificChanged(elem) {
+            $("#Genre").parent().hide()
+            $("#Instrument").parent().hide()
+            $("#InstrumentSpecification").parent().hide()
+            var membershipType = Number($("#MembershipType").val());
+            var genderType = $(elem).val();
+            if (Number($("#CategoryType").val()) == 15) {
+                createDropdown('/Account/GetGenderSpecificGenreType', { MembershipType: membershipType, GenderTypeID: genderType }, $("#Genre"), true);
+            }
+        }
+        function GenreChanged(elem) {
+            $("#Instrument").parent().hide()
+            $("#InstrumentSpecification").parent().hide()
+            var membershipType = Number($("#MembershipType").val());
+            var genreType = $(elem).val();
+            //if (Number($("#CategoryType").val()) == 15) {
+                createDropdown('/Account/GetinstrumentGenreType', { MembershipType: membershipType, GenreTypeID: genreType }, $("#Instrument"), true);
+
+        }
+        function InstrumentChanged(elem) {
+            $("#InstrumentSpecification").parent().hide()
+            var membershipType = Number($("#MembershipType").val());
+            var InstrumentID = $(elem).val();
+            if (Number($("#CategoryType").val()) == 15) {
+                createDropdown('/Account/GetinstrumentType', { MembershipType: membershipType, InstrumentID: InstrumentID }, $("#InstrumentSpecification"), true);
+
+            }
+        }
+        function subCategoryChanged(elem) {
+            var membershipType = Number($("#MembershipType").val());
+            var subCategory = $(elem).val();
+            createDropdown('/Account/GetAttributeBySubCategory', { SubCategoryID: subCategory }, $("#Attribute"), true);
+        }
+        function createDropdown(url, data, ddl, addDefault) {
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function (returnData) {
+                    if (returnData.Result == "OK") {
+                        ddl.empty();
+                        if (addDefault === true)
+                            ddl.append('<option value="-1"></option>');
+                      
+                        if (returnData.Data == null) {
+                            console.log(returnData.Data)
+                            return;
+                        }
+                        if (returnData.Data.length > 0) {
+                            
+                            $(returnData.Data).each(function () {
+                               
+                                ddl.append('<option value="' + this.Value + '">' + this.Text + '</option>');
+                               
+                            });
+                            ddl.parent().show();
+                        }
+                        else {
+                            ddl.parent().hide();
+                        }
+                        if (addDefault === true || returnData.Data.length > 0)
+                            ddl.change();
+                    } else alert("Ops! Something went wrong. Please try again later.");
+                },
+                error: function () { alert("Ops! Something went wrong. Please try again later."); }
+            });
+        }
+
+ 
+        function goToUserDetails() {
+            $("#categorySection").hide();
+            $("#userDetailsSection").show();
+            $("#btnBack").parent().show(); $("#btnBack").show();
+        }
+        function backToCategory() {
+            $("#categorySection").show();
+            $("#userDetailsSection").hide();
+            $("#btnBack").parent().hide();
+        }
+    </script>
+</body>
+</html>
+@*<div class="form-group">
+        <label>Captcha <sup>*</sup></label>
+        @Html.TextBoxFor(model => model.Captcha, new { @class = "form-control", placeholder = "Enter Captcha", maxlength = "4" })
+        <img alt="Captcha" src="@Url.Action("CaptchaImage")" class="captcha" />
+        @Html.ValidationMessageFor(model => model.Captcha, "", new { @class = "validation" })
+    </div>*@

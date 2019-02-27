@@ -1,0 +1,16 @@
+D:\Work\Mahaveerji\AllYouMedia\AllYouMediaNew\AllYouMedia\BusinessEntity\bin\Debug\BusinessEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\AllYouMediaNew\AllYouMedia\BusinessEntity\bin\Debug\BusinessEntity.pdb
+D:\Work\Mahaveerji\AllYouMedia\AllYouMediaNew\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.csprojResolveAssemblyReference.cache
+D:\Work\Mahaveerji\AllYouMedia\AllYouMediaNew\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\AllYouMediaNew\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.pdb
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\bin\Debug\BusinessEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\bin\Debug\BusinessEntity.pdb
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\obj\Debug\BusinessEntity.csprojResolveAssemblyReference.cache
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\obj\Debug\BusinessEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\obj\Debug\BusinessEntity.pdb
+D:\2019\AllYouMedia\BusinessEntity\bin\Debug\BusinessEntity.dll
+D:\2019\AllYouMedia\BusinessEntity\bin\Debug\BusinessEntity.pdb
+D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.csproj.CoreCompileInputs.cache
+D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.dll
+D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.pdb
+D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.csprojAssemblyReference.cache

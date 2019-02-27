@@ -1,0 +1,136 @@
+﻿@model AllYouMedia.Models.EventModel
+@{
+    ViewBag.Title = "Event";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+<section class="main-content-area" style="margin-bottom:50px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="greentect_bradcame">
+                    <ul>
+                        <li><a href="@Url.Action("Index","Home")">home</a></li>
+                        <li>Event</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="sidebar" class="sidebar col-lg-3 col-md-4 col-sm-12">
+                <div id="eventmana_mapevent_widget-2" class="widget widget_eventmana_mapevent_widget">
+                    <div class="widget google-map-widget ">
+                        <div class="google-map1">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d26372532.09513191!2d-113.7402156204545!3d36.20782386522947!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited+States!5e0!3m2!1sen!2sin!4v1503484141632" width="255" height="300" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        </div>
+                        <a href="#" class="link"><i class="fa fa-map-marker"></i></a>
+                    </div>
+                </div>
+                <div class="widget">
+                </div>
+            </div>
+            <!-- Display content  -->
+            <div class="col-lg-9 col-md-8 col-sm-12 mobile_clear nopadding_mobile">
+                <div class="listing-meta list-short">
+                    <div class="filters">
+                        <h2 class="post-title">
+                            Total
+                            <label>@ViewBag.EventCount</label>
+                            Events
+                        </h2>
+                    </div>
+                    <div class="options">
+                        <div class="form-group selectpicker-wrapper">
+                            <asp:DropDownList ID="ddlSort" class="selectpicker" AutoPostBack="true"
+                                              OnSelectedIndexChanged="ddlSort_OnSelectedIndexChanged">
+                                <asp:ListItem Text="Sort By" Selected="True"></asp:ListItem>
+                                <asp:ListItem Text="Sort By Date (Up)" Value="DU"></asp:ListItem>
+                                <asp:ListItem Text="Sort By Date (Down)" Value="DD"></asp:ListItem>
+                                <asp:ListItem Text="A to Z" Value="AZ"></asp:ListItem>
+                                <asp:ListItem Text="Z to A" Value="ZA"></asp:ListItem>
+                            </asp:DropDownList>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-content">
+                    <div id="list-view" class="tab-pane fade active in" role="tabpanel">
+                        <div class="thumbnails events vertical">
+                            @foreach (var item in Model.EventList)
+                            {
+                                <div class="thumbnail no-border no-padding">
+                                    <div class="row">
+                                        <div class="col-md-3 col-sm-3 col-xs-12">
+                                            <div class="media_img">
+                                                <img id="imgEvent" src='@item.ImageURL' class="img-responsive well"
+                                                     alt="">
+                                                <!-- <div class="caption hovered"></div> -->
+                                            </div>
+                                        </div>
+                                        <div class="col-md-9 col-sm-9 col-xs-12">
+                                            <div class="caption">
+                                                <div class="pull-right share_social">
+                                                    <span class="fa-stack fa-lg icon_share">
+                                                        <i class="fa fa-stack-2x fa-circle-thin"></i>
+                                                        <i class="fa fa-stack-1x fa-share-alt"></i>
+                                                    </span>
+                                                    <div class="share">
+                                                        <a target="_blank" href="http://twitter.com/"><i class="fa fa-twitter"></i></a><a target="_blank" href="http://www.facebook.com/">
+                                                            <i class="fa fa-facebook"></i>
+                                                        </a><a target="_blank" href="http://pinterest.com/">
+                                                            <i class="fa fa-pinterest"></i>
+                                                        </a><a target="_blank" href="https://plus.google.com/">
+                                                            <i class="fa fa-google-plus">
+                                                            </i>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <h3 class="caption-title">
+                                                    <a href='@Url.Action("EventDetail", "Event",new { UID= @item.UID})' title="Click to view Event detail!">
+                                                        @item.EventName
+                                                    </a>
+                                                </h3>
+                                                <p class="caption-category">
+                                                    <i class="fa fa-file-text-o"></i>&nbsp;<strong>
+                                                        @item.DateFrom
+                                                    </strong>To <strong>
+                                                        @item.DateTo
+                                                    </strong><br />
+                                                    <br />
+                                                    Between <strong>
+                                                        @item.Time
+                                                    </strong>
+                                                    <br />
+                                                    <br />
+                                                    AT <strong>
+                                                        @item.City<strong>,<strong>@item.State</strong>, </strong>
+                                                        @item.Country
+                                                    </strong>
+                                                </p>
+                                                <p class="caption-price">
+                                                    @item.Fee
+                                                </p>
+                                                <p class="caption-text">
+                                                    @item.Remark
+                                                </p>
+                                                <p class="caption-more">
+                                                    <a href='@Url.Action("EventDetail", "Event",new { UID= @item.UID})' c class="btn btn-theme">
+                                                        Ticket &amp;
+                                                        Detail
+                                                    </a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                            <hr class="page-divider half">
+                        </div>
+                        <!-- Pagination -->
+                        <div class="pagination-wrapper">
+                        </div>
+                        <!-- /Pagination -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,75 @@
+﻿@using AllYouMedia.Areas.Admin.Models
+@model AdminUploadModel
+@using (Ajax.BeginForm("UploadAudio", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "UploadAudio" }, new { enctype = "multipart/form-data" }))
+{
+    <div id="UploadAudio" class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="page-content-title">Audio Information</h4>
+                <div class="divider15"></div>
+                <div class="personal-info-box">
+                    <div class="row">
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Talent Category :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Category, new SelectList(Model.Category, "Value", "Text", ViewData["Category"]), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Talent Sub Category :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.SubCategory, new SelectList(Model.SubCategory, "Value", "Text", ViewData["SubCategory"]), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SubCategory, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">File Name :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.FileName, new { @class = "form-control", placeholder = "Enter File Name", maxlength = "50" })
+                                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Description :</div>
+                            <div class="form-group">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = "Enter Description", maxlength = "200" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "validation" })
+                                Characters remaining: <span id="characterCount" style="color: #008EE7">200</span>
+                            </div>
+                            <script type="text/javascript">
+                                $('textarea').keyup(updateCount);
+                                $('textarea').keydown(updateCount);
+
+                                function updateCount() {
+                                    var cs = [200 - $(this).val().length];
+                                    $('#characterCount').text(cs);
+                                }
+                            </script>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Price :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Price, new SelectList(Model.Price, "Value", "Text", ViewData["Price"]), new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">file :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.files, "", new { @class = "form-control", @type = "file" })
+                                @Html.ValidationMessageFor(model => model.files, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tab-pane active btn-margin" id="basic-buttons">
+                    <button type="submit" class="btn btn-primary flat-buttons waves-effect waves-button">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

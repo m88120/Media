@@ -1,0 +1,151 @@
+﻿@{
+    var item = (AllYouMedia.DataAccess.EntityLayer.DBEntity.Item)ViewBag.ItemDetail;
+    var similarItems = (List<AllYouMedia.DataAccess.EntityLayer.DBEntity.Item>)ViewBag.SimilarItemList;
+}
+@section styles{
+    <link rel="stylesheet" href="/Content/css/smoothproducts.css" type="text/css">
+    <link rel="stylesheet" href="/Content/css/easy-responsive-tabs.css" type="text/css">
+    <link rel="stylesheet" href="/Content/css/jquery.dpNumberPicker-1.0.1-min.css" type="text/css">
+}
+<div class="page-tital">
+    <div class="container">
+        <h1>@item.Name</h1>
+        <span><a href="#_">@item.SubCategory.Category.CategoryType.Name</a> -  @item.SubCategory.Category.Name - @item.SubCategory.Name</span>
+    </div>
+</div>
+<div id="mid-part">
+    <div class="container">
+        <div class="details-main">
+            <div class="details-main-left">
+                <div class="details-inner-left">
+                    <div class="product-image">
+                        <div class="sp-wrap">
+                            <a href="@item.PhotoIMG">
+                                <img src="@item.PhotoIMG">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="details-inner-right">
+                    <p>@item.ShortDescription</p>
+                    <h3>@AllYouMedia.MvcApplication.CurrencySymbol @item.SellPrice.ToString("N2")</h3>
+
+                    @*<div class="reating-section">
+                            <div class="stars">
+                                <img src="/Content/images/star.jpg">
+                                <img src="/Content/images/star.jpg">
+                                <img src="/Content/images/star.jpg">
+                                <img src="/Content/images/star.jpg">
+                                <img src="/Content/images/star.jpg">
+                            </div>
+                            <p>0 reviews </p>
+                        </div>*@
+                    @*<div class="detail-product">
+                            <p>Type : Nature Art</p>
+                            <p>Availability : In Stock</p>
+                        </div>*@
+                    <div class="add-cart">
+                        <p>Qty:</p>
+                        <div id="QtyPicker"></div>
+                        <div class="cart-btn">
+                            <button class="submit-btn" onclick="addToCart(@item.ID);">Add to Cart</button>
+                        </div>
+                    </div>
+                    @*<div class="detail-icon"> <a href=""><img src="/Content/images/like.png" alt="" /></a> <a href=""><img src="/Content/images/tweet.png" alt="" /></a> <a href=""><img src="/Content/images/print.png" alt="" /></a> <a href=""><img src="/Content/images/share.png" alt="" /></a> </div>*@
+                </div>
+                <div class="tabs">
+                    <div id="horizontalTab">
+                        <ul class="resp-tabs-list">
+                            <li>Product Details</li>
+                            @*<li>Rewiew (0)</li>*@
+                        </ul>
+                        <div class="resp-tabs-container">
+                            <div>
+                                <p>@item.LongDescription</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @if (similarItems.Count > 0)
+                {
+                <div class="details-main-right">
+                    @*<div class="exclusive"> <a href=""><img src="/Content/images/exclusive.jpg" alt="" /></a> </div>*@
+                    <div class="left-box left-box1">
+                        <h2>Related Products</h2>
+                        <div id="owl-demo" class="owl-carousel left-box2">
+                            @foreach (var similarItem in similarItems)
+                                {
+                                <div class="item">
+                                    <div class="product-box">
+                                        <img src="@similarItem.PhotoIMG">
+                                        <h3><a href="/Home/ProductDetail?ItemID=@similarItem.ID" class="truncate">@similarItem.Name</a></h3>
+                                        <h4>@AllYouMedia.MvcApplication.CurrencySymbol @similarItem.SellPrice.ToString("N2")</h4>
+                                        @*<img src="/Content/images/user01.jpg" class="product-user">
+                                            <p><a href="#_">From - Moteris Grozis</a></p>*@
+                                        @*<p><a href="#_">@similarItem.SubCategory.Name</a></p>*@
+                                    </div>
+                                </div>
+                                }
+                        </div>
+                    </div>
+                </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="/Content/js/smoothproducts.min.js"></script>
+    <script src="/Content/js/jquery.dpNumberPicker-1.0.1-min.js"></script>
+    <script src="/Content/js/owl.carousel.js"></script>
+    <script src="/Content/js/easy-responsive-tabs.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#owl-demo").owlCarousel({
+                autoPlay: 3000, //Set AutoPlay to 3 seconds
+                navigation: true,
+                pagination: false,
+                items: 4,
+                itemsDesktop: [1199, 4],
+                itemsDesktopSmall: [979, 3],
+                itemsTablet: [768, 2],
+                itemsMobile: [640, 1]
+
+            });
+            $('#horizontalTab').easyResponsiveTabs({
+                type: 'default', //Types: default, vertical, accordion
+                width: 'auto', //auto or any width like 600px
+                fit: true,   // 100% fit in a container
+                closed: 'accordion', // Start closed if in accordion view
+                activate: function (event) { // Callback function if tab is switched
+                    var $tab = $(this);
+                    var $info = $('#tabInfo');
+                    var $name = $('span', $info);
+                    $name.text($tab.text());
+                    $info.show();
+                }
+            });
+            $("#QtyPicker").dpNumberPicker({
+                min: 0, // Minimum value.
+                max: 20, // Maximum value.
+                value: 0, // Initial value
+                step: 1, // Incremental/decremental step on up/down change.
+                //format: false,
+                editable: false,
+                format: "#",
+                formatter: function (val) {
+                    return " " + val;
+                }
+            });
+        });
+
+        /* wait for images to load */
+        window.onload = function () { $('.sp-wrap').smoothproducts(); }
+        function addToCart(ItemID) {
+            var qty = $("#QtyPicker")[0].options.value;
+            if(qty==0) qty=1;
+            var returnURL = location.pathname + location.search + location.hash;
+            location.href = "/Home/AddToCart?ItemID=" + ItemID + "&Qty=" + qty + "&ReturnURL=" + returnURL;
+        }
+    </script>
+}

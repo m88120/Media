@@ -1,0 +1,187 @@
+﻿@model AllYouMedia.Areas.Admin.Models.ControlModel
+@{
+    ViewBag.Title = "Control";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .kid {
+        width: 25%;
+    }
+
+    .code {
+        width: 50%;
+    }
+</style>
+@using (Ajax.BeginForm("Control", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Control" }))
+{
+    if (ViewBag.Password)
+    {
+        <div id="Control" class="col-md-12 profile-contain">          
+                <div class="col-xl-12 col-md-12 col-xs-12 contacts">
+                    <div class="content">
+                        <h4 class="page-content-title">Enter Control Password to Change Parameter's</h4>
+                        <div class="personal-info-box">
+                            <div class="row">
+                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Control Password :</div>
+                                    <div class="form-group">
+                                        @Html.PasswordFor(model => model.Password, new { @class = "form-control", placeholder = "Enter Control Password", maxlength = "50" })
+                                        @Html.ValidationMessageFor(model => model.Password, "", new { @class = "validation" })
+                                    </div>
+                                </div>
+                                <div class="divider-lg-spacing"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tab-pane active btn-margin" id="basic-buttons">
+                                        <button type="submit" class="btn btn-primary flat-buttons waves-effect waves-button">Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>          
+        </div>
+    }
+}
+@if (ViewBag.View)
+{
+    <div class="col-md-12 profile-contain">      
+            <div class="col-xl-3 col-md-3 col-xs-12 contacts">
+                @using (Ajax.BeginForm("ATAmount", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Amount" }))
+                {
+                    <div class="content">
+                        <h4 class="page-content-title">ALL FEE</h4>
+                        <div class="personal-info-box">
+                            <div class="row">
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left"> Amount :</div>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">$</span>
+                                        @Html.TextBoxFor(model => model.ATAmount, new { @class = "form-control", placeholder = "Enter All Talent Fee", maxlength = "5" })
+                                    </div>
+                                </div>
+                                <div class="divider-lg-spacing"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tab-pane active btn-margin" id="basic-buttons">
+                                        <button type="submit" class="btn btn-primary flat-buttons btn-sm">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @using (Ajax.BeginForm("PMAmount", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Amount" }))
+                {
+                    <div class="content">
+                        <h4 class="page-content-title">PRODUCTION FEE</h4>
+                        <div class="personal-info-box">
+                            <div class="row">
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left"> Amount :</div>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">$</span>
+                                        @Html.TextBoxFor(model => model.PMAmount, new { @class = "form-control", placeholder = "Enter Production Fee", maxlength = "5" })
+                                    </div>
+                                </div>
+                                <div class="divider-lg-spacing"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tab-pane active btn-margin" id="basic-buttons">
+                                        <button type="submit" class="btn btn-primary flat-buttons btn-sm">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @using (Ajax.BeginForm("MPAmount", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Amount" }))
+                {
+                    <div class="content">
+                        <h4 class="page-content-title">MEDIA PROMOTER FEE</h4>
+                        <div class="personal-info-box">
+                            <div class="row">
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left"> Amount :</div>
+                                    <div class="input-group input-group-sm">
+                                        <span class="input-group-addon">$</span>
+                                        @Html.TextBoxFor(model => model.MPAmount, new { @class = "form-control", placeholder = "Enter Media Promoter Fee", maxlength = "5" })
+                                    </div>
+                                </div>
+                                <div class="divider-lg-spacing"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tab-pane active btn-margin" id="basic-buttons">
+                                        <button type="submit" class="btn btn-primary flat-buttons btn-sm">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            @using (Ajax.BeginForm("PvPlan", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PvPlan" }))
+            {
+                <div id="PvPlan" class="col-xl-6 col-md-6 col-xs-12">
+                    <div class="content">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <h4 class="page-content-title">CHANGE PV PLAN</h4>
+                                <div class="divider15"></div>
+                                @{
+                                    var grid = new WebGrid(Model.PvPlan, canPage: false, canSort: false, rowsPerPage: 10, selectionFieldName: "SelectedRow", ajaxUpdateContainerId: "grid");
+                                }
+                                <div id="grid">
+                                    @grid.GetHtml(
+                 tableStyle: "table tablesaw tablesaw-stack table-responsive",
+                         columns: grid.Columns(
+
+                         grid.Column("KID", format:@<input name="KID" class="form-control" value="@item.KID" type="text" readonly="readonly" />, style: "kid"),
+                         grid.Column("Code", format:@<input name="Code" class="form-control" value="@item.Code" type="text" readonly="readonly" />, style: "code"),
+                         grid.Column("Commission", format:@<div class="input-group input-group-sm"><span class="input-group-addon">%</span><input id="Commission" name="Commission" class="form-control" value="@item.Commission" type="text"></div>)
+                  ))
+                                </div>
+                            </div>
+                            <div class="divider-lg-spacing"></div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="tab-pane active btn-margin" id="basic-buttons">
+                                    <button id="Update" type="submit" class="btn btn-primary flat-buttons waves-effect waves-button">Update</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                                    }
+            @using (Ajax.BeginForm("Email", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Email" }))
+            {
+                <div id="Email" class="col-xl-3 col-md-3 col-xs-12 contacts">
+                    <div class="content">
+                        <h4 class="page-content-title">Change Email</h4>
+                        <div class="personal-info-box">
+                            <div class="row">
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Order :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.OrderEmail, new { @class = "form-control", placeholder = "Enter Order Email", maxlength = "50" })
+                                    </div>
+                                </div>
+                                <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                                    <div class="left-name-profile float-xs-left">Contact :</div>
+                                    <div class="form-group">
+                                        @Html.TextBoxFor(model => model.ContactEmail, new { @class = "form-control", placeholder = "Enter Contact Email", maxlength = "50" })
+                                    </div>
+                                </div>
+                                <div class="divider-lg-spacing"></div>
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="tab-pane active btn-margin" id="basic-buttons">
+                                        <button type="submit" class="btn btn-primary flat-buttons waves-effect waves-button">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }     
+    </div>
+                                    }
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>

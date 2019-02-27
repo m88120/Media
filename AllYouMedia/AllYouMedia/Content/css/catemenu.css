@@ -1,0 +1,235 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+.cd-dropdown-wrapper {
+    background: #4c596c;
+    padding: 5px;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    float: left;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/*===== Start Menu CSS =====*/
+
+#catmenu,
+#catmenu ul,
+#catmenu ul li,
+#catmenu ul li a,
+#catmenu #menu-button {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    list-style: none;
+    line-height: 1;
+    display: block;
+    position: relative;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+    #catmenu:after,
+    #catmenu > ul:after {
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+    }
+
+    #catmenu #menu-button {
+        display: none;
+    }
+
+#catmenu {
+}
+
+    #catmenu > ul > li {
+        float: left;
+    }
+
+    #catmenu.align-center > ul {
+        font-size: 0;
+        text-align: center;
+    }
+
+        #catmenu.align-center > ul > li {
+            display: inline-block;
+            float: none;
+        }
+
+    #catmenu.align-center ul ul {
+        text-align: left;
+    }
+
+    #catmenu.align-right > ul > li {
+        float: right;
+    }
+
+    #catmenu > ul > li > a {
+        padding: 16px 20px;
+        font-size: 14px;
+        letter-spacing: 0px;
+        text-decoration: none;
+        color: #66707e;
+        text-transform: uppercase;
+        font-weight: 400;
+    }
+
+        #catmenu > ul > li > a sup {
+            background: #d71414;
+            color: #fff;
+            padding: 8px 5px;
+            position: absolute;
+            font-size: 10px;
+            top: 0px;
+            right: -8px;
+        }
+
+    #catmenu > ul > li:hover > a {
+        color: #000;
+    }
+
+    #catmenu > ul > li.has-sub > a {
+        padding-right: 30px;
+    }
+
+        #catmenu > ul > li.has-sub > a:after {
+            position: absolute;
+            top: 22px;
+            right: 11px;
+            width: 8px;
+            height: 2px;
+            display: block;
+            background: #dddddd;
+            content: '';
+        }
+
+        #catmenu > ul > li.has-sub > a:before {
+            position: absolute;
+            top: 19px;
+            right: 14px;
+            display: block;
+            width: 2px;
+            height: 8px;
+            background: #dddddd;
+            content: '';
+            -webkit-transition: all .25s ease;
+            -moz-transition: all .25s ease;
+            -ms-transition: all .25s ease;
+            -o-transition: all .25s ease;
+            transition: all .25s ease;
+        }
+
+    #catmenu > ul > li.has-sub:hover > a:before {
+        top: 23px;
+        height: 0;
+    }
+
+    #catmenu ul ul {
+        position: absolute;
+        left: -9999px;
+    }
+
+    #catmenu.align-right ul ul {
+        text-align: right;
+    }
+
+    #catmenu ul ul li {
+        height: 0;
+        -webkit-transition: all .25s ease;
+        -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+        transition: all .25s ease;
+    }
+
+    #catmenu li:hover > ul {
+        left: auto;
+    }
+
+    #catmenu.align-right li:hover > ul {
+        left: auto;
+        right: 0;
+    }
+
+    #catmenu li:hover > ul > li {
+        height: 35px;
+    }
+
+    #catmenu ul ul ul {
+        margin-left: 100%;
+        top: 0;
+    }
+
+    #catmenu.align-right ul ul ul {
+        margin-left: 0;
+        margin-right: 100%;
+    }
+
+    #catmenu ul ul li a {
+        border-bottom: 1px solid rgba(150, 150, 150, 0.15);
+        padding: 11px 15px;
+        width: 170px;
+        font-size: 12px;
+        text-decoration: none;
+        color: #dddddd;
+        font-weight: 400;
+        background: #333333;
+    }
+
+    #catmenu ul ul li:last-child > a,
+    #catmenu ul ul li.last-item > a {
+        border-bottom: 0;
+    }
+
+    #catmenu ul ul li:hover > a,
+    #catmenu ul ul li a:hover {
+        color: #ffffff;
+    }
+
+    #catmenu ul ul li.has-sub > a:after {
+        position: absolute;
+        top: 16px;
+        right: 11px;
+        width: 8px;
+        height: 2px;
+        display: block;
+        background: #dddddd;
+        content: '';
+    }
+
+    #catmenu.align-right ul ul li.has-sub > a:after {
+        right: auto;
+        left: 11px;
+    }
+
+    #catmenu ul ul li.has-sub > a:before {
+        position: absolute;
+        top: 13px;
+        right: 14px;
+        display: block;
+        width: 2px;
+        height: 8px;
+        background: #dddddd;
+        content: '';
+        -webkit-transition: all .25s ease;
+        -moz-transition: all .25s ease;
+        -ms-transition: all .25s ease;
+        -o-transition: all .25s ease;
+        transition: all .25s ease;
+    }
+
+    #catmenu.align-right ul ul li.has-sub > a:before {
+        right: auto;
+        left: 14px;
+    }
+
+    #catmenu ul ul > li.has-sub:hover > a:before {
+        top: 17px;
+        height: 0;
+    }

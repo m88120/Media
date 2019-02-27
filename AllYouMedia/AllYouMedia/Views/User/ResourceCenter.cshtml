@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "ResourceCenter";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="col-md-12">
+    <div class="col-md-12">
+        <section id="content-wrapper">
+            <div class="content content-product-edit datatable-width">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="dashboard-header content">
+                        <div class="dashboard-action">
+                            <ul class="right-action float-xs-right">
+                                <li data-widget="collapse">
+                                    <a aria-hidden="true"
+                                       href="javascript:void(0)">
+                                        <span aria-hidden="true" class="icon_minus-06"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="dashboard-box">
+                            <div class="table-badges-section">
+                                <button type="button" id="btnBrochure" class="btn btn-outline-primary flat-buttons">Brochure</button>
+                                <button type="button" id="btnTermsCondition" class="btn btn-outline-primary flat-buttons">Terms and conditions</button>
+                                <button type="button" id="btnStartKit" class="btn btn-outline-primary flat-buttons">Starter kit</button>                              
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div id="Brochure" class="hidden">@{Html.RenderAction("Brochure", "User");}</div>
+                    <div id="TermsCondition" class="hidden">@{Html.RenderAction("TermsCondition", "User");}</div>
+                    <div id="StartKit" class="hidden">@{Html.RenderAction("StartKit", "User");}</div>                   
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#btnBrochure').on('click', function () {
+            $("#TermsCondition").addClass("hidden");
+            $("#StartKit").addClass("hidden");         
+            $("#Brochure").toggleClass("hidden");
+        });
+        $('#btnTermsCondition').on('click', function () {
+            $("#Brochure").addClass("hidden");
+            $("#StartKit").addClass("hidden");          
+            $("#TermsCondition").toggleClass("hidden");
+        });
+        $('#btnStartKit').on('click', function () {
+            $("#Brochure").addClass("hidden");
+            $("#TermsCondition").addClass("hidden");           
+            $("#StartKit").toggleClass("hidden");
+        });       
+    });
+</script>
+

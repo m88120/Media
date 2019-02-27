@@ -1,0 +1,49 @@
+﻿<div class="well" ng-controller="Event">
+    <div class="input-group well col-md-4">
+        <div class="col-md-6">
+            <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+        <thead>
+            <tr>
+               
+                <th><a href="" ng-click="orderByField='EventName'; reverseSort = !reverseSort">EventName</a></th>
+                <th><a href="" ng-click="orderByField='Country'; reverseSort = !reverseSort">Country</a></th>              
+                <th><a href="" ng-click="orderByField='Host'; reverseSort = !reverseSort">Host</a></th>
+                <th><a href="" ng-click="orderByField='DateFrom'; reverseSort = !reverseSort">DateFrom</a></th>
+                <th><a href="" ng-click="orderByField='Status1'; reverseSort = !reverseSort">Status</a></th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+             
+                <td>{{data.EventName}}</td>
+                <td>{{data.Country}}</td>               
+                <td>{{data.Host}}</td>
+                <td>{{data.DateFrom}}</td>
+                <td>{{data.Status1}}</td>               
+                <td>
+                    <a href="" ng-click="edit(data.UID)" style="color:#087380;">Edit</a>
+                </td>
+                <td><a href="" ng-click="delete(data.UID)" style="color:#C9302C;">Delete</a></td>
+            </tr>
+            <tr ng-show="!dataList.length">
+                <td colspan="12">
+                    No data. Found
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="text-center">
+        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+    </div>
+</div>
+<div class="updateSpinner" ng-show="loader.loading">
+    Please wait...
+</div>
+
+

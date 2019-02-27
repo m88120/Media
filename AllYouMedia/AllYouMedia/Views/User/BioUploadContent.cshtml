@@ -1,0 +1,484 @@
+﻿@using AllYouMedia.Models
+@model BioUploadModel
+@{
+    ViewBag.Title = "Bio/Upload Content";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style>
+    .well {
+        background-color: #f5f5f5;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+        margin-bottom: 20px;
+        min-height: 20px;
+        padding: 19px;
+    }
+
+    .margin-bottom-10 {
+        margin-bottom: 10px;
+    }
+
+    .documnetImage {
+        max-width: 70px;
+        max-height: 70px;
+    }
+</style>
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"
+      type="text/css" />
+<link href="~/Content/star-rating.css" rel="stylesheet" />
+<script src="~/Scripts/rating/jquery.min.js"></script>
+<script src="~/Scripts/rating/star-rating.js"></script>
+<div class="col-md-12 profile-contain">
+    <div class="col-md-12">
+        <section id="content-wrapper">
+            <div class="content content-product-edit datatable-width">
+                <div class="nav-tab-horizontal">
+                    <div class="row tab-content">
+                        <div class="tab-pane active btn-margin" id="general" role="tabpanel">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="dashboard-header content">
+                                    <h4 class="page-content-title float-xs-left">BIO DETAIL</h4>
+                                    <div class="dashboard-action">
+                                        <ul class="right-action float-xs-right">
+                                            <li data-widget="collapse">
+                                                <a aria-hidden="true"
+                                                   href="javascript:void(0)">
+                                                    <span aria-hidden="true" class="icon_minus-06"></span>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="dashboard-box">
+                                        <div class="table-badges-section">
+                                            <div class="col-md-2 col-xs-12 text-center">
+                                                <div class="text-center padding-50 MgT20">
+                                                    <img src='@Model.ImageUrl' class="img-thumbnail img2" /><br />
+                                                </div>
+                                                <a class="btn btn-info btn-xs" href="@Url.Action("ChangeImage", "User" )">ADD/EDIT</a>
+                                            </div>
+                                            <div class="col-md-3 col-xs-12">
+                                                <table class="table table-striped table">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                Name
+                                                            </td>
+                                                            <td>
+                                                                <b>
+                                                                    @Model.UserName
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Membership
+                                                            </td>
+                                                            <td>
+                                                                <b>
+                                                                    @Session["Role"].ToString()
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Location
+                                                            </td>
+                                                            <td>
+                                                                <b>
+                                                                    @Model.Address
+                                                                </b>
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                Rating
+                                                            </td>
+                                                            <td>
+                                                                <div class="rating">
+                                                                    <div class="guestrate">
+                                                                        <input id="Number1" type="number" readonly="readonly" value='@Model.Rate'
+                                                                               class="rating" />
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                            <div class="col-md-7 col-xs-12">
+                                                <div class="ribbon-box">
+                                                    <div class="ribbon-position left-simple-ribbon left-ribbon-position">
+                                                        BIO
+                                                    </div>
+                                                    <p>
+                                                        <div class="text-center text-justify">
+                                                            @Model.Biography
+                                                        </div>
+                                                    </p>
+                                                </div>
+                                                <button type="button" class="btn btn-info btn-xs flat-buttons" data-toggle="modal" data-target="#formmodal">EDIT BIO</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider15"></div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                @foreach (var item in Model.Upload)
+                                {
+                                    <button type="button" id="@item.CategoryID" class="btn btn-outline-primary flat-buttons">@item.CategoryText</button>
+                                }
+                            </div>
+                            <div class="divider15"></div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div id="Audio" class="hidden">@{Html.RenderAction("UploadAudio", "User");}</div>
+                                <div id="Film" class="hidden">@{Html.RenderAction("UploadVideo", "User");}</div>
+                                <div id="Ebook" class="hidden">@{Html.RenderAction("UploadEbook", "User");}</div>
+                                <div id="Image" class="hidden">@{Html.RenderAction("UploadImage", "User");}</div>
+                            </div>
+                            <div class="divider15"></div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="TalentMedia">
+                                <div class="responsive_table_main">
+                                    <div class="input-group well col-md-4">
+                                        <div class="col-md-4">
+                                            <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+                                        <thead>
+                                            <tr>
+                                                <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                                <th><a href="" ng-click="orderByField='Name'; reverseSort = !reverseSort">Name</a></th>                                               
+                                                <th><a href="" ng-click="orderByField='Category'; reverseSort = !reverseSort">Category</a></th>
+                                                <th><a href="" ng-click="orderByField='FileUrl'; reverseSort = !reverseSort">Image/File</a></th>
+                                                <th><a href="" ng-click="orderByField='Type'; reverseSort = !reverseSort">Type</a></th>
+                                                <th><a href="" ng-click="orderByField='Price'; reverseSort = !reverseSort">Price</a></th>
+                                                <th>Edit</th>
+                                                <th>Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                                <td>{{data.Sno}}</td>
+                                                <td>{{data.Name}}</td>                                              
+                                                <td>
+                                                    {{data.Category}}
+                                                </td>
+                                                <td>
+                                                    <div style="display:{{data.TypeI}}">
+                                                        <img class="documnetImage" alt="" width="70" height="70" src="{{data.FileUrl}}" />
+                                                    </div>
+                                                    <div style="display:{{data.TypeD}}">
+                                                        <img class="documnetImage" alt="" width="70" height="70" src="{{data.FileUrl}}" />
+                                                    </div>
+                                                    <div style="display:{{data.TypeV}}">
+                                                        <video width="200" height="70" preload="none" controls="controls">
+                                                            <source type="video/mp4" src='{{data.FileUrl}}' />
+                                                        </video>
+                                                    </div>
+                                                    <div style="display:{{data.TypeA}}">
+                                                        <audio width="200" height="70" preload="none" controls="controls">
+                                                            <source type="audio/mp3" src='{{data.FileUrl}}' />
+                                                        </audio>
+                                                    </div>
+                                                </td>
+                                                <td>{{data.Type}}</td>
+                                                <td>{{data.Price}}</td>
+                                                <td><button ng-hide="isdellist[{{$index}}]" type="button" ng-click="edit(data.UID, data.FileUrl, data.Type)" class="btn btn-outline-primary btn-sm flat-buttons">Edit</button></td>
+                                                <td><button ng-hide="isdellist[{{$index}}]" type="button" ng-click="delete(data.UID, data.FileUrl)" class="btn btn-outline-danger btn-sm flat-buttons">Delete</button></td>
+                                            </tr>
+                                            <tr ng-show="!dataList.length">
+                                                <td colspan="12">
+                                                    No data. Found
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center">
+                                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                                    </div>
+                                    <div class="updateSpinner" ng-show="loader.loading">
+                                        Please wait...
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider15"></div>
+                            @if (ViewBag.albumlist)
+                            {
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                    <div class="dashboard-header content">
+                                        <h4 class="page-content-title float-xs-left">CHANGE EXISTING ALBUM STATUS</h4>
+                                        <div class="dashboard-action">
+                                            <ul class="right-action float-xs-right">
+                                                <li data-widget="collapse">
+                                                    <a aria-hidden="true" href="javascript:void(0)">
+                                                        <span aria-hidden="true" class="icon_minus-06"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="dashboard-box">
+                                            <div class="table-badges-section">
+                                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                                    <div class="left-name-profile float-xs-left">Existing Album Name :</div>
+                                                    <div class="form-group">
+                                                        @Html.DropDownListFor(model => model.UserAlbumList, new SelectList(Model.UserAlbumList, "Value", "Text", ViewData["UserAlbumList"]), new { @class = "form-control UserAlbumList" })
+                                                    </div>
+                                                </div>
+                                                <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                                    <div class="left-name-profile float-xs-left">Album Status :</div>
+                                                    <div class="form-group">
+                                                        @Html.DropDownListFor(model => model.UserAlbumStatus, new SelectList(Model.UserAlbumStatus, "Value", "Text", ViewData["UserAlbumStatus"]), new { @class = "form-control UserAlbumStatus" })
+                                                    </div>
+                                                </div>
+                                                <div class="user-name-profile col-xl-2 col-md-2 col-xs-12">
+                                                    <div class="left-name-profile float-xs-left">&nbsp;</div>
+                                                    <div class="form-group">
+                                                        <button id="btnAlbumStatus" type="button" class="btn btn-primary btn-sm flat-buttons">Change</button>
+                                                    </div>
+                                                </div>
+                                                <div class="user-name-profile col-xl-2 col-md-2 col-xs-12">
+                                                    <div class="left-name-profile float-xs-left">&nbsp;</div>
+                                                    <div class="form-group">
+                                                        <button id="btnDeleteAlbumStatus" type="button" class="btn btn-danger btn-sm flat-buttons">Delete</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+@using (Ajax.BeginForm("UpdateBio", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "formmodal" }))
+{
+    <div class="modal fade" id="formmodal" tabindex="-1" role="dialog" aria-labelledby="formmodal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">ALL YOU MEDIA</h4>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="LoginName" class="form-control-label">Bio Info:</label>
+                            @Html.TextAreaFor(model => model.Biography, new { @class = "form-control", placeholder = "Enter Bio info", @rows = "10", maxlength = "650" })
+                            @Html.ValidationMessageFor(model => model.Biography, "", new { @class = "validation" })
+                            Characters remaining: <span id="eBio" style="color: #008EE7">650</span>
+                        </div>
+                    </form>
+                    <script type="text/javascript">
+                        $('textarea').keyup(updateCount);
+                        $('textarea').keydown(updateCount);
+
+                        function updateCount() {
+                            var cs = [650 - $(this).val().length];
+                            $('#eBio').text(cs);
+                        }
+                    </script>
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            var cs = [650 - $("#Biography").val().length];
+                            $('#eBio').text(cs);
+                        });
+                    </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary flat-buttons" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success flat-buttons">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#bttn_Click').click(function () {
+            var studentListVal = null;
+            studentListVal = [];
+
+            $('input:checkbox:checked').each(function () {
+                studentListVal.push($(this).attr('value'));
+            });
+
+            $.ajax({
+                type: "POST",
+                url: "/User/BioUploadContent",
+                data: { Name: studentListVal },
+                datatype: "json",
+                traditional: true,
+                success: function (data) {
+                    location.reload();
+                },
+                error: function () {
+                    alert("Something Went Wrong!");
+                }
+            });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('#btnAudio').on('click', function () {
+            $("#Audio").toggleClass("hidden");
+            $("#Film").addClass("hidden");
+            $("#Ebook").addClass("hidden");
+            $("#Image").addClass("hidden");
+            $("input[type=text], textarea").val("");
+            $("#SubCategory")[0].selectedIndex = 0;
+            $("#Genre")[0].selectedIndex = 0;
+            $("#Price")[0].selectedIndex = 0;
+            $('.DivImageurl').addClass("hidden");
+            $('.DivAlbumImageurl').addClass("hidden");
+        });
+        $('#btnFilm').on('click', function () {
+            $("#Film").toggleClass("hidden");
+            $("#Audio").addClass("hidden");
+            $("#Ebook").addClass("hidden");
+            $("#Image").addClass("hidden");
+        });
+        $('#btnEbook').on('click', function () {
+            $("#Ebook").toggleClass("hidden");
+            $("#Audio").addClass("hidden");
+            $("#Film").addClass("hidden");
+            $("#Image").addClass("hidden");
+        });
+        $('#btnImage').on('click', function () {
+            $("#Image").toggleClass("hidden");
+            $("#Audio").addClass("hidden");
+            $("#Film").addClass("hidden");
+            $("#Ebook").addClass("hidden");
+        });
+    });
+</script>
+<script type="text/javascript">
+    $('#UserAlbumList').on('change', function () {
+        $('.updateSpinner').show();
+        var id = $("#UserAlbumList").val();
+        $.getJSON("/User/GetAlbumStatus", { cid: id },
+            function (response) {
+                $('.updateSpinner').hide();
+                $('#UserAlbumStatus').val(response.Status);
+            }
+        );
+    });
+</script>
+<script type="text/javascript">
+    $(document).on('click', '#btnAlbumStatus', function () {
+        var Album = $("#UserAlbumList").val();
+        var Status = $("#UserAlbumStatus").val();
+        if (Album == '')
+        {
+            swal("Ooops!", "Please select atleast one Album!", "error");
+            return false;
+        }
+        if (Status == '') {
+            swal("Ooops!", "Please select atleast one Status!", "error");
+            return false;
+        }
+        OnChangeClick(Album, Status)
+    });
+    function OnChangeClick(Album, Status) {
+        swal({
+            title: "Are you sure?",
+            text: "Change Status of this Album!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Change!",
+            cancelButtonText: "No, cancel Please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+       function (isConfirm) {
+           if (isConfirm) {
+               $.ajax({
+                   type: "POST",
+                   url: '/User/ChangeAlbumStatus',
+                   data: { Album: Album, Status: Status },
+                   dataType: 'json',
+                   success: function (data) {
+                       if (data.flag == "1") {
+                           swal("Changed!", data.msg, "success");
+                           location.reload();
+                       }
+                       else if (data.flag == "0") {
+                           swal("Error!", data.msg, "error");
+                       }
+                   },
+                   error: function () {
+                       swal("Ooops!", "Something Went Wrong! Try Again", "error");
+                   }
+               })
+           } else {
+               swal("Cancelled", "Your Cancelled Request :)", "error");
+               return false;
+           }
+       });
+    }
+</script>
+<script type="text/javascript">
+    $(document).on('click', '#btnDeleteAlbumStatus', function () {
+        var Album = $("#UserAlbumList").val();       
+        if (Album == '')
+        {
+            swal("Ooops!", "Please select atleast one Album!", "error");
+            return false;
+        }       
+        OnDeleteClick(Album)
+    });
+    function OnDeleteClick(Album) {
+        swal({
+            title: "Are you sure?",
+            text: "Delete this Album!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Delete!",
+            cancelButtonText: "No, cancel Please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+       function (isConfirm) {
+           if (isConfirm) {
+               $.ajax({
+                   type: "POST",
+                   url: '/User/DeleteAlbum',
+                   data: { Album: Album },
+                   dataType: 'json',
+                   success: function (data) {
+                       if (data.flag == "1") {
+                           swal("Deleted!", data.msg, "success");
+                           location.reload();
+                       }
+                       else if (data.flag == "0") {
+                           swal("Error!", data.msg, "error");
+                       }
+                   },
+                   error: function () {
+                       swal("Ooops!", "Something Went Wrong! Try Again", "error");
+                   }
+               })
+           } else {
+               swal("Cancelled", "Your Cancelled Request :)", "error");
+               return false;
+           }
+       });
+    }
+</script>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Content/AngularJs/TalentMedia.js")"></script>
+}

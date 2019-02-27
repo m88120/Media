@@ -1,0 +1,144 @@
+﻿@using AllYouMedia.Models
+@{
+    ViewBag.Title = "Message";
+    ViewBag.Active = "Message";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+@section styles{
+    <link href="/Content/AdminLTE/plugins/datatables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="/Content/AdminLTE/plugins/datatables/Buttons-1.5.0/css/buttons.bootstrap.css" rel="stylesheet" />
+    <link href="/Content/AdminLTE/plugins/datatables/Editor-2018-01-02-1.7.0/css/editor.bootstrap.css" rel="stylesheet" />
+    <link href="/Content/AdminLTE/plugins/datatables/Select-1.2.4/css/select.bootstrap.min.css" rel="stylesheet" />
+
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Message</h3>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div>                   
+                    <p style="max-width: 40%; margin-left: 10px;">
+                        <button type="button" class="btn btn-default" onclick="refreshData();">Refresh</button>
+                    </p>
+                    <div class="table-responsive">
+                        <table id="Message" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    @*<th></th>*@
+                                    <th>From</th>
+                                    <th>Subject</th>
+                                    <th>Body</th>
+                                    <th>Received On</th>
+                                    @*<th></th>*@
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+        </div>
+    </div><!-- /.col -->
+</div>
+@section scripts{
+    <script src="/Content/AdminLTE/plugins/datatables/jquery.dataTables.js" type="text/javascript"></script>
+    <script src="/Content/AdminLTE/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
+    <script src="~/Content/AdminLTE/plugins/datatables/Buttons-1.5.0/js/dataTables.buttons.js"></script>
+    <script src="~/Content/AdminLTE/plugins/datatables/Buttons-1.5.0/js/buttons.bootstrap.js"></script>
+    @*<script src="~/Content/AdminLTE/plugins/datatables/Editor-2018-01-02-1.7.0/js/dataTables.editor.min.js"></script>
+        <script src="~/Content/AdminLTE/plugins/datatables/Editor-2018-01-02-1.7.0/js/editor.bootstrap.min.js"></script>*@
+    <script src="~/Content/AdminLTE/plugins/datatables/Select-1.2.4/js/dataTables.select.min.js"></script>
+    <script src="~/Content/AdminLTE/plugins/datatables/customEditors.js"></script>
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script>
+        var table = null;
+        $(document).ready(function () {
+             refreshData();
+        });
+        function refreshData() {
+            if (table != null) table.destroy();
+            table = $('#Message').DataTable({
+                //"processing": true,
+                "serverSide": true,
+                lengthChange: false,
+                ajax: {
+                    url: "/User/MessageList", "type": "POST",
+                    data: function (d) {
+                     
+                        return d;
+                    }
+                },
+                columns: [
+                    { data: "From" },
+                    { data: "Subject" },
+                    { data: "Body" },
+                    { data: "ReceivedOn" },
+                    //{
+                    //    data: null, render: function (data) {
+                    //        var returnStr = '<button type="button" class="btn btn-sm btn-primary" onclick="openSendMessageModal(' + data.DT_RowId + ');">Message</button>';
+                    //        returnStr += '<button type="button" class="btn btn-sm btn-default" onclick="openProfile(' + data.DT_RowId + ');">Profile</button>';
+                    //        return returnStr
+                    //    }
+                    //},
+                ],
+                select: true,
+                "columnDefs": [{
+                    "searchable": false,
+                    "orderable": false,
+                    "targets": 0
+                }],
+                "order": [[1, 'asc']]
+            });
+           
+
+            //// Display the buttons
+            //new $.fn.dataTable.Buttons(table, [
+            //    {
+            //        text: 'Create',
+            //        className: 'Create',
+            //        action: function (e, dt, node, config) {
+            //            editor.openAddPopup();
+            //        }
+            //    },
+            //    {
+            //        text: 'Edit',
+            //        className: 'Edit',
+            //        action: function (e, dt, node, config) {
+            //            var selectedRows = table.rows({ selected: true });
+            //            if (selectedRows.count() > 0) {
+            //                editor.editRecordObject = selectedRows.data()[0];
+            //                editor.openEditPopup();
+            //            }
+            //        }
+            //    },
+            //    {
+            //        text: 'Delete',
+            //        className: 'Delete',
+            //        action: function (e, dt, node, config) {
+            //            var selectedRows = table.rows({ selected: true });
+            //            if (selectedRows.count() > 0) {
+            //                editor.editRecordObject = selectedRows.data()[0];
+            //                editor.openRemovePopup();
+            //            }
+            //        }
+            //    },
+            //]);
+
+            //table.buttons().container().appendTo($('.col-sm-6:eq(0)', table.table().container()));
+            //table.buttons(['.Edit', '.Delete']).disable();
+        }
+        function openSendMessageModal(AspNetUserID) {
+            var modal = $("#sendMessageModal");
+            modal.data("ToAspNetUserID", AspNetUserID);
+            $("#MessageSubject").val('');
+            $("#MessageBody").val('');
+            modal.modal();
+        }
+       
+    </script>
+}
+
+
+

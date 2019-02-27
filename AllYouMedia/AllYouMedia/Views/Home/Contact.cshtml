@@ -1,0 +1,118 @@
+﻿@using AllYouMedia.Models
+@model ContactUsModel
+@{
+    ViewBag.Title = "Contact Us";
+}
+<div class="page-tital">
+    <div class="container">
+        <h1>@ViewBag.Title</h1>
+        <span><a href="#_">Home</a>  -  @ViewBag.Title</span>
+    </div>
+</div>
+<div id="mid-part">
+    <div class="container">
+        <div class="contact-mid">
+            <span>Please note that our offices are open from 9am to 5pm, Monday to Friday and calls to EEVOP may be monitored or recorded for verification and training purposes.</span>
+            <b>Where to find us</b>
+            <p>EEVOP Head Offices are located in Selsey, south of Chichester, in dummy text, dummy.</p>
+            <div class="contact-div">
+                <div class="contact-div-l">
+                    <img src="images/map.jpg" alt="map">
+                </div>
+                <div class="contact-div-r">
+                    <h4>EEVOP Office3</h4>
+                    <p>
+                        5 - 6 Sherrington Mews, Dummy Square,<br>
+                        Selsey,<br>
+                        Dummy Text<br>
+                        PO30 0FH
+                    </p>
+                    <p>
+                        Tel : <a href="#_"> 0222 0146 190M</a>*  <a href="#_"> 01233 401234</a><br>
+                        Fax : <a href="#_">01243 612345</a>
+                    </p>
+
+                    <p>E-mail : <a href="#_">contact@eevop.com</a></p>
+                </div>
+            </div>
+            <p>
+                EEVOP is a trading name of Vetted Limited. Company registered in dummy text, Registration number 1234567<br>
+
+                Registered Office: 5-6 Sherrington Mews, dummy text,
+                <br>
+                Directors: Dummy text
+                <br>
+                VAT Number 123 45678 09
+            </p>
+            <div class="contact-bottom">
+                <p>*Calls charged at local rate for BT customers, other service providers may charge more.</p>
+            </div>
+        </div>
+    </div>
+</div>
+@*@using (Ajax.BeginForm("Contact", "Home", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "Contact" }))
+{
+    <section id="Contact" class="main-content-area" style="margin-bottom:50px;">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                    @Html.Raw(Model.PageHtml);                    
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                    <div class="contact-us-area">
+                       
+                        <!-- contact us form start -->
+                        <div class="contact-us-form">
+                            <div class="sec-heading-area">
+                                <h2>Contact US</h2>
+                            </div>
+                            <div class="contact-form">
+                                <span class="legend">Contact Information</span>
+                                <form action="#" method="post">
+                                    <div class="form-top">
+                                        <div class="form-group col-sm-6 col-md-6">
+                                            <label>Name <sup>*</sup></label>
+                                            @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group col-sm-6 col-md-6">
+                                            <label>Email <sup>*</sup></label>
+                                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group col-sm-6 col-md-6">
+                                            <label>Phone<sup>*</sup></label>
+                                            @Html.TextBoxFor(m => m.Phone, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group col-sm-6 col-md-6">
+                                            <label>Subject <sup>*</sup></label>
+                                            @Html.TextBoxFor(m => m.Subject, new { @class = "form-control" })
+                                            @Html.ValidationMessageFor(m => m.Subject, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group col-sm-12 col-md-12">
+                                            <label>Message <sup>*</sup></label>
+                                            @Html.TextAreaFor(m => m.Message, new { @class = "yourmessage" })
+                                            @Html.ValidationMessageFor(m => m.Message, "", new { @class = "text-danger" })
+                                        </div>
+                                        <div class="form-group col-sm-12 col-md-3">
+                                            <label> Required Fields <sup>*</sup></label>                                          
+                                        </div>
+                                        <div class="form-group col-sm-9">
+                                            <input type="submit" value="Submit" class="add-tag-btn pull-right" />
+                                        </div>
+                                    </div>
+                                    <div class="submit-form form-group col-sm-12 submit-review">
+                                        
+                                       
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- contact us form end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}*@

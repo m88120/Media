@@ -1,0 +1,95 @@
+﻿@model IEnumerable<AllYouMedia.Areas.Admin.Models.GeneologyModel>
+@{
+    ViewBag.Title = "Geneology Downline";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@{
+    var grid = new WebGrid(Model, canSort: false, canPage: false, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "grid");
+}
+<div id="grid">
+    <div class="col-md-12 profile-contain">   
+            <div class="col-xl-12 col-md-12 col-xs-12">
+                <div class="content">
+                    <div class="row">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                <div class="left-name-profile float-xs-left">LoginName :</div>
+                                <div class="form-group">
+                                    <input type="text" id="txtLoginName" placeholder="Enter LoginName" class="form-control"
+                                           maxlength="50" />
+
+                                </div>
+                            </div>
+                            <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                <div class="left-name-profile float-xs-left">Date From :</div>
+                                <div class="form-group form-bootstrap-datetime">
+                                    <div class='input-group' data-plugin="flatpickr" data-wrap="true">
+                                        <input type="text" id="txtDateFrom" placeholder="Select DateFrom" class="form-control"
+                                               maxlength="10" data-input />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                                <div class="left-name-profile float-xs-left">Date to :</div>
+                                <div class="form-group form-bootstrap-datetime">
+                                    <div class='input-group' data-plugin="flatpickr" data-wrap="true">
+                                        <input type="text" id="txtDateTo" placeholder="Select DateTo" class="form-control"
+                                               maxlength="10" data-input />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="divider-lg-spacing"></div>
+                            <div id="tableDownline" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                <button id="Search" class="btn btn-outline-primary flat-buttons"
+                                        type="button">
+                                    Search
+                                </button>
+                            </div>
+                            <div class="divider15"></div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="responsive_table_main">
+                                    @grid.GetHtml(
+        tableStyle: "table tablesaw tablesaw-stack", mode: WebGridPagerModes.All,
+                columns: grid.Columns(
+
+                grid.Column("Sno"),
+                grid.Column("LoginName"),
+                grid.Column("UserName"),
+                grid.Column("RepNo"),
+                grid.Column("SponsorLoginName"),
+                grid.Column("EnrollmentDate"),
+                grid.Column("Email")
+         ))
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(function () {
+        $(document).on("click", "#Search", function (e) {
+            $.ajax({
+                type: "GET",
+                url: '/admin/admin/GeneologyDownline',
+                data: { DateFrom: $("#txtDateFrom").val(), DateTo: $("#txtDateTo").val(), LoginName: $("#txtLoginName").val() },
+                dataType: 'html',
+                success: function (data) {
+                    $('#grid').html($(data).find("#grid"));
+                },
+                error: function () {
+                    alert("Content load failed.");
+                }
+            });
+        });
+    });
+</script>
+
+
+
+

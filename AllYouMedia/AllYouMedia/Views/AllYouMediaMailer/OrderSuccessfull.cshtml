@@ -1,0 +1,36 @@
+@{
+    var sessionCart = (AllYouMedia.Controllers.HomeController.SessionCart)ViewBag.SessionCart;
+}
+<p>Welcome @ViewBag.Name,</p>
+<p>Your order # is @ViewBag.OrderID</p>
+<p>
+    <table cellspacing="5" cellpadding="5" style="border-collapse:collapse;border:1px solid #ddd;">
+        <thead>
+            <tr>
+                <th style="border:1px solid #ddd;">Item</th>
+                <th style="border:1px solid #ddd;">Price</th>
+                <th style="border:1px solid #ddd;">Discount</th>
+                <th style="border:1px solid #ddd;">Tax</th>
+                <th style="border:1px solid #ddd;">Line Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (AllYouMedia.Controllers.HomeController.SessionCartItem cartItem in sessionCart.CartItems)
+            {
+                <tr>
+                    <td style="border:1px solid #ddd;">@cartItem.ItemName (@cartItem.Qty)</td>
+                    <td style="border:1px solid #ddd;text-align:right;">@AllYouMedia.MvcApplication.CurrencySymbol @cartItem.SellPrice</td>
+                    <td style="border:1px solid #ddd;text-align:right;">@AllYouMedia.MvcApplication.CurrencySymbol @cartItem.LineDiscount</td>
+                    <td style="border:1px solid #ddd;text-align:right;">@AllYouMedia.MvcApplication.CurrencySymbol @cartItem.Tax</td>
+                    <td style="border:1px solid #ddd;text-align:right;">@AllYouMedia.MvcApplication.CurrencySymbol @cartItem.LineAmount</td>
+                </tr>
+            }
+            <tr><td colspan="4" style="border:1px solid #ddd;">Net Amount</td><td style="border: 1px solid #ddd; text-align: right;">@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.NetAmount</td></tr>
+            <tr><td colspan="4" style="border:1px solid #ddd;">Discount</td><td style="border:1px solid #ddd;" text-align:right;>@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.TotalDiscount</td></tr>
+            <tr><td colspan="4" style="border:1px solid #ddd;">Shipping Charges</td><td style="border: 1px solid #ddd; text-align: right;">@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.Shipping</td></tr>
+            <tr><td colspan="4" style="border:1px solid #ddd;">Tax</td><td style="border: 1px solid #ddd; text-align: right;">@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.Tax</td></tr>
+            <tr><td colspan="4" style="border:1px solid #ddd;">Payable Amount</td><td style="border: 1px solid #ddd; text-align: right;">@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.PayableAmount</td></tr>
+        </tbody>
+    </table>
+</p>
+<p>Thank you</p>

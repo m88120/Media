@@ -1,0 +1,42 @@
+﻿@model AllYouMedia.Models.TreeViewNodeVM
+@foreach (var treeNode in Model.ChildNode)
+{
+    <ul>
+        @if (treeNode != null)
+        {
+            var SubNode = Model.SubNode.Where(m => m.User_LoginName == treeNode.LoginName);
+            <li>
+                <a class="Userdetail" data-target="@treeNode.LoginName" href="javascript:void(0);">
+                    @treeNode.LoginName
+                </a>
+                @foreach (var item1 in SubNode)
+                {
+                    <ul>
+                        @if (item1 != null)
+                        {
+                            var SubSubNode = Model.SubSubNode.Where(m => m.User_LoginName == item1.LoginName);
+                            <li>
+                                <a class="Userdetail" data-target="@item1.LoginName" href="javascript:void(0);">
+                                    @item1.LoginName
+                                </a>                              
+                                @foreach (var item2 in SubSubNode)
+                                {
+                                    <ul>
+                                        @if (item2 != null)
+                                        {
+                                            <li>
+                                                <a class="Userdetail" data-target="@item2.LoginName" href="javascript:void(0);">
+                                                    @item2.LoginName
+                                                </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                            </li>
+                        }
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+}

@@ -1,0 +1,24 @@
+﻿@model AllYouMedia.Models.IndexModel
+
+<div class="top-mycart">
+    <a class="top-mycart-link" href="@Url.Action("Cart","Product")"><i class="fa fa-cart-arrow-down"></i><span class="bold">my cart</span> <span>(@Model.Cart.Count()) item: <strong>@ViewBag.GrossAmount </strong></span></a>
+    <div class="top-mycart-overlay">
+        @foreach (var item_Cart in Model.Cart)
+        {
+            <div class="single-mycart-item">
+                <div class="mycart-item-pro">
+                    <div class="mycart-item-img">
+                        <a href="@Url.Action("Cart", "Product" )"><img src="@item_Cart.IMAGE" alt="cart"></a>
+                    </div>
+                    <div class="mycart-item-text">
+                        <p><a class="mycart-title" href="@Url.Action("Cart","Product")">@item_Cart.Name</a></p>
+                        <a href="@Url.Action("Cart","Product")" class="cart-price"><strong>@item_Cart.QTY</strong><sub>x</sub> <span>$ @item_Cart.Rate</span></a>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="total-calculate">
+            <p><span>subtotal</span> @ViewBag.GrossAmount <a class="topcart-check-btn" href="@Url.Action("Cart","Product")">Cart</a></p>
+        </div>
+    </div>
+</div>

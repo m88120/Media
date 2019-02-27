@@ -1,0 +1,97 @@
+﻿@using AllYouMedia.Models
+@model UploadModel
+@using (Ajax.BeginForm("UploadVideo", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "UploadVideo" }, new { enctype = "multipart/form-data" }))
+{
+    <div id="UploadVideo" class="content">
+        <div class="row">
+            <div class="col-md-12">
+                <h4 class="page-content-title">Video Information</h4>
+                <div class="divider15"></div>
+                <div class="personal-info-box">
+                    <div class="row">
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Talent Category :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Category, new SelectList(Model.Category, "Value", "Text", ViewData["Category"]), new { @class = "form-control Category" })
+                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Talent Sub Category :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.SubCategory, new SelectList(Model.SubCategory, "Value", "Text", ViewData["SubCategory"]), new { @class = "form-control SubCategory" })
+                                @Html.ValidationMessageFor(model => model.SubCategory, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">File Name :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.FileName, new { @class = "form-control FileName", placeholder = "Enter File Name", maxlength = "50" })
+                                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Description :</div>
+                            <div class="form-group">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control Description", placeholder = "Enter Description", maxlength = "200" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "validation" })
+                                Characters remaining: <span id="VideoCount" style="color: #008EE7">200</span>
+                            </div>
+                            <script type="text/javascript">
+                                $('textarea').keyup(updateCount);
+                                $('textarea').keydown(updateCount);
+
+                                function updateCount() {
+                                    var cs = [200 - $(this).val().length];
+                                    $('#VideoCount').text(cs);
+                                }
+                            </script>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-6 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Genre :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Genre, new SelectList(Model.Genre, "Value", "Text", ViewData["Genre"]), new { @class = "form-control Genre" })
+                                @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-6 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Price :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Price, new SelectList(Model.Price, "Value", "Text", ViewData["Price"]), new { @class = "form-control Price" })
+                                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">file :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.files, "", new { @class = "form-control", @type = "file" })
+                                @Html.ValidationMessageFor(model => model.files, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Cover Image :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.CoverImage, "", new { @class = "form-control", @type = "file" })
+                                @Html.ValidationMessageFor(model => model.CoverImage, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-6 hidden DivImageurl">
+                            <div class="left-name-profile float-xs-left">Current Cover Image :</div>
+                            <div class="form-group">
+                                <img id="ImageUrl" class="ImageUrl" name="ImgUrl" style="width:200px;" src="" />
+                            </div>
+                        </div>  
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="tab-pane active btn-margin" id="basic-buttons">
+                    <button type="submit" class="btn btn-primary flat-buttons waves-effect waves-button">Upload</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

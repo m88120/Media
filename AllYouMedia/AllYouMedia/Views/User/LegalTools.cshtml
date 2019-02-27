@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "Legal Tools";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="col-md-12">
+        <section id="content-wrapper">
+            <div class="">
+                <div class="content userlist-content">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="dashboard-box">
+                            <div class="table-badges-section">
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <button id="btnContract" type="button" class="btn btn-outline-primary flat-buttons">Contracts</button>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <button id="btnLegalAdvice" type="button" class="btn btn-outline-primary flat-buttons">Legal Advice</button>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <button id="btnEndorsedLawyers" type="button" class="btn btn-outline-primary flat-buttons">Endorsed Lawyers</button>
+                                </div>
+                                <div class="col-md-3 col-sm-12 col-xs-12">
+                                    <button id="btnLegalContent" type="button" class="btn btn-outline-primary flat-buttons">Legal Content</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="divider15"></div>
+
+                </div>
+            </div>
+        </section>
+    </div>
+    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div id="Contract" class="">@{Html.RenderAction("Contract", "User");}</div>
+        <div class="divider15"></div>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#btnContract').on('click', function () {
+                $("#Contract").toggleClass("hidden");
+            });
+            $('#btnLegalAdvice').on('click', function () {
+                $("#LegalAdvice").toggleClass("hidden");
+                $("#Contract").addClass("hidden");
+            });
+            $('#btnEndorsedLawyers').on('click', function () {
+                $("#EndorsedLawyers").toggleClass("hidden");
+                $("#Contract").addClass("hidden");
+            });
+            $('#btnLegalContent').on('click', function () {
+                $("#LegalContent").toggleClass("hidden");
+                $("#Contract").addClass("hidden");
+            });
+        });
+    </script>

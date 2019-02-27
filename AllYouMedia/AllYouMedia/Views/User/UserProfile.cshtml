@@ -1,0 +1,91 @@
+﻿@using AllYouMedia.Models
+@model AspNetUser
+@{
+    ViewBag.Title = "Profile";
+    ViewBag.Active = "UserProfile";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="box box-primary">
+    @using (Html.BeginForm("UserProfile", "User", FormMethod.Post, new { data_parsley_validate = "" }))
+    {
+        @Html.HiddenFor(x => x.Id)
+        <div class="box-body" style="overflow:hidden;">
+            <div class="form-group">
+                <div class="text-center">
+                    <img src='@Model.PhotoIMG' id="img_PhotoIMG" class="img-thumbnail img2" alt="Profile Photo" style="height: 200px; width: 200px;" />
+                    <div style="margin-top: 10px;">
+                        <label for="PhotoIMGFile">Photo (400*400)</label>
+                        <input type="file" class="form-control" name="PhotoIMGFile" id="PhotoIMGFile" onchange="fileChanged(this);" />
+                        @Html.HiddenFor(x => x.PhotoIMG)
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="Name">Name</label>
+                @Html.TextBoxFor(model => model.Name, new { @class = "form-control", placeholder = "Enter Name", maxlength = "200", required = "" })
+                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "validation" })
+            </div>
+            <div class="form-group">
+                <label for="Email">Email</label>
+                @Html.TextBoxFor(model => model.Email, new { @class = "form-control", placeholder = "Enter Email", maxlength = "200", @readonly = "readonly", required = "" })
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "validation" })
+            </div>
+            <div class="form-group">
+                <label for="PhoneNumber">Mobile No</label>
+                @Html.TextBoxFor(model => model.PhoneNumber, new { @class = "form-control", placeholder = "Enter Mobile", maxlength = "20", required = "" })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "validation" })
+            </div>           
+            <div class="form-group">
+                <label for="BioDescription">Biography</label>
+                @Html.TextAreaFor(model => model.BioDescription, new { @class = "form-control", @rows = "10", placeholder = "Enter Biography", maxlength = "650" })
+                @Html.ValidationMessageFor(model => model.BioDescription, "", new { @class = "validation" })
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-default">Save</button>
+            </div>
+        </div>
+    }
+</div>
+@section scripts{
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.100.0.min.js"></script>
+    <script type="text/javascript">
+        var AspNetUserID = Number('@Model.Id');
+        $(document).ready(function () {
+
+        });
+        function fileChanged(elem) {
+            var files = $(elem).prop('files');
+            if (files.length > 0) {
+                uploadFileToS3(AspNetUserID, files[0], "Profile", elem, false);
+            }
+        }
+        function uploadFileToS3(ID, file, folder, elem) {
+            $(elem).after('<i class="fa fa-refresh fa-spin"></i>');
+            AWS.config.region = 'us-east-1'; // Region
+            AWS.config.credentials = new AWS.CognitoIdentityCredentials({
+                IdentityPoolId: 'us-east-1:edcb6626-f6d8-4b42-975c-18f0a89a80a8',
+            });
+            var s3 = new AWS.S3({ apiVersion: '2006-03-01', params: { Bucket: 'allyoumedia' } });
+            var objKey = folder + '/' + ID + '/' + file.name;
+            var params = {
+                Key: objKey,
+                ContentType: file.type,
+                Body: file,
+                ACL: 'private'
+            };
+            s3.upload(params, function (err, s3Response) {
+                if (err) {
+                    $(elem).parents('.DTE_Field').find('i.fa').removeClass('fa-spin fa-refresh').addClass('fa-check').hide();
+                    alert("Error while uploading content. Please try again later.");
+                } else {
+                    $("#PhotoIMG").val(s3Response.Location);
+                    $("#img_PhotoIMG").attr("src", s3Response.Location);
+                }
+                $(elem).next().remove();
+            });
+
+        }
+    </script>
+}
+
+

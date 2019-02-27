@@ -1,0 +1,11 @@
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\bin\Release\BusinessEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\bin\Release\BusinessEntity.pdb
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\obj\Release\BusinessEntity.csprojResolveAssemblyReference.cache
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\obj\Release\BusinessEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\obj\Release\BusinessEntity.pdb
+D:\2019\AllYouMedia\BusinessEntity\bin\Release\BusinessEntity.dll
+D:\2019\AllYouMedia\BusinessEntity\bin\Release\BusinessEntity.pdb
+D:\2019\AllYouMedia\BusinessEntity\obj\Release\BusinessEntity.csprojAssemblyReference.cache
+D:\2019\AllYouMedia\BusinessEntity\obj\Release\BusinessEntity.csproj.CoreCompileInputs.cache
+D:\2019\AllYouMedia\BusinessEntity\obj\Release\BusinessEntity.dll
+D:\2019\AllYouMedia\BusinessEntity\obj\Release\BusinessEntity.pdb

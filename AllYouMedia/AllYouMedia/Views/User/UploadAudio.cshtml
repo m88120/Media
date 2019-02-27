@@ -1,0 +1,387 @@
+﻿@using AllYouMedia.Models
+@model UploadModel
+<style>
+    .spnRdo {
+        padding-right: 30px;
+    }
+
+    .radio-button label {
+        left: -20px !important;
+    }
+</style>
+
+<div id="UploadAudio" class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <h4 class="page-content-title">Audio Information</h4>
+            <div class="divider15"></div>
+            <div class="personal-info-box">
+                <div id="rdoType" class="row">
+                    <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                        <div class="left-name-profile float-xs-left">Select Type :</div>
+                        <div class="form-group">
+                            <div id="inline-radio">
+                                <div class="radio-inline">
+                                    <div class="radio-button">
+                                        <input value="S" id="single" name="radio" type="radio" onclick="Checkpanel();" checked>
+                                        <label for="single"></label>
+                                        <span class="spnRdo">Single</span>
+                                    </div>
+                                    <div class="radio-button">
+                                        <input value="A" id="album" name="radio" type="radio" onclick="Checkpanel();">
+                                        <label for="album"></label>
+                                        <span class="spnRdo">Album</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="divSingles" class="row" style="display:none">
+                    @using (Ajax.BeginForm("UploadAudio", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "UploadAudio" }, new { enctype = "multipart/form-data" }))
+                    {
+                        <div id="divSingleInfo" class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                            <h4 class="page-content-title center-mode">Singles Information</h4>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Talent Category :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Category, new SelectList(Model.Category, "Value", "Text", ViewData["Category"]), new { @class = "form-control Category" })
+                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Talent Sub Category :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.SubCategory, new SelectList(Model.SubCategory, "Value", "Text", ViewData["SubCategory"]), new { @class = "form-control SubCategory" })
+                                @Html.ValidationMessageFor(model => model.SubCategory, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">File Name :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.FileName, new { @class = "form-control FileName", placeholder = "Enter File Name", maxlength = "50" })
+                                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Description :</div>
+                            <div class="form-group">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control Description", placeholder = "Enter Description", maxlength = "200" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "validation" })
+                                Characters remaining: <span id="characterCount" style="color: #008EE7">200</span>
+                            </div>
+                            <script type="text/javascript">
+                                $('textarea').keyup(updateCount);
+                                $('textarea').keydown(updateCount);
+
+                                function updateCount() {
+                                    var cs = [200 - $(this).val().length];
+                                    $('#characterCount').text(cs);
+                                }
+                            </script>
+                        </div>
+                            <div class="clearfix"></div>
+                            <div class="user-name-profile col-xl-6 col-md-6 col-xs-12">
+                                <div class="left-name-profile float-xs-left">Genre :</div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.Genre, new SelectList(Model.Genre, "Value", "Text", ViewData["Genre"]), new { @class = "form-control Genre" })
+                                    @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "validation" })
+                                </div>
+                            </div>
+                            <div class="user-name-profile col-xl-6 col-md-6 col-xs-12">
+                                <div class="left-name-profile float-xs-left">Price :</div>
+                                <div class="form-group">
+                                    @Html.DropDownListFor(model => model.Price, new SelectList(Model.Price, "Value", "Text", ViewData["Price"]), new { @class = "form-control Price" })
+                                    @Html.ValidationMessageFor(model => model.Price, "", new { @class = "validation" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                                <div class="left-name-profile float-xs-left">UPLOAD YOUR COMPLETE SONG HERE :</div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(model => model.files, "", new { @class = "form-control song", @type = "file" })
+                                    @Html.ValidationMessageFor(model => model.files, "", new { @class = "validation" })
+                                </div>
+                            </div>
+                            <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                                <div class="left-name-profile float-xs-left">SONG Image :</div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(model => model.CoverImage, "", new { @class = "form-control", @type = "file" })
+                                    @Html.ValidationMessageFor(model => model.CoverImage, "", new { @class = "validation" })
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                                <div class="left-name-profile float-xs-left">UPLOAD YOUR 10 SECOND CLIP HERE FOR CUSTOMER TO HEAR :</div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(model => model.ClipFile, "", new { @class = "form-control ClipFile", @type = "file" })                                  
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="user-name-profile col-xl-4 col-md-4 col-xs-6 hidden DivImageurl">
+                                <div class="left-name-profile float-xs-left">Current Song Image :</div>
+                                <div class="form-group">
+                                    <img id="ImageUrl" class="ImageUrl" name="ImgUrl" style="width:200px;" src="" />
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="tab-pane active btn-margin" id="basic-buttons">
+                                    <button id="btnSubmit" type="submit" class="btn btn-primary flat-buttons waves-effect waves-button">Upload</button>
+                                </div>
+                            </div>
+                    }
+                </div>
+                <div id="divAlbums" class="row" style="display:none">
+                    @using (Ajax.BeginForm("UploadAlbumAudio", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "UploadAudio" }, new { enctype = "multipart/form-data" }))
+                    {
+                        <div class="user-name-profile col-xl-12 col-md-12 col-xs-12">
+                            <h4 class="page-content-title">Albums Information</h4>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Album :</div>
+                            <div class="form-group">
+                                <div id="inline-radio">
+                                    <div class="radio-inline">
+                                        <div class="radio-button">
+                                            <input value="S" id="new" name="radio" type="radio" onclick="Checkpanel1();" checked>
+                                            <label for="new"></label>
+                                            <span class="spnRdo">New Album</span>
+                                        </div>
+                                        <div class="radio-button">
+                                            <input value="A" id="old" name="radio" type="radio" onclick="Checkpanel1();">
+                                            <label for="old"></label>
+                                            <span class="spnRdo">Existing Album</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="divNew" class="user-name-profile col-xl-6 col-md-4 col-xs-12" style="display:none">
+                            <div class="left-name-profile float-xs-left">New Album Name :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.AlbumName, new { @class = "form-control AlbumName", placeholder = "Enter Album Name", maxlength = "50" })
+                                @Html.ValidationMessageFor(model => model.AlbumName, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div id="divOld" class="user-name-profile col-xl-6 col-md-12 col-xs-12" style="display:none">
+                            <div class="left-name-profile float-xs-left">Existing Album Name :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.AlbumList, new SelectList(Model.AlbumList, "Value", "Text", ViewData["AlbumList"]), new { @class = "form-control AlbumList" })
+                                @Html.ValidationMessageFor(model => model.AlbumList, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div id="DivOld_DI" style="display:none">
+                            <div class="user-name-profile col-xl-6 col-md-4 col-xs-12">
+                                <div class="left-name-profile float-xs-left">Album Cover Image :</div>
+                                <div class="form-group">
+                                    @Html.TextBoxFor(model => model.AlbumCoverImage, "", new { @class = "form-control", @type = "file" })
+                                    @Html.ValidationMessageFor(model => model.AlbumCoverImage, "", new { @class = "validation" })
+                                </div>
+                            </div>
+                            <div class="user-name-profile col-xl-6 col-md-4 col-xs-12">
+                                <div class="left-name-profile float-xs-left">Album Description :</div>
+                                <div class="form-group">
+                                    @Html.TextAreaFor(model => model.AlbumDescription, new { @class = "form-control AlbumDescription", placeholder = "Enter Album Description", maxlength = "200" })
+                                    @Html.ValidationMessageFor(model => model.AlbumDescription, "", new { @class = "validation" })
+                                    Characters remaining: <span id="AlbumcharacterCount" style="color: #008EE7">200</span>
+                                </div>
+                                <script type="text/javascript">
+                                    $('#AlbumDescription').keyup(updateCount);
+                                    $('#AlbumDescription').keydown(updateCount);
+                                    function updateCount() {
+                                        var cs = [200 - $(this).val().length];
+                                        $('#AlbumcharacterCount').text(cs);
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Talent Category :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Category, new SelectList(Model.Category, "Value", "Text", ViewData["Category"]), new { @class = "form-control Category" })
+                                @Html.ValidationMessageFor(model => model.Category, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Talent Sub Category :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.SubCategory, new SelectList(Model.SubCategory, "Value", "Text", ViewData["SubCategory"]), new { @class = "form-control SubCategory" })
+                                @Html.ValidationMessageFor(model => model.SubCategory, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">File Name :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.FileName, new { @class = "form-control FileName", placeholder = "Enter File Name", maxlength = "50" })
+                                @Html.ValidationMessageFor(model => model.FileName, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Description :</div>
+                            <div class="form-group">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control Description Desc", placeholder = "Enter Description", maxlength = "200" })
+                                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "validation" })
+                                Characters remaining: <span id="DcharacterCount" style="color: #008EE7">200</span>
+                            </div>
+                            <script type="text/javascript">
+                                $('.Desc').keyup(updateCount);
+                                $('.Desc').keydown(updateCount);
+                                function updateCount() {
+                                    var cs = [200 - $(this).val().length];
+                                    $('#DcharacterCount').text(cs);
+                                }
+                            </script>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-6 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Genre :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.Genre, new SelectList(Model.Genre, "Value", "Text", ViewData["Genre"]), new { @class = "form-control Genre" })
+                                @Html.ValidationMessageFor(model => model.Genre, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-6 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Price :</div>
+                            <div class="form-group">
+                                @Html.DropDownListFor(model => model.AlbumPrice, new SelectList(Model.AlbumPrice, "Value", "Text", ViewData["AlbumPrice"]), new { @class = "form-control Price" })
+                                @Html.ValidationMessageFor(model => model.AlbumPrice, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">UPLOAD YOUR COMPLETE SONG HERE :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.files, "", new { @class = "form-control song", @type = "file", @multiple = "multiple" })
+                                @Html.ValidationMessageFor(model => model.files, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Song Image :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.CoverImage, "", new { @class = "form-control", @type = "file" })
+                                @Html.ValidationMessageFor(model => model.CoverImage, "", new { @class = "validation" })
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-6 col-md-12 col-xs-12">
+                            <div class="left-name-profile float-xs-left">UPLOAD YOUR 10 SECOND CLIP HERE FOR CUSTOMER TO HEAR :</div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(model => model.ClipFile, "", new { @class = "form-control ClipFile", @type = "file" })
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-6 hidden DivImageurl">
+                            <div class="left-name-profile float-xs-left"> Song Current Image :</div>
+                            <div class="form-group">
+                                <img id="ImageUrl" class="ImageUrl" name="ImgUrl" style="width:200px;" src="" />
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-6 hidden DivAlbumImageurl">
+                            <div class="left-name-profile float-xs-left"> Album Current Image :</div>
+                            <div class="form-group">
+                                <img id="AlbumImageUrl" class="AlbumImageUrl" name="AlbumImgUrl" style="width:200px;" src="" />
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="tab-pane active btn-margin" id="basic-buttons">
+                                <button id="btnAlbumSubmit" type="submit" class="btn btn-primary flat-buttons waves-effect waves-button">Album Upload</button>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <audio id="audio" class="hidden"></audio>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    function Checkpanel() {
+        if ($("#single").is(':checked')) {
+            $("#divSingles").css("display", "block");
+            $("#divAlbums").css("display", "none");
+        }
+        if ($("#album").is(':checked')) {
+            $("#divAlbums").css("display", "block");
+            $("#divSingles").css("display", "none");
+        }
+    }
+    function Checkpanel1() {
+        if ($("#new").is(':checked')) {
+            $("#divNew").css("display", "block");
+            $("#divOld").css("display", "none");
+            $("#DivOld_DI").css("display", "block");
+        }
+        if ($("#old").is(':checked')) {
+            $("#divOld").css("display", "block");
+            $("#divNew").css("display", "none");
+            $("#DivOld_DI").css("display", "none");
+        }
+    }
+    $(document).ready(function () {
+        if ($("#single").is(':checked')) {
+            $("#divSingles").css("display", "block");
+            $("#divAlbums").css("display", "none");
+        }
+        if ($("#album").is(':checked')) {
+            $("#divAlbums").css("display", "block");
+            $("#divSingles").css("display", "none");
+        }
+        if ($("#new").is(':checked')) {
+            $("#divNew").css("display", "block");
+            $("#divOld").css("display", "none");
+            $("#DivOld_DI").css("display", "block");
+        }
+        if ($("#old").is(':checked')) {
+            $("#divOld").css("display", "block");
+            $("#divNew").css("display", "none");
+            $("#DivOld_DI").css("display", "none");
+        }
+    });
+</script>
+<script src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+<script>
+    var objectUrl;
+    $("#audio").on("canplaythrough", function(e){
+        var seconds = e.currentTarget.duration;
+       
+        if (seconds > 20)
+        {
+            swal("Ooops!", "Clip cannot be higher than 10 seconds", "error");
+            $(".ClipFile").val('');
+            return false;
+        }          
+        URL.revokeObjectURL(objectUrl);
+    });
+
+    $(".ClipFile").change(function(e){
+        var file = e.currentTarget.files[0];              
+        var extension = $('.ClipFile').val().replace(/^.*\./, '');       
+        if (extension != "mp3")
+        {
+            swal("Ooops!", "Please upload mp3 file only", "error");
+            $(".ClipFile").val('');
+            return false;
+        }
+        objectUrl = URL.createObjectURL(file);
+        $("#audio").prop("src", objectUrl);
+    });
+    $(".song").change(function (e) {
+        var file = e.currentTarget.files[0];
+        var extension = $('.song').val().replace(/^.*\./, '');       
+        if (extension != "mp3") {
+            swal("Ooops!", "Please upload mp3 file only", "error");
+            $(".song").val('');
+            return false;
+        }     
+    });
+</script>

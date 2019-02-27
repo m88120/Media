@@ -1,0 +1,665 @@
+﻿@using AllYouMedia.Models
+@using AllYouMedia.Code;
+@model AspNetUser
+@{
+    ViewBag.Title = "DashBoard";
+    ViewBag.Active = "Dashboard";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    ViewBag.HideDefaultHeader = true;
+    var addresses = (IEnumerable<SelectListItem>)ViewBag.UserAddresses;
+    var userCategoryMaps = (List<AllYouMedia.DataAccess.EntityLayer.DBEntity.UserCategoryMap>)ViewBag.UserCategoryMaps;
+    var roleList = (Dictionary<long, string>)ViewBag.RoleList;
+    SharedLibrary.MemberTypeEnum activeUserType = 0;
+    if (Session["ActiveMembership"] != null) { activeUserType = (SharedLibrary.MemberTypeEnum)Session["ActiveMembership"]; }
+}
+@section styles{
+    <link href="~/Content/AdminLTE/plugins/morris/morris.css" rel="stylesheet" />
+    <style>
+
+        .profile-user-img {
+            margin: 0 auto;
+            width: 100px;
+            padding: 3px;
+            border: 3px solid #d2d6de;
+        }
+
+        .active-lable {
+            padding: 10px !important;
+        }
+    </style>
+}
+@section HeaderExtra{
+    <label class="label" style="padding:9px;width:160px;color: #f0ad4e;
+    font-size: 20px;">Membership</label>
+    @if (User.IsInRole("Customer"))
+    {
+        <span class="label label-warning">Customer</span>
+    }
+    @if (User.IsInRole("AllTalent"))
+    {
+        <div class="btn-group">
+            <button type="button" class="btndrop-down btn btn-info btn-sm @(activeUserType == SharedLibrary.MemberTypeEnum.AllTalent ? "active" : "")" onclick="location.href = '/User/Index?M=@Convert.ToInt32(SharedLibrary.MemberTypeEnum.AllTalent)';">All Talent</button>
+            @if (userCategoryMaps != null && userCategoryMaps.Count > 0)
+            {
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle height" data-toggle="dropdown" onclick="getAndBindCategoryType(2,this)"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                <ul class="dropdown-menu dropdown-menu-new " role="menu" id="alltalent"></ul>
+                    @*<ul class="dropdown-menu" role="menu" id="alltalent">
+                        @foreach (var userCategoryMap in userCategoryMaps.Where(x => x.AspNetUserRole.RoleId == Convert.ToInt64(SharedLibrary.MemberTypeEnum.AllTalent)))
+                        {
+                            @*<li>
+                            <a>
+                                @if (userCategoryMap.CategoryTypeID != -1)
+                                    {<span class="label label-primary">@userCategoryMap.CategoryType.Name</span>}
+                                @if (userCategoryMap.CategoryID != -1)
+                                    {<span class="label label-primary">@userCategoryMap.Category.Name</span>}
+                                @if (userCategoryMap.SubCategoryID != -1)
+                                    {<span class="label label-primary">@userCategoryMap.SubCategory.Name</span>}
+                                @if (userCategoryMap.AttributeID != -1)
+                                    {<span class="label label-primary">@userCategoryMap.Attribute.Name</span>}
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                            if (userCategoryMap.CategoryTypeID != -1)
+                            {
+                                <li>
+                                    <a>
+                                        <span class="label label-primary">@userCategoryMap.CategoryType.Name</span>
+                                    </a>
+                                </li>
+
+                                <li class="divider"></li>
+                            }
+                            @*if (userCategoryMap.CategoryID != -1)
+                        {
+                            <li>
+                                <a>
+                                    <span class="label label-primary">@userCategoryMap.Category.Name</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                        }
+                            if (userCategoryMap.SubCategoryID != -1)
+                            {
+                                <li>
+                                    <a>
+                                        <span class="label label-primary">@userCategoryMap.SubCategory.Name</span>
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                            }
+                            if (userCategoryMap.AttributeID != -1)
+                            {
+                                <li>
+                                    <a>
+                                        <span class="label label-primary">@userCategoryMap.Attribute.Name</span>
+                                    </a>
+                                </li>
+
+                            }
+                        }
+                    </ul>*@
+                    }
+            </div>
+    }
+    @if (User.IsInRole("Production"))
+    {
+        <div class="btn-group">
+            <button type="button" class="btndrop-down btn btn-info btn-sm @(activeUserType == SharedLibrary.MemberTypeEnum.Production ? "active" : "")" onclick="location.href = '/User/Index?M=@Convert.ToInt32(SharedLibrary.MemberTypeEnum.Production)';">Production</button>
+            @if (userCategoryMaps != null && userCategoryMaps.Count > 0)
+            {
+                <button type="button" class="btn btn-info btn-sm dropdown-toggle height" data-toggle="dropdown" onclick="getAndBindCategoryType(3, this)"><span class="caret"></span><span class="sr-only">Toggle Dropdown</span></button>
+                <ul class="dropdown-menu dropdown-menu-new " role="menu" id="Production"></ul>
+                @*<ul class="dropdown-menu" role="menu">
+                    @foreach (var userCategoryMap in userCategoryMaps.Where(x => x.AspNetUserRole.RoleId == Convert.ToInt64(SharedLibrary.MemberTypeEnum.Production)))
+                    {
+                        @*<li>
+                        <a>
+                            @if (userCategoryMap.CategoryTypeID != -1)
+                                {<span class="label label-primary">@userCategoryMap.CategoryType.Name</span>}
+                            @if (userCategoryMap.CategoryID != -1)
+                                {<span class="label label-primary">@userCategoryMap.Category.Name</span>}
+                            @if (userCategoryMap.SubCategoryID != -1)
+                                {<span class="label label-primary">@userCategoryMap.SubCategory.Name</span>}
+                            @if (userCategoryMap.AttributeID != -1)
+                                {<span class="label label-primary">@userCategoryMap.Attribute.Name</span>}
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                        if (userCategoryMap.CategoryTypeID != -1)
+                        {
+                            <li>
+                                <a>
+                                    <span class="label label-primary">@userCategoryMap.CategoryType.Name</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                        }
+                        if (userCategoryMap.CategoryID != -1)
+                        {
+                            <li>
+                                <a>
+                                    <span class="label label-primary">@userCategoryMap.Category.Name</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                        }
+                        if (userCategoryMap.SubCategoryID != -1)
+                        {
+                            <li>
+                                <a>
+                                    <span class="label label-primary">@userCategoryMap.SubCategory.Name</span>
+                                </a>
+                            </li>
+                            <li class="divider"></li>
+                        }
+                        if (userCategoryMap.AttributeID != -1)
+                        {
+                            <li>
+                                <a>
+                                    <span class="label label-primary">@userCategoryMap.Attribute.Name</span>
+                                </a>
+                            </li>
+                            @*<li class="divider"></li>
+                        }
+                    }
+                </ul>*@
+            }
+        </div>
+    }
+    @if (User.IsInRole("MediaPromoter"))
+    {
+        <div class="btn-group">
+            <button type="button" class="btndrop-down btn btn-info btn-sm @(activeUserType == SharedLibrary.MemberTypeEnum.MediaPromoter ? "active" : "")" onclick="location.href = '/User/Index?M=@Convert.ToInt32(SharedLibrary.MemberTypeEnum.MediaPromoter)';">Media Promoter</button>
+        </div>
+    }
+
+    @if (User.IsInRole("Customer") == false)
+    {
+        <button type="button" class="btn btn-success btn-sm height" onclick="location.href = '/User/NewMembership';"><i class="fa fa-plus"></i></button>
+    }
+}
+@*@if (User.IsInRole("MediaPromoter"))
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="info-box bg-aqua">
+                    <span class="info-box-icon"><i class="fa fa-share"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text"><input type="text" id="txtSelect" value="@Model.RefferCode" style="background-color: #00c0ef;border: 0;width: 100%;" autocomplete="off" spellcheck="false" readonly="readonly" /></span>
+                        <span class="info-box-number">Click and copy your share code from above.</span>
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 100%"></div>
+                        </div>
+                        <span class="progress-description">
+                            Share your code with people, and if they use it while becoming member, they will be assigned under you.
+                        </span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div>
+        </div>
+    }*@
+        <div class="row">
+           
+            <div class="col-md-3">
+                
+                    <!-- Profile Image -->
+                    <div class="box box-primary">
+                        <div class="box-body box-profile">
+                            
+                            <img class="profile-user-img img-responsive img-circle" src="@Model.PhotoIMG" alt="User profile" style="height:100px;width:100px;">
+                            <h3 class="profile-username text-center">@Model.Name</h3>
+                            <p class="text-muted text-center">@Model.UserName</p>
+                            <a href="/User/ProfileView?ID=-9999" class="btn btn-primary btn-block"><b>View Profile</b></a>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                
+                <!-- /.box -->
+                @*<div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">About Me</h3>
+            </div>
+            <div class="box-body">
+                @if (addresses.Count() > 0)
+                {
+                    <strong><i class="fa fa-map-marker margin-r-5"></i> Location</strong>
+                    <p class="text-muted">@addresses.LastOrDefault().Text</p>
+                    <hr>
+                }
+                <strong><i class="fa fa-file-text-o margin-r-5"></i> Short Bio</strong>
+                <p>@(Model.BioDescription != null ? (Model.BioDescription.Length > 100 ? Model.BioDescription.Substring(0, 100) + " ...." : Model.BioDescription) : "")</p>
+            </div>
+        </div>*@
+                <!-- /.box -->
+               
+                    <section class="connectedSortable">
+                        <!-- Map box -->
+                        <div class="box box-solid bg-light-blue-gradient">
+                            <div class="box-header">
+                                <!-- tools box -->
+                                <div class="pull-right box-tools">
+                                    <button class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Active Map Info"><i class="fa fa-info"></i></button>
+                                    <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+                                </div><!-- /. tools -->
+                                <i class="fa fa-map-marker"></i>
+                                Active Map
+                                @*@if (User.IsInRole(""))
+                        {<h3 class="box-title">Fans Around</h3>}
+                        else
+                        {<h3 class="box-title">Area Promotors</h3>}*@
+                            </div>
+                            <div class="box-body">
+                                <div id="world-map" style="height: 250px; width: 100%;"></div>
+                            </div><!-- /.box-body-->
+                            <div class="box-footer no-border">
+                                <div class="row">
+                                    <div class="col-xs-3 text-center" style="border-right: 1px solid #f4f4f4">
+
+                                        <div class="knob-label"> <span style="width:10px; background-color:red;height:4px;">&nbsp;&nbsp;</span> Events</div>
+                                    </div><!-- ./col -->
+                                    <div class="col-xs-3 text-center" style="border-right: 1px solid #f4f4f4">
+                                       @*<div style="width:10px; background-color:green"></div>*@
+                                        
+                                        <div class="knob-label"><span style="width:10px; background-color:forestgreen;height:4px;">&nbsp;&nbsp;</span>  My Sales</div>
+                                    </div><!-- ./col -->
+                                    <div class="col-xs-3 text-center">
+                                        @*<div id="sparkline-3"></div>*@
+                                       
+                                        <div class="knob-label"> <span style="width:10px; background-color:blue;height:4px;">&nbsp;&nbsp;</span> My Events</div>
+                                    </div>
+                                    <div class="col-xs-3 text-center">
+                                     
+                                        @*<div id="sparkline-3"> </div>*@
+                                        <div class="knob-label"> <span style="width:10px; background-color:yellow;height:4px;">&nbsp;&nbsp;</span> My Fans</div>
+                                    </div>
+                               
+                                <!-- ./col -->
+                                </div><!-- /.row -->
+                            </div>
+                        </div>
+                        <!-- /.box -->
+                    </section>
+                   
+                </div>
+                <!-- /.col -->
+                <div class="col-md-9">
+                    <!-- Small boxes (Stat box) -->
+                    <div class="row">
+                        @if (User.IsInRole("Production") || User.IsInRole("MediaPromoter"))
+                        {
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        <h3>56</h3>
+                                        <p>Total Orders</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-bag"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div><!-- ./col -->
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-green">
+                                    <div class="inner">
+                                        <h3>56,257</h3>
+                                        <p>Total Sales</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-social-usd"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div><!-- ./col -->
+                        }
+                        @if (User.IsInRole("Production") || User.IsInRole("AllTalent"))
+                        {
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-yellow">
+                                    <div class="inner">
+                                        @*<h3>@ViewBag.FanCount</h3>*@
+                                        <h3>41,933</h3>
+                                        <p>Total Fans</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-person"></i>
+                                    </div>
+                                    <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                            <div class="col-lg-3 col-xs-6">
+                                <!-- small box -->
+                                <div class="small-box bg-aqua">
+                                    <div class="inner">
+                                        @*<h3>@ViewBag.FanSharingRequestCount</h3>*@
+                                        <h3>@ViewBag.FanSharingRequestCount</h3>
+                                        <p>Fan Sharing Request</p>
+                                    </div>
+                                    <div class="icon">
+                                        <i class="ion ion-plus"></i>
+                                    </div>
+                                    <a href="/User/FanSharingRequest" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        }
+                    </div><!-- /.row -->
+                    <!-- Main row -->
+                    <div class="row">
+                        <section class="col-lg-12 connectedSortable">
+                            <!-- Map box -->
+                            <div class="box box-solid">
+                                <div class="box-header">
+                                    <!-- tools box -->
+                                    <div class="pull-right box-tools">
+                                        @*<button class="btn btn-primary btn-sm daterange pull-right" data-toggle="tooltip" title="Active Map Info"><i class="fa fa-info"></i></button>*@
+                                        <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+                                    </div><!-- /. tools -->
+                                    <i class="fa fa-inbox"></i>
+                                    Active Chart
+                                </div>
+                                <div class="box-body">
+                                    <div class="chart" style="position: relative; height: 360px;">
+                                        <div id="revenue-chart" style="position: relative; height: 270px;">  <div class="text-center">Months</div></div>
+                                        <div id="revenue-legend" class="bars-legend"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /.box -->
+                        </section>
+
+                    </div>
+                    <div class="row">
+                        <div class="box box-solid">
+                            <div class="box-header">
+                                <div class="pull-right box-tools">
+                                    <button class="btn btn-primary btn-sm pull-right" data-widget='collapse' data-toggle="tooltip" title="Collapse" style="margin-right: 5px;"><i class="fa fa-minus"></i></button>
+                                </div><!-- /. tools -->
+                                <i class="fa fa-clock-o"></i>
+                                Activity Timeline
+                            </div>
+                            <div class="box-body">
+                                <div class="active tab-pane" id="timeline">
+                                    <!-- The timeline -->
+                                    <ul class="timeline timeline-inverse">
+                                        <!-- timeline time label -->
+                                        <li class="time-label">
+                                            <span class="bg-red">
+                                                16 Aug. 2018
+                                            </span>
+                                        </li>
+                                        <!-- /.timeline-label -->
+                                        <!-- timeline item -->
+                                        <li>
+                                            <i class="fa fa-envelope bg-blue"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> 11:56AM</span>
+                                                <h3 class="timeline-header"><a href="#">Demo Media Promoter</a> sent you Message</h3>
+                                                <div class="timeline-body">
+                                                    Hey <br />,
+                                                    I wana be in touch with you regarding new work. <br />
+                                                    Please contact me once you get time <br />
+                                                    thanks
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- END timeline item -->
+                                        <!-- timeline item -->
+                                        <li>
+                                            <i class="fa fa-user bg-aqua"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> 1158 AM</span>
+                                                <h3 class="timeline-header no-border">
+                                                    <a href="#">Demo Media Promoter</a> has connected with you
+                                                </h3>
+                                            </div>
+                                        </li>
+                                        <!-- END timeline item -->
+                                        <!-- timeline time label -->
+                                        <li class="time-label">
+                                            <span class="bg-green">
+                                                14 Aug. 2018
+                                            </span>
+                                        </li>
+                                        <!-- /.timeline-label -->
+                                        <!-- timeline item -->
+                                        <li>
+                                            <i class="fa fa-camera bg-purple"></i>
+                                            <div class="timeline-item">
+                                                <span class="time"><i class="fa fa-clock-o"></i> 11:20 AM</span>
+                                                <h3 class="timeline-header"><a href="#">You</a> uploaded new content</h3>
+                                                <div class="timeline-body">
+                                                    <img src="https://placehold.it/150x100" alt="..." class="margin">
+                                                    <img src="https://placehold.it/150x100" alt="..." class="margin">
+                                                    <img src="https://placehold.it/150x100" alt="..." class="margin">
+                                                    <img src="https://placehold.it/150x100" alt="..." class="margin">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        <!-- END timeline item -->
+                                        <li>
+                                            <i class="fa fa-clock-o bg-gray"></i>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+@section scripts{
+    @if (User.IsInRole("MediaPromoter"))
+    {
+        <script>
+            $(document).ready(function () {
+                $("#txtSelect").focus(function () { $(this).select(); });
+            });
+        </script>
+    }
+    <!-- Morris.js charts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="/Content/AdminLTE/plugins/morris/morris.min.js" type="text/javascript"></script>
+    <!-- Sparkline -->
+    <script src="/Content/AdminLTE/plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+    <!-- jvectormap -->
+    <script src="/Content/AdminLTE/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js" type="text/javascript"></script>
+    <script src="/Content/AdminLTE/plugins/jvectormap/jquery-jvectormap-world-mill-en.js" type="text/javascript"></script>
+    <!-- jQuery Knob Chart -->
+    <script src="/Content/AdminLTE/plugins/knob/jquery.knob.js" type="text/javascript"></script>
+    <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+    @*<script src="/Content/AdminLTE/dist/js/pages/dashboard.js" type="text/javascript"></script>*@
+    <script>
+        $(document).ready(function () {
+            //Donut Chart
+            //var donut = new Morris.Donut({
+            //    element: 'sales-chart',
+            //    //resize: true,
+            //    colors: ["#3c8dbc", "#f56954", "#00a65a"],
+            //    data: [
+            //      { label: "Download Sales", value: 12 },
+            //      { label: "In-Store Sales", value: 30 },
+            //      { label: "Mail-Order Sales", value: 20 }
+            //    ],
+            //    hideHover: 'auto'
+            //});
+
+            //Fix for charts under tabs
+            $('.box ul.nav a').on('shown.bs.tab', function (e) {
+                area.redraw();
+                donut.redraw();
+            });
+
+            // Sales chart
+            var area = new Morris.Area({
+                element: 'revenue-chart',
+                resize: true,
+                data: [
+                    { m:'01', Sales: 8956, Fans: 5456 },
+                    { m:'02 ', Sales: 40569, Fans: 23563 },
+                    { m:'03', Sales: 56257, Fans: 41933 },
+                    { m: '04', Sales: 56257, Fans: 40133 },
+                    { m: '05', Sales: 56207, Fans: 40933 },
+                    { m:'06', Sales: 77650, Fans: 41932 },
+                    { m:'07', Sales: 65655, Fans: 49330 },
+                    { m:'08', Sales: 56605, Fans: 41933 },
+                    { m:'09', Sales: 65605, Fans: 41833 },
+                    { m:'10', Sales: 43403, Fans: 47933 },
+                    { m:'11', Sales: 67045, Fans: 40933 },
+                    { m:'12', Sales: 76767, Fans: 41233 },
+                    //{ y: '2011 Q4', item1: 37, item2: 35 },
+                    //{ y: '2012 Q1', item1: 68, item2: 19 },
+                    //{ y: '2012 Q2', item1: 56, item2: 42 },
+                    //{ y: '2012 Q3', item1: 48, item2: 37 },
+                    //{ y: '2012 Q4', item1: 153, item2: 57 },
+                    //{ y: '2013 Q1', item1: 107, item2: 40 },
+                    //{ y: '2013 Q2', item1: 84, item2: 57 }
+                ],
+                xkey: 'm',
+                parseTime: false,
+                ykeys: ['Sales', 'Fans'],
+                label:"Months",
+                labels: ['Sales', 'Fans'],
+                lineColors: ['#3c8dbc', '#a0d0e0'],
+                hideHover: 'auto'
+            });
+
+            area.options.labels.forEach(function (label, i) {
+                var legendItem = $('<span></span>').text(label).prepend('<br><span>&nbsp;</span>');
+                legendItem.find('span')
+                    .css('backgroundColor', area.options.lineColors[i])
+                    .css('width', '20px')
+                    .css('display', 'inline-block')
+                    .css('margin', '5px');
+                $('#revenue-legend').append(legendItem)
+            });
+            var visitorsData = {
+                "US": 398, //USA
+                "SA": 400, //Saudi Arabia
+                "CA": 1000, //Canada
+                "DE": 500, //Germany
+                "FR": 760, //France
+                "CN": 300, //China
+                "AU": 700, //Australia
+                "BR": 600, //Brazil
+                "IN": 800, //India
+                "GB": 320, //Great Britain
+                "RU": 3000 //Russia
+            };
+
+            //World map by jvectormap
+            $('#world-map').vectorMap({
+                map: 'world_mill_en',
+                backgroundColor: "transparent",
+                regionStyle: {
+                    initial: {
+                        fill: '#e4e4e4',
+                        "fill-opacity": 1,
+                        stroke: 'none',
+                        "stroke-width": 0,
+                        "stroke-opacity": 1
+                    }
+                },
+                series: {
+                    regions: [{
+                        values: visitorsData,
+                        scale: ["#92c1dc", "#ebf4f9"],
+                        normalizeFunction: 'polynomial'
+                    }]
+                },
+                onRegionLabelShow: function (e, el, code) {
+                    if (typeof visitorsData[code] != "undefined")
+                        el.html(el.html() + ': ' + visitorsData[code] + ' new visitors');
+                },
+              
+           
+            });
+
+            //Sparkline charts
+            var myvalues = [1000, 1200, 920, 927, 931, 1027, 819, 930, 1021];
+            $('#sparkline-1').sparkline(myvalues, {
+                type: 'line',
+                lineColor: '#92c1dc',
+                fillColor: "#ebf4f9",
+                height: '50',
+                width: '80'
+            });
+            myvalues = [515, 519, 520, 522, 652, 810, 370, 627, 319, 630, 921];
+            $('#sparkline-2').sparkline(myvalues, {
+                type: 'line',
+                lineColor: '#92c1dc',
+                fillColor: "#ebf4f9",
+                height: '50',
+                width: '80'
+            });
+            myvalues = [15, 19, 20, 22, 33, 27, 31, 27, 19, 30, 21];
+            $('#sparkline-3').sparkline(myvalues, {
+                type: 'line',
+                lineColor: '#92c1dc',
+                fillColor: "#ebf4f9",
+                height: '50',
+                width: '80'
+            });
+
+            //The Calender
+            $("#calendar").datepicker();
+
+            //SLIMSCROLL FOR CHAT WIDGET
+            $('#chat-box').slimScroll({
+                height: '250px'
+            });
+        });
+        function getAndBindCategoryType(membershipType, $this) {
+            //if ($($this).parent().parent().hasClass = 'open') {
+            //    alert(3)
+            //    return
+            //}
+            //alert(2)
+         //   var membershipType = Number($("#MembershipType").val());
+            //var containerCatType = $("#container_CategoryType");
+           // var containerCat = $("#container_Category");
+            if (membershipType === 2 || membershipType === 3) {
+             //   containerCatType.show();
+               // containerCat.show();
+                createDropdown('/User/GetCategoryTypeByMembershipType', { MembershipType: membershipType }, $this);
+               // $("#btnNext").parent().show(); $("#btnBack").parent().hide();
+               //$("#categorySection").show(); $("#userDetailsSection").hide();
+            }
+            else {
+               // containerCatType.hide();
+               // containerCat.hide();
+               // $("#btnNext").parent().hide(); $("#btnBack").hide();
+              //  $("#categorySection").hide(); $("#userDetailsSection").show();
+            }
+        }
+       
+        function createDropdown(url, data, ul, addDefault) {
+          //  alert(1)
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function (returnData) {
+                    if (returnData.Result == "OK") {
+                        $(ul).next('ul').empty();
+                        if (addDefault === true)
+                            $(ul).next('ul').append('<li value="-1"></li>');
+                        if (returnData.Data.length > 0) {
+                            $(returnData.Data).each(function () {
+                                $(ul).next('ul').append('<li value="' + this.Value + '"><a> <span class="label label-primary">' + this.Text.toUpperCase() + '</span></a></li> <li class="divider"></li>');
+                            });
+                          //  ul.parent().show();
+                        }
+                        else {
+                           // ul.parent().hide();
+                        }
+                    //    if (addDefault === true || returnData.Data.length > 0)
+                    //        ul.change();
+                    } else alert("Ops! Something went wrong. Please try again later.");
+                },
+                error: function () { alert("Ops! Something went wrong. Please try again later."); }
+            });
+        }
+    </script>
+}

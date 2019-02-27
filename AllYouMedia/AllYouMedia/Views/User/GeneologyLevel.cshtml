@@ -1,0 +1,151 @@
+﻿@model IEnumerable<AllYouMedia.Models.GeneologyLevelModel>
+@{
+    ViewBag.Title = "Level Report";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="col-md-12 profile-contain">
+
+        <div class="col-xl-12 col-md-12 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                            <div class="left-name-profile float-xs-left">LoginName :</div>
+                            <div class="form-group">
+                                <input type="text" id="txtLoginName" placeholder="Enter LoginName" class="form-control"
+                                       maxlength="50" />
+
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Date From :</div>
+                            <div class="form-group form-bootstrap-datetime">
+                                <div class='input-group' data-plugin="flatpickr" data-wrap="true">
+                                    <input type="text" id="txtDateFrom" placeholder="Select DateFrom" class="form-control"
+                                           maxlength="10" data-input />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Date to :</div>
+                            <div class="form-group form-bootstrap-datetime">
+                                <div class='input-group' data-plugin="flatpickr" data-wrap="true">
+                                    <input type="text" id="txtDateTo" placeholder="Select DateTo" class="form-control"
+                                           maxlength="10" data-input />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider-lg-spacing"></div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button id="Search" class="btn btn-outline-primary flat-buttons"
+                                    type="button">
+                                Search
+                            </button>
+                         
+                        </div>
+                        <div class="divider15"></div>
+                        <div id="grid">
+                            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="responsive_table_main">
+                                    <table class="table tablesaw tablesaw-stack">
+                                        @foreach (var group in Model.GroupBy(x => x.Level))
+                                        {
+                                            <thead>
+                                                <tr class="group-header">
+                                                    <td colspan="6">
+                                                        <span class="h3">Level: @group.Key</span>
+                                                    </td>
+                                                </tr>
+                                            </thead>
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Level
+                                                        </th>
+                                                        <th>
+                                                            Login Name
+                                                        </th>
+                                                        <th>
+                                                            User Name
+                                                        </th>
+                                                        <th>
+                                                            RepNo
+                                                        </th>
+                                                        <th>
+                                                            Sponsor LoginName
+                                                        </th>
+                                                        <th>
+                                                            Enrollment Date
+                                                        </th>
+                                                        <th>
+                                                            Shopping
+                                                        </th>
+                                                    </tr>
+                                                </thead>
+                                            foreach (var item in group)
+                                            {
+                                                <tbody>
+                                                    <tr>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Level)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.LoginName)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.UserName)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.RepNo)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.SponsorLoginName)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.EnrollmentDate)
+                                                        </td>
+                                                        <td>
+                                                            @Html.DisplayFor(modelItem => item.Shopping)
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            }
+                                            <tr class="group-footer">
+                                                <td colspan="6">
+                                                    <span class="label label-info">Level: @group.Key</span>
+                                                    <span class="label label-success">Total User: @group.Count()</span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </table>
+                                    <br />
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+ 
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(function () {
+        $(document).on("click", "#Search", function (e) {
+            $.ajax({
+                type: "GET",
+                url: '/User/GeneologyLevel',
+                data: { DateFrom: $("#txtDateFrom").val(), DateTo: $("#txtDateTo").val(), LoginName: $("#txtLoginName").val() },
+                dataType: 'html',
+                success: function (data) {
+                    $('#grid').html($(data).find("#grid"));
+                },
+                error: function () {
+                    alert("Content load failed.");
+                }
+            });
+        });
+    });
+</script>

@@ -1,0 +1,193 @@
+﻿
+@{
+    ViewBag.Title = "Your Product Tools";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<style>
+    p {
+        padding-bottom: 7px !important;
+    }
+
+    .more_info {
+        margin-top: -15px;
+        width: 8%;
+    }
+
+    .tooltip1 {
+        position: relative;
+        display: inline;
+        margin-left: -4px;
+    }
+
+        .tooltip1 .tooltiptext {
+            visibility: hidden;
+            width: 300px;
+            text-align: left;
+            background-color: #555;
+            color: #fff;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 1s;
+            padding: 6px;
+            font-size: 14px;
+        }
+
+        .tooltip1:hover .tooltiptext {
+            visibility: visible;
+            opacity: 1;
+        }
+
+    .tooltiptext li {
+        line-height: 15px !important;
+        padding-left: 5px;
+    }
+</style>
+<div class="col-md-12">
+    <div class="col-md-8 col-sm-12 col-xs-12">
+        <div class="dashboard-header content">
+            <h4 class="page-content-title  float-xs-left" style="color:red;">Important thing to know selling products with all you media</h4>
+            <div class="dashboard-action">
+                <ul class="right-action float-xs-right">
+                    <li data-widget="collapse">
+                        <a aria-hidden="true" href="javascript:void(0)">
+                            <span aria-hidden="true" class="icon_minus-06"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard-box">
+                <div class="table-badges-section">
+                    <div class="col-md-12 hidd">
+                        <ul>
+                            <li>
+                                All you media only act as a marketplace, payment gateway and marketing conduit for your product. we may act as a liaison if a dispute arises between you and the buyer. We strongly suggest you and the buyer work things out before all you media is requested to act as a liaison, if we act as a liaison it is at our own discretion.
+                            </li>
+                            <li>
+                                You are Responsible for ensuring your customer  receives your products.
+                            </li>
+                            <li>
+                                Once a order has been placed you must ship your product within 3 business days, The sooner you ship, the sooner will be paid.
+                            </li>
+                            <li>
+                                Once your products has been shipped you must input shipping information (Traking Information) into our system and forward to seller.
+                            </li>
+                            <li>
+                                At this current time we pay a maximum of 30 days and we strive to get your payments in less time as we move forward.
+                            </li>
+                            <li>
+                                Once you provide a delivery confirmation to your buyer, we will attempt to get you paid in as short of time as possible.
+                            </li>
+                            <li>
+                                You must offer a return policy of 7 Days, it is our customer policy.
+                            </li>
+                            <li>
+                                We strongly recommend you insure any products that you ship to your customer.
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 col-sm-12 col-xs-12">
+        <div class="dashboard-header content">
+            <h4 class="page-content-title float-xs-left">Shipping services information</h4>
+            <div class="dashboard-action">
+                <ul class="right-action float-xs-right">
+                    <li data-widget="collapse">
+                        <a aria-hidden="true" href="javascript:void(0)">
+                            <span aria-hidden="true" class="icon_minus-06"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard-box">
+                <div class="table-badges-section">
+                    <div class="table-responsive">
+                        <div class="col-md-12">
+                            <p>Link to united states postal services</p>
+                            <p>Link to UPS (United Parcel Services)</p>
+                            <p>Link to FEDEX</p>
+                            <p>Link to DHL</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="dashboard-header content">
+            <h4 class="page-content-title  float-xs-left">Tracking and Delivery Input Center</h4>
+            <div class="dashboard-action">
+                <ul class="right-action float-xs-right">
+                    <li data-widget="collapse">
+                        <a aria-hidden="true"
+                           href="javascript:void(0)">
+                            <span aria-hidden="true" class="icon_minus-06"></span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="dashboard-box">
+                <div class="table-badges-section">
+                    <div class="table-responsive">
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12  responsive_table_main" ng-controller="CustomerHistory">
+                            <div class="input-group well">
+                                <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                            </div>
+                            <div class="clearfix"></div>
+                            <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='UserName'; reverseSort = !reverseSort">Customer Name</a></th>
+                                        <th><a href="" ng-click="orderByField='Date'; reverseSort = !reverseSort">Purchase Date</a></th>
+                                        <th style="width:200px"><a href="" ng-click="orderByField='ProductName'; reverseSort = !reverseSort">Product Purchased</a></th>
+                                        <th><a href="">Product Shipping Info</a></th>
+                                        <th><a href="">Product Delivery Info</a></th>
+                                        <th><a href="" ng-click="orderByField='ProductType'; reverseSort = !reverseSort">Product Type</a></th>
+                                        <th><a href="" ng-click="orderByField='Amount'; reverseSort = !reverseSort">Amount</a></th>
+                                        <th style="width:115px"> <a>Shipping Info</a></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.UserName}}</td>
+                                        <td>{{data.Date}}</td>
+                                        <td>{{data.ProductName}}</td>
+                                        <td><div ng-bind-html="data.ShippingDetail" data-ng-bind-html="data.ShippingDetail"></div></td>
+                                        <td></td>
+                                        <td>{{data.ProductType}}</td>
+                                        <td>{{data.Amount}}</td>
+                                        <td>
+                                            <a ng-hide="isdellist[{{$index}}]" href="@Url.Action("AddShippingInfo", "User")?UID={{data.UID}}" class="btn btn-primary flat-buttons btn-sm">Add</a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="!dataList.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                            </div>
+                            <div class="updateSpinner" ng-show="loader.loading">
+                                Please wait...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Content/AngularJs/CustomerHistory.js")"></script>
+    <script src="~/Scripts/angular-sanitize.js"></script>
+}

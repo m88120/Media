@@ -1,0 +1,421 @@
+﻿@using AllYouMedia.Models
+@model BioUploadModel
+@{
+    ViewBag.Title = "Bio Page";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"
+      type="text/css" />
+<link href="~/Content/star-rating.css" rel="stylesheet" />
+<script src="~/Scripts/rating/jquery.min.js"></script>
+<script src="~/Scripts/rating/star-rating.js"></script>
+
+<style>
+    .well {
+        background-color: #f5f5f5;
+        border: 1px solid #e3e3e3;
+        border-radius: 4px;
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.05) inset;
+        margin-bottom: 20px;
+        min-height: 20px;
+        padding: 19px;
+    }
+
+    .guestrate .rating-md {
+        font-size: 25px;
+    }
+
+    .margin-bottom-10 {
+        margin-bottom: 10px;
+    }
+
+    .documnetImage {
+        max-width: 70px;
+        max-height: 70px;
+    }
+
+    .fan {
+        color: #00A9E0;
+    }
+</style>
+<div class="col-md-12 profile-contain">
+    <div class="col-md-12">
+        <section id="content-wrapper">
+            <div class="content content-product-edit datatable-width">
+                <div class="col-xl-11 col-lg-11 col-md-11 col-sm-12 col-xs-12">
+                    <div class="alert alert-primary alert-icon-left" role="alert">
+                        <i class="fa fa-pencil"></i>
+                        <div class="">
+                            <strong>Share Link =></strong>
+                            <a target="_blank" style="color:#F82772;" href='@Request.Url.Authority/User/BioPage?LoginName=@Model.LoginName' rel="nofollow">@Request.Url.Authority/User/BioPage?LoginName=@Model.LoginName</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-1 col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                    <a href="@Url.Action("TalentSearch", "User" )" class="btn btn-danger flat-buttons float-xs-right">Back</a>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="dashboard-header content">
+                        <h4 class="page-content-title float-xs-left">BIO INFORMARTION</h4>
+                        <div class="dashboard-action">
+                            <ul class="right-action float-xs-right">
+                                <li data-widget="collapse">
+                                    <a aria-hidden="true"
+                                       href="javascript:void(0)">
+                                        <span aria-hidden="true" class="icon_minus-06"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="dashboard-box">
+                            <div class="table-badges-section">
+                                <div class="col-md-2 col-xs-12 text-center">
+                                    <div class="text-center padding-50 MgT20">
+                                        <img src='@Model.ImageUrl' class="img-thumbnail img2" /><br />
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <table class="table table-striped table">
+                                        <tbody>
+                                            <tr>
+                                                <td>
+                                                    Name
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        @Model.UserName
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Membership
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        @Model.Role
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Category
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        @Model.Talent
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Location
+                                                </td>
+                                                <td>
+                                                    <b>
+                                                        @Model.Address
+                                                    </b>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    Rating
+                                                </td>
+                                                <td>
+                                                    <div class="rating">
+                                                        <div class="guestrate">
+                                                            <input id="Number1" type="number" readonly="readonly" value='@Model.Rate'
+                                                                   class="rating" />
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="ribbon-box left-ribbon-box default-left-ribbon-box">
+                                        <div class="ribbon-position left-simple-ribbon left-ribbon-position">
+                                            BIO
+                                        </div>
+                                        <p>
+                                            <div class="text-center text-justify">
+                                                @Model.Biography
+                                            </div>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="divider15"></div>
+                @if (ViewBag.AlreadyRate)
+                {
+                    <div class="col-md-4 col-xs-12">
+                        @using (Ajax.BeginForm("BioPage", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divRating" }))
+                        {
+                            <div id="divRating" class="col-md-12 MgT20 " style="border: 1px solid #ccc;">
+                                <div class="text-center MgT20">
+                                    <h4>
+                                        Rate to <span class="fan"> @Model.UserName</span>
+                                    </h4>
+                                </div>
+
+                                <div class="col-md-12">
+                                    <input id="txtLoginName" type="text" name="Name" class="hidden" value="@Model.LoginName" />
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="col-md-12">
+                                    <div class="col-md-8" style="border: 4px solid #f1f1f1; height: 40px;">
+                                        <div class="rating" style="margin-top:8px;">
+                                            <div class="guestrate">
+                                                <input id="txtRating" type="number" name="Rate" class="rating" min="1" max="5" step="1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <button type="submit" class="btn btn-primary flat-buttons">Rate</button>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="divider20"></div>
+                            </div>
+                        }
+                    </div>
+                }
+
+                @if (ViewBag.AlreadyFan)
+                {
+                    <div class="col-md-8 col-xs-12">
+                        @using (Ajax.BeginForm("BecomeFan", "User", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "divBecomeFan" }))
+                        {
+                            <div id="divBecomeFan" class="col-md-12 MgT20 " style="border: 1px solid #ccc;">
+                                <div class="text-center">
+                                    <h4>
+                                        Become a Fan of <span class="fan"> @Model.UserName</span>
+                                    </h4>
+                                </div>
+                                <div class="col-md-12">
+                                    <input id="txtLoginName" type="text" name="Name" class="hidden" value="@Model.LoginName" />
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-md-12  text-center">
+                                    <button type="submit" class="btn btn-primary flat-buttons">Become Fan</button>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="divider20"></div>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="col-md-4 col-xs-12">
+                        <div id="divFan" class="col-md-12 MgT20 " style="border: 1px solid #ccc;">
+                            <div class="text-center">
+                                <h4>
+                                    You are a Fan
+                                </h4>
+                            </div>
+                            <div class="col-md-12 col-xs-12 text-center">
+                                <div class="col-md-3 hidden-xs"></div>
+                                <div class="col-md-3 col-xs-6">
+                                    <button id="" data-id="@Model.LoginName" data-target="@Model.LoginName" class="btn btn-outline-danger flat-buttons Unfollow">Unfollow</button>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <div class="divider20"></div>
+                        </div>
+                    </div>
+                    if (Session["Role"].ToString() != "Media Promoter")
+                    {
+                        <div class="col-md-4 col-xs-12">
+                            <div id="divShareFan" class="col-md-12 MgT20 " style="border: 1px solid #ccc;">
+                                <div class="text-center">
+                                    <h4>
+                                        Share FanBase
+                                    </h4>
+                                </div>
+                                <div class="col-md-12 col-xs-12">
+                                    <div class="col-md-6 col-xs-12">
+                                        <span class="tag square-tag tag-default">Total Fan : @Model.TotalFan</span>
+                                    </div>
+                                    <div class="col-md-6 col-xs-12">
+                                        <button id="FanBase" data-id="@Model.LoginName" data-target="@Model.LoginName" class="btn btn-outline-primary flat-buttons">Share FanBase</button>
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="divider20"></div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="divider15"></div>
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="UserTalentMedia">
+                <div class="responsive_table_main">
+                    <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+                        <thead>
+                            <tr>
+                                <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                <th><a href="" ng-click="orderByField='Name'; reverseSort = !reverseSort">Name</a></th>
+                                <th><a href="" ng-click="orderByField='Category'; reverseSort = !reverseSort">Category</a></th>
+                                <th><a href="" ng-click="orderByField='FileUrl'; reverseSort = !reverseSort">FileUrl</a></th>
+                                <th><a href="" ng-click="orderByField='Type'; reverseSort = !reverseSort">Type</a></th>
+                                <th><a href="" ng-click="orderByField='Price'; reverseSort = !reverseSort">Price</a></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                <td>{{data.Sno}}</td>
+                                <td>{{data.Name}}</td>
+                                <td>
+                                    {{data.Category}}
+                                </td>
+                                <td>
+                                    <div style="display:{{data.TypeI}}">
+                                        <img class="documnetImage" alt="" width="70" height="70" src="{{data.FileUrl}}" />
+                                    </div>
+                                    <div style="display:{{data.TypeD}}">
+                                        <img class="documnetImage" alt="" width="70" height="70" src="{{data.FileUrl}}" />
+                                    </div>
+                                    <div style="display:{{data.TypeV}}">
+                                        <video width="200" height="70" preload="none" controls="controls">
+                                            <source type="audio/mp3" src='{{data.FileUrl}}' />
+                                        </video>
+                                    </div>
+                                    <div style="display:{{data.TypeA}}">
+                                        <audio width="200" height="70" preload="none" controls="controls">
+                                            <source type="audio/mp3" src='{{data.FileUrl}}' />
+                                        </audio>
+                                    </div>
+                                </td>
+                                <td>{{data.Type}}</td>
+                                <td>{{data.Price}}</td>
+                            </tr>
+                            <tr ng-show="!dataList.length">
+                                <td colspan="12">
+                                    No data Found.
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="text-center">
+                        <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                    </div>
+                    <div class="updateSpinner" ng-show="loader.loading">
+                        Please wait...
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.Unfollow').click(function () {
+            var AAA = $(this).data('id');
+            OnDeleteClick(AAA)
+        });
+    });
+    function OnDeleteClick(AAA) {
+        swal({
+            title: "Are you sure?",
+            text: "Unfollow this Talent!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes, Unfollow",
+            cancelButtonText: "No, cancel Please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+       function (isConfirm) {
+           if (isConfirm) {
+               var DeleteUrl = '/User/UnfollowFan';
+               $.ajax({
+                   type: "GET",
+                   url: DeleteUrl,
+                   contentType: "application/json; charset=utf-8",
+                   data: { LoginName: AAA },
+                   dataType: "json",
+                   success: function (data) {
+                       isSuccess = data.flag;
+                       if (isSuccess == "1") {
+                           swal("Unfollowed!", "Your Unfollowed this Talent.", "success");
+                           window.location = data.newurl;
+                       }
+                       else {
+                           swal("Ooops!", data.msg, "error");
+                       }
+                   },
+                   error: function () {
+                       isSuccess = message;
+                       swal("Ooops!", "Something Went Wrong! Try Again", "error");
+                   }
+               })
+           } else {
+               swal("Cancelled", "You follow this Talent yet :)", "error");
+               return false;
+           }
+       });
+    }
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#FanBase').click(function () {
+            var AAA = $(this).data('id');
+            OnSetClick(AAA)
+        });
+    });
+    function OnSetClick(AAA) {
+        swal({
+            title: "Are you sure?",
+            text: "Share FanBase of this Talent!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#087380",
+            confirmButtonText: "Yes, Share!",
+            cancelButtonText: "No, cancel Please!",
+            closeOnConfirm: false,
+            closeOnCancel: false
+        },
+       function (isConfirm) {
+           if (isConfirm) {
+               var SetUrl = '/User/ShareFanBaseRequest';
+               $.ajax({
+                   type: "GET",
+                   url: SetUrl,
+                   contentType: "application/json; charset=utf-8",
+                   data: { LoginName: AAA },
+                   dataType: "json",
+                   success: function (data) {
+                       isSuccess = data.flag;
+                       if (isSuccess == "1") {
+                           swal("Requested!", "You Requested Successfully to Talent for share FanBase", "success");
+                           window.location = data.newurl;
+                       }
+                       else {
+                           swal("Ooops!", data.msg, "error");
+                       }
+                   },
+                   error: function () {
+                       isSuccess = message;
+                       swal("Ooops!", "Something Went Wrong! Try Again", "error");
+                   }
+               })
+           } else {
+               swal("Cancelled", "Your Cancelled :)", "error");
+               return false;
+           }
+       });
+    }
+</script>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Content/AngularJs/UserTalentMedia.js")"></script>
+}

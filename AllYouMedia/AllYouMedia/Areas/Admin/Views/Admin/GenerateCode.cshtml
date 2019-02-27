@@ -1,0 +1,91 @@
+﻿@model AllYouMedia.Areas.Admin.Models.GenerateCodeModel
+@{
+    ViewBag.Title = "Code For Area Promoter";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@{
+    var Ngrid = new WebGrid(Model.NewCode, canPage: true, canSort: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "grid");
+    Ngrid.Pager(WebGridPagerModes.NextPrevious);
+}
+@{
+    var Sgrid = new WebGrid(Model.SelectedCode, canPage: true, canSort: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "grid");
+    Sgrid.Pager(WebGridPagerModes.NextPrevious);
+}
+
+<div class="profile-contain">
+    <div class="col-md-12">
+        <div class="col-xl-12 col-md-12 col-xs-12">
+            <div class="content">
+                <div class="col-xl-12 col-md-12 col-xs-12">
+                    <div class="col-md-6 col-sm-6 col-xs-12 responsive_table_main">
+                        <h4 class="page-content-title">NEW CODE</h4>
+                        <div id="grid">
+                            @Ngrid.GetHtml(
+        tableStyle: "table table-striped table-bordered table-hover", mode: WebGridPagerModes.All,
+
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",
+                headerStyle: "header",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                columns: Ngrid.Columns(
+
+                Ngrid.Column("Sno", format: (item) => item.Sno),
+                Ngrid.Column("Code"),
+                Ngrid.Column(format: @<text><a href="javascript:void(0);" data-id="@item.Code" class="btn btn-info btn-sm Select" id="@item.Code">SELECT</a></text>)
+         ))
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-sm-6 col-xs-12 responsive_table_main">
+                        <h4 class="page-content-title">SELECTED CODE</h4>
+                        <div id="Codegrid">
+                            @Sgrid.GetHtml(
+        tableStyle: "table table-striped table-bordered table-hover", mode: WebGridPagerModes.All,
+
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",
+                headerStyle: "header",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                columns: Sgrid.Columns(
+
+                Sgrid.Column("Sno", format: (item) => item.Sno),
+                Sgrid.Column("Code"),
+                  Sgrid.Column("Date"),
+                    Sgrid.Column("Status")
+
+         ))
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $('#grid').on('click', '.Select', function () {
+        $.ajax({
+            type: "POST",
+            url: '/Admin/Admin/GenerateCode',
+            data: { Code: $(this).data('id') },
+            datatype: "json",
+            success: function (data) {
+                if (data.flag == "1") {
+                    swal("Selected!", data.msg, "success");
+                    location.reload();
+                }
+                else if (data.flag == "0") {
+                    swal("Error!", data.msg, "error");
+                }
+            },
+            error: function () {
+                swal("Ooops!", "Something Went Wrong! Try Again", "error");
+            }
+        });
+    });
+</script>

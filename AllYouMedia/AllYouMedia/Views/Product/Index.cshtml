@@ -1,0 +1,129 @@
+﻿@model AllYouMedia.Models.IndexModel
+@{
+    ViewBag.Title = "All Product";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+<style>
+    .single-sidebar h2 {
+        margin-bottom: 10px !important;
+    }
+</style>
+
+<section class="main-content-area" style="margin-bottom:50px;">
+    <div class="container">
+        <!-- bradcame start -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="greentect_bradcame">
+                    <ul>
+                        <li><a href="@Url.Action("Index","Home")">home</a></li>
+                        <li>Product</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <!-- bradcame end -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
+                <div class="page-sidebar-area">
+                    <div class="single-sidebar shop-by-area">
+                        <h2>Shop By Category</h2>
+                        <div class="category-list-pro sidebar-list">                         
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab">
+                                        <h4 class="panel-title">
+                                            <a href="@Url.Action("Index", "Product")">ALL</a>
+                                        </h4>
+                                    </div>
+                                </div>
+                                @foreach (var item in Model.Menu)
+                                {
+                                    var SubMenuItem = Model.SubMenu.Where(m => m.MenuUID == item.UID);
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="@item.UID">
+                                            <h4 class="panel-title">
+                                                <a role="button" data-toggle="collapse" data-parent="#accordion" href="#@item.Name" aria-expanded="true" aria-controls="collapseOne">
+                                                    @item.Text
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="@item.Name" class="panel-collapse collapse" role="tabpanel" aria-labelledby="@item.UID">
+                                            <div class="panel-body">
+                                                <ul>
+                                                    <li><a href="@Url.Action("Index", "Product",new { CUID= @item.UID})" class="single-cat-dropdown-title">All</a></li>
+                                                    @foreach (var item1 in SubMenuItem.GroupBy(x => x.AlbumUID).Select(y => y.First()))
+                                                    {
+                                                        if (item1.AlbumUID != "")
+                                                        {
+                                                            <li>                                                               
+                                                                <ul>
+                                                                    <li>
+                                                                        <a href="@Url.Action("Index", "Product", new { AUID = @item1.AlbumUID })">
+                                                                            @item1.AlbumName
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                    }
+                                                    @foreach (var item1 in SubMenuItem)
+                                                    {
+                                                        if (item1.AlbumUID == "" && item.Text == "MUSIC")
+                                                        {
+                                                            <li>                                                            
+                                                                <ul>
+                                                                    <li>
+                                                                        <a href="@Url.Action("Index", "Product", new { SUID = @item1.UID })">
+                                                                            @item1.Name
+                                                                        </a>
+                                                                    </li>
+                                                                </ul>
+                                                            </li>
+                                                        }
+                                                        else if (item.Text != "MUSIC")
+                                                        {
+                                                            <li>
+                                                                <a href="@Url.Action("Index", "Product", new { SUID = @item1.UID })">
+                                                                   @item1.Name
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    }
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9">
+                <div class="right-main-product">
+                    <div class="product-sgorting-bar">
+                        @Html.Partial("_ProductSearch")
+                    </div>
+                    <div class="row all-grid-product">
+                        <div id="divAllProduct">
+                            @Html.Partial("~/Views/Product/_Product.cshtml", Model.Product)
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div id="divModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="row">
+                <div id="divProductDetail">
+                    @Html.Partial("~/Views/Product/_ProductDetail.cshtml", Model.ProductDetail)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

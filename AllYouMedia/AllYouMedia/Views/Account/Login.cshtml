@@ -1,0 +1,155 @@
+﻿@using AllYouMedia.Models
+@model LoginViewModel
+@{
+    Layout = null;
+
+}
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>All You Media</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Part -->
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700" rel="stylesheet">
+    <!-- CSS Part -->
+    <link rel="shortcut icon" type="image/ico" href="favicon.ico??id=@AllYouMedia.MvcApplication.BuldVersion" />
+    <link href="/Content/css/main.css?id=@AllYouMedia.MvcApplication.BuldVersion" rel="stylesheet" />
+    <link href="/Content/css/bootstrap.css" rel="stylesheet" />
+    <link href="/Content/css/animate.css" rel="stylesheet" />
+    <!-- All Categories CSS -->
+    <link rel="stylesheet" href="/Content/css/all-categories.css" type="text/css">
+    <!-- Carousel Assets -->
+    <link href="/Content/css/owl.carousel.css" rel="stylesheet">
+    <link href="/Content/css/owl.theme.css" rel="stylesheet">
+    <link href="/Content/toastr.min.css" rel="stylesheet" />
+    <link href="/Content/css/font-awesome.css" rel="stylesheet" />
+    <style>
+        .custom-scroll::-webkit-scrollbar {
+            height: 12px;
+            width: 12px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+            border-radius: 10px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            border-radius: 10px;
+            -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Start -->
+    <header>
+        <div class="container">
+            <div class="logo"><a href="/"><img src="/Content/images/logo.png" alt="logo"></a></div>
+        </div>
+    </header>
+    <!-- Header End -->
+    <div class="page-tital">
+        <div class="container">
+            <h1>Login</h1>
+            <span><a href="#_">Home</a>  -  Login</span>
+
+        </div>
+    </div>
+    <section class="login-page">
+        <div class="login-box">
+            <div class="login-left"><h2>Login</h2></div>
+            <div class="login-right">
+                <h2>Login to your account.</h2>
+                <form action="/Account/Login" method="post" data-parsley-validate="">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" id="ReturnURL" name="ReturnURL" value="@ViewBag.ReturnURL" />
+                    <p class="name">
+                        @Html.TextBoxFor(x => x.UserName, new { @class = "input-feild", placeholder = "Email", type = "email", required = "" })
+                        @Html.ValidationMessageFor(x => x.UserName)
+                    </p>
+                    <p>
+                        @Html.TextBoxFor(x => x.Password, new { @class = "input-feild", placeholder = "Password", type = "password", required = "", data_parsley_minlength = "7" })
+                        @Html.ValidationMessageFor(x => x.Password)
+                    </p>
+                    <p>
+                        <label>Remember Me? @Html.CheckBoxFor(x => x.RememberMe, new { })</label>
+                    </p>
+                    <p><button class="btn" type="submit">Login</button></p>
+                </form>
+                <p class="dont">Don't have an account? <a href="/Home/Membership?ReturnURL=@ViewBag.ReturnURL">Register Now</a></p>
+            </div>
+        </div>
+    </section>
+    <!-- Start Footer -->
+    <footer>        
+        <div class="clearfix"></div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3 flinks">
+                    <h3>My Account</h3>
+                    <ul>
+                        <li><a href="#_">Log in</a></li>
+                        <li><a href="#_">Register</a></li>
+                        <li><a href="#_">My Cart</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 flinks">
+                    <h3>Support</h3>
+                    <ul>
+                        <li><a href="#_">About Us</a></li>
+                        <li><a href="#_">Contact Us</a></li>
+                        <li><a href="#_">Area Promoter</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 flinks">
+                    <h3>Social Links</h3>
+                    <ul>
+                        <li><a href="#_">Facebook</a></li>
+                        <li><a href="#_">Twitter</a></li>
+                        <li><a href="#_">Pintrest</a></li>
+                    </ul>
+                </div>
+                <div class="col-sm-3 flinks">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li>Email : <a href="mailto:you@allyoumedia.com">you@allyoumedia.com</a></li>
+                        <li><a href="#_"><img src="/Content/images/godaddy-icon.jpg" alt=""></a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="copyrights">© @DateTime.Now.Year  Allyoumedia.     <a href="#_">Terms of Use</a>  |  <a href="#_">Privacy Policy</a></div>
+    </footer>
+    <!-- End Footer -->
+    <!-- JS Part -->
+    <script src="/Content/js/jquery-3.3.1.min.js"></script>
+    <script src="/Content/js/bootstrap.min.js"></script>
+    <script src="/Content/js/jquery.menu-aim.js"></script>
+    <script src="/Content/js/viewportchecker.js"></script>
+    <script src="/Content/js/modernizr-2.6.2.js"></script>
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script src="/Scripts/toastr.min.js"></script>
+    @if (TempData["Success"] != null)
+    {
+        <script>
+            toastr.success('@TempData["Success"]', 'Success');
+        </script>
+    }
+    @if (TempData["Alert"] != null)
+    {
+        <script>
+            toastr.info('@TempData["Alert"]', 'Alert');
+        </script>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <script>
+            toastr.error('@TempData["Error"]', 'Alert');
+        </script>
+    }
+    <script>
+
+    </script>
+</body>
+</html>

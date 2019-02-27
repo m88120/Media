@@ -1,0 +1,111 @@
+﻿@{
+    var sessionCart = (AllYouMedia.Controllers.HomeController.SessionCart)ViewBag.SessionCart;
+    var itemCount = 0;
+}
+@section styles{
+    <link rel="stylesheet" href="/Content/css/jquery.dpNumberPicker-1.0.1-min.css" type="text/css">
+}
+<div class="page-tital">
+    <div class="container">
+        <h1>Cart</h1>
+        <span><a href="#_">Home</a>  -  Cart</span>
+
+    </div>
+</div>
+<div id="mid-part">
+    <div class="container">
+        <div class="cart-table">
+            <div class="cart-table-inner">
+
+                <table width="100%" cellspacing="0" cellpadding="0">
+                    <thead>
+                        <tr>
+                            <th>Sr. No.  </th>
+                            <th>Product Description</th>
+                            <th></th>
+                            <th>Item Price<p>(Incl of all taxes)</p></th>
+                            <th width="170px"> Quantity</th>
+                            <th>Discount</th>
+                            <th>Total Amount<p>(Incl of all taxes)</p></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (sessionCart.CartItems.Count > 0)
+                        {
+                            foreach (var cartItem in sessionCart.CartItems)
+                            {
+                                itemCount++;
+                            <tr>
+                                <td align="center">@itemCount</td>
+                                <td width="90"><img src="@cartItem.PhotoIMG" alt="Product Image"></td>
+                                <td>
+                                    <a href="/Home/ProductDetail?ItemID=@cartItem.ItemID">@cartItem.ItemName</a>
+                                    @*<p>Etiam nec interdum</p>
+                                        <p>Mediam Size</p>*@
+                                </td>
+                                <td>@AllYouMedia.MvcApplication.CurrencySymbol @cartItem.SellPrice.ToString("N2")</td>
+                                <td>
+                                    <div id="QtyPicker_@itemCount" class="qtyPicker" data-qty="@cartItem.Qty"></div>
+                                    <div class="text-center">
+                                        <button class="btn btn-sm btn-default" type="button" onclick="addToCart(@cartItem.ItemID,@itemCount);">Update</button>
+                                        <button class="btn btn-sm btn-default" type="button" onclick="removeFromCart(@cartItem.ItemID,@itemCount);" style="borde"><i class="fa fa-trash" style="color:#fff;"></i></button>
+                                    </div>
+                                </td>
+                                <td>@AllYouMedia.MvcApplication.CurrencySymbol @cartItem.LineDiscount.ToString("N2")</td>
+                                <td>@AllYouMedia.MvcApplication.CurrencySymbol @cartItem.LineAmount.ToString("N2")</td>
+                            </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr><td colspan="6" style="text-align:center;">No item in cart. <a href="/" class="hvr-shutter-out-vertical">Continue Shopping</a></td></tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="tabel-bottom">
+                <div class="prize_list">
+                    <p class="prize-bold"><span>Total :</span>@AllYouMedia.MvcApplication.CurrencySymbol @sessionCart.NetAmount.ToString("N2")</p>
+                </div>
+            </div>
+            @if (sessionCart.CartItems.Count > 0)
+            {
+                <div class="cart-box">
+                    <a href="/" class="hvr-shutter-out-vertical">Continue Shopping</a>
+                    <button onclick="window.location.href = '/Home/Checkout';" class="hvr-shutter-out-vertical">Checkout</button>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="/Content/js/jquery.dpNumberPicker-1.0.1-min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.qtyPicker').each(function () {
+                $(this).dpNumberPicker({
+                    min: 1, // Minimum value.
+                    max: 20, // Maximum value.
+                    value: $(this).data('qty'), // Initial value
+                    step: 1, // Incremental/decremental step on up/down change.
+                    //format: false,
+                    editable: false,
+                    format: "#",
+                    formatter: function (val) {
+                        return " " + val;
+                    }
+                });
+            });
+        });
+        function addToCart(ItemID, rowNum) {
+            var qty = $("#QtyPicker_" + rowNum)[0].options.value;
+            if (qty == 0) qty = 1;
+            var returnURL = location.pathname + location.search + location.hash;
+            location.href = "/Home/AddToCart?ItemID=" + ItemID + "&Qty=" + qty + "&ReturnURL=" + returnURL;
+        }
+        function removeFromCart(ItemID, rowNum) {
+            var returnURL = location.pathname + location.search + location.hash;
+            location.href = "/Home/AddToCart?ItemID=" + ItemID + "&Qty=0&ReturnURL=" + returnURL;
+        }
+    </script>
+}

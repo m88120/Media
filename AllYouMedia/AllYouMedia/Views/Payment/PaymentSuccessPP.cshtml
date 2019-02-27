@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "Payment Success";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+<link href="~/assets/global/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+<style>
+    address, dl, ol, p, ul {
+        margin-bottom: 0;
+    }
+</style>
+<section class="main-content-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                <div class="alert alert-success text-center" role="alert">
+                    <h4 class="alert-heading">Well done!</h4>
+                    <p class="mb-0">@Html.Raw(TempData["Message1"])</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

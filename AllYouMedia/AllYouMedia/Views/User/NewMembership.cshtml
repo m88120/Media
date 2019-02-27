@@ -1,0 +1,129 @@
+﻿@using AllYouMedia.Models
+@{
+    ViewBag.Title = "New Membership";
+    ViewBag.Active = "NewMembership";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+    var membershipList = Enum.GetValues(typeof(AllYouMedia.Code.SharedLibrary.MemberTypeEnum)).Cast<AllYouMedia.Code.SharedLibrary.MemberTypeEnum>().Select(v => new SelectListItem { Text = ((int)v == 3 ? "All Talent (If you don't have a product to sell)" : (int)v == 2 ? "Production (Sell Your Product)" : (int)v == 4 ? "Media Promoter" : v.ToString()), Value = ((int)v).ToString() }).ToList();
+}
+@section styles{
+}
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">New Membership</h3>
+            </div>
+            <div class="box-body">
+                <form action="/User/NewMembership" method="post" data-parsley-validate="">
+                    <div class="form-group">@Html.DropDownList("MembershipType", membershipList, new { @class = "form-control", required = "" }) @Html.ValidationMessage("MembershipType")</div>
+                    <div class="form-group" id="container_CategoryType" style="display:none;">
+                        <label>Category</label>
+                        <select class="form-control" id="CategoryType" name="CategoryTypeID" onchange="categoryTypeChanged(this);"></select>
+                    </div>
+                    <div class="form-group" id="container_Category" style="display:none;">
+                        <label>Sub Category</label>
+                        <select class="form-control" id="Category" name="CategoryID" onchange="categoryChanged(this);"></select>
+                    </div>
+                    <div class="form-group" id="container_SubCategory" style="display:none;">
+                        <label>Level 2 Category</label>
+                        <select class="form-control" id="SubCategory" name="SubCategoryID" onchange="subCategoryChanged(this);"></select>
+                    </div>
+                    <div class="form-group" id="container_Attribute" style="display:none;">
+                        <label>Level 3 Category</label>
+                        <select class="form-control" id="Attribute" name="AttributeID"></select>
+                    </div>
+                    <div class="form-group"><button class="btn" type="submit">Checkout</button></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Scripts/parsley.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#MembershipType").change(function () {
+                getAndBindCategoryType();
+            });
+            getAndBindCategoryType();
+        });
+        function getAndBindCategoryType() {
+            var membershipType = Number($("#MembershipType").val());
+            var containerCatType = $("#container_CategoryType");
+            var containerCat = $("#container_Category");
+            if (membershipType === 2 || membershipType === 3) {
+                containerCatType.show();
+                containerCat.show();
+                createDropdown('/Account/GetCategoryTypeByMembershipType', { MembershipType: membershipType }, $("#CategoryType"));
+                $("#btnNext").parent().show(); $("#btnBack").parent().hide();
+                $("#categorySection").show(); $("#userDetailsSection").hide();
+            }
+            else {
+                containerCatType.hide();
+                containerCat.hide();
+                $("#btnNext").parent().hide(); $("#btnBack").hide();
+                $("#categorySection").hide(); $("#userDetailsSection").show();
+            }
+        }
+        function categoryTypeChanged(elem) {
+            var membershipType = Number($("#MembershipType").val());
+            var categoryType = $(elem).val();
+            createDropdown('/Account/GetCategoryByCategoryTypeMembershipType', { MembershipType: membershipType, CategoryTypeID: categoryType }, $("#Category"), true);
+            if (membershipType == 3) {
+                if (Number(categoryType) === -100)
+                    toastr.info('ALL MUSIC SINGLES AT $1.24<br/>ALL MUSIC ALBUMS (UP TO 15 MUSIC SLOTS) AT $15.99<br/>', 'Alert');
+                else if (Number(categoryType) === -103)
+                    toastr.info('ALL MOVIE/FILM AT SET AT $17.99 (ONE FILM UP TO 1.5 GBS)', 'Alert');
+            }
+        }
+        function categoryChanged(elem) {
+            var membershipType = Number($("#MembershipType").val());
+            var category = $(elem).val();
+            createDropdown('/Account/GetSubCategoryByCategoryMembershipType', { MembershipType: membershipType, CategoryID: category }, $("#SubCategory"), true);
+        }
+        function subCategoryChanged(elem) {
+            var membershipType = Number($("#MembershipType").val());
+            var subCategory = $(elem).val();
+            createDropdown('/Account/GetAttributeBySubCategory', { SubCategoryID: subCategory }, $("#Attribute"), true);
+        }
+        function createDropdown(url, data, ddl, addDefault) {
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function (returnData) {
+                    if (returnData.Result == "OK") {
+                        ddl.empty();
+                        if (addDefault === true)
+                            ddl.append('<option value="-1"></option>');
+                        if (returnData.Data.length > 0) {
+                            $(returnData.Data).each(function () {
+                                ddl.append('<option value="' + this.Value + '">' + this.Text + '</option>');
+                            });
+                            ddl.parent().show();
+                        }
+                        else {
+                            ddl.parent().hide();
+                        }
+                        if (addDefault === true || returnData.Data.length > 0)
+                            ddl.change();
+                    } else alert("Ops! Something went wrong. Please try again later.");
+                },
+                error: function () { alert("Ops! Something went wrong. Please try again later."); }
+            });
+        }
+        function goToUserDetails() {
+            $("#categorySection").hide();
+            $("#userDetailsSection").show();
+            $("#btnBack").parent().show(); $("#btnBack").show();
+        }
+        function backToCategory() {
+            $("#categorySection").show();
+            $("#userDetailsSection").hide();
+            $("#btnBack").parent().hide();
+        }
+    </script>
+}
+
+
+

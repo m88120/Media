@@ -1,0 +1,113 @@
+﻿@using AllYouMedia.Models
+@model InvoiceModel
+@{
+    ViewBag.Title = "Invoice";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="col-md-12">
+    <div class="col-md-12">
+        <div class="content" id="invoice-page">
+            <h4 class="page-content-title float-xs-left">Invoice</h4>
+            <div class="divider15"></div>
+            <div class="order-detail">
+                <div class="col-lg-4 invoice-top-box">
+                    <h6>Billing Detail:</h6>
+                    <address class="address-detail">
+                        <strong>@Model.NAME</strong>
+                        <br>
+                        @Model.ADDRESS<br>
+                        @Model.ADDRESS2<br />
+                        <b> Email: @Model.EMAIL</b>
+                    </address>
+                </div>
+                <div class="col-lg-4 invoice-top-box">
+                    <h6>Payment Detail:</h6>
+                    <address class="address-detail">
+                        <strong>Credit Card</strong>
+                        <br>
+                        Payment Method : Payeezy
+                        <br>
+                        <br>
+                        <br>
+                    </address>
+                </div>
+                <div class="col-lg-4 invoice-top-box">
+                    <h6>Order:</h6>
+                    <address class="address-detail">
+                        <strong>Invoice No: @Model.InvoiceNo</strong>
+                        <br>
+                        <b>Payment Date : @Model.PaymentDate</b>
+                        <br>
+                        Invoice Date : @DateTime.Now.ToShortDateString()
+                        <br>
+                    </address>
+                </div>
+            </div>
+            <div class="divider15"></div>
+            <!-- START INVOICE DETAIL -->
+            <div class="table-responsive table-striped basic_table">
+                <table class="table table-bordered table-grid-options">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th>Product</th>
+                            <th>Rate</th>
+                            <th>Quantity</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>@Model.Product</td>
+                            <td>@Model.Rate</td>
+                            <td>@Model.Quantity</td>
+                            <td>@Model.Amount</td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-xs-right"><strong class="invoice-total">Subtotal</strong></td>
+                            <td><strong>@Model.Amount</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-xs-right"><strong class="invoice-total">Tax</strong></td>
+                            <td><strong>@Model.Tax</strong></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td class="text-xs-right"><strong class="invoice-total">Total</strong></td>
+                            <td><strong>@Model.NetAmount</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!-- END INVOICE DETAIL -->
+            <div class="divider15"></div>
+            <div class="">
+                <h6>Thank you for business with us!!</h6>
+                <p>
+                    Waters may every great a. Moveth, cattle bring dry beginning light meat fill make herb all
+                    itself two. Moveth kind firmament beast face. Called beast. Created fifth herb. Night seas
+                    midst. She'd behold over male. Beginning cattle deep. Yielding. Years.
+                </p>
+                <div class="row">
+                    <div class="col-md-5">
+                        <a href="@Url.Action("PurchaseHistory","User")" class="btn btn-outline-secondary">Back</a>
+                    </div>
+                    <div class="col-md-7 btn-invoice">
+                        <button class="btn flat-buttons btn-success invoice-print"><i aria-hidden="true" data-icon=""></i>Print</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

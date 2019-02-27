@@ -1,0 +1,27 @@
+﻿@model IEnumerable<AllYouMedia.Areas.Admin.Models.PageModel>
+
+@{
+    var grid = new WebGrid(Model, canPage: true, canSort: true, rowsPerPage: 10, selectionFieldName: "selectedRow", ajaxUpdateContainerId: "grid");
+    grid.Pager(WebGridPagerModes.NextPrevious);
+}
+<div id="grid">
+    @grid.GetHtml(
+        tableStyle: "table table-striped table-bordered table-hover", mode: WebGridPagerModes.All,
+
+                firstText: "<< First",
+                previousText: "< Prev",
+                nextText: "Next >",
+                lastText: "Last >>",
+                headerStyle: "header",
+                alternatingRowStyle: "alt",
+                selectedRowStyle: "select",
+                columns: grid.Columns(
+
+                grid.Column("Sno", format: (item) => item.Sno),
+                grid.Column("PageTitle"),
+                grid.Column("PageUrl", format: @<text><a href='@String.Format("{0}://{1}/{2}", Request.Url.Scheme, Request.Url.Authority,@item.PageUrl)' target="_blank">
+                        @String.Format("{0}://{1}/{2}", Request.Url.Scheme, Request.Url.Authority, @item.PageUrl)
+                    </a></text>),
+                grid.Column(format: @<text><a href="javascript:void(0);" data-id="@item.PageUrl" class="btn btn-info btn-sm Edit" id="@item.PageUrl">Edit</a></text>)
+         ))
+</div>

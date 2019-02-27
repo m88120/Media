@@ -1,0 +1,93 @@
+﻿
+@{
+    ViewBag.Title = "User Refferal Report";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+<div class="col-md-12 profile-contain">
+    <div class="col-xl-12 col-md-12 col-xs-12">
+        <div class="content">
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="UserRefferalReport">
+                    <div class="responsive_table_main">
+                        <div class="input-group well">
+                            <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-xl-6 col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                            <h4 class="page-content-title">This Month User</h4>
+                            <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                        <th><a href="" ng-click="orderByField='Name'; reverseSort = !reverseSort">Name</a></th>
+                                        <th><a href="" ng-click="orderByField='EmailID'; reverseSort = !reverseSort">EmailID</a></th>
+                                        <th><a href="" ng-click="orderByField='Date'; reverseSort = !reverseSort">Date</a></th>
+                                        <th><a href="" ng-click="orderByField='Mobile'; reverseSort = !reverseSort">Mobile</a></th>
+                                        <th><a href="" ng-click="orderByField='Country'; reverseSort = !reverseSort">Country</a></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList1 | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.Sno}}</td>
+                                        <td>{{data.Name}}</td>
+                                        <td>{{data.EmailID}}</td>
+                                        <td>{{data.Date}}</td>
+                                        <td>{{data.Mobile}}</td>
+                                        <td>{{data.Country}}</td>
+                                    </tr>
+                                    <tr ng-show="!dataList1.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-xl-6 col-lg-12 col-md-6 col-sm-12 col-xs-12">
+                            <h4 class="page-content-title">All User</h4>
+                            <table id="tblDataAll" style="display:none;" class="table tablesaw tablesaw-stack">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                        <th><a href="" ng-click="orderByField='Name'; reverseSort = !reverseSort">Name</a></th>
+                                        <th><a href="" ng-click="orderByField='EmailID'; reverseSort = !reverseSort">EmailID</a></th>
+                                        <th><a href="" ng-click="orderByField='Date'; reverseSort = !reverseSort">Date</a></th>
+                                        <th><a href="" ng-click="orderByField='Mobile'; reverseSort = !reverseSort">Mobile</a></th>
+                                        <th><a href="" ng-click="orderByField='Country'; reverseSort = !reverseSort">Country</a></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList2 | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.Sno}}</td>
+                                        <td>{{data.Name}}</td>
+                                        <td>{{data.EmailID}}</td>
+                                        <td>{{data.Date}}</td>
+                                        <td>{{data.Mobile}}</td>
+                                        <td>{{data.Country}}</td>
+                                    </tr>
+                                    <tr ng-show="!dataList2.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="text-center">
+                            <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                        </div>
+                        <div class="updateSpinner" ng-show="loader.loading">
+                            Please wait...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Content/AngularJs/UserRefferalReport.js")"></script>
+}
+

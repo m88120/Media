@@ -1,0 +1,317 @@
+﻿
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>@ViewBag.Title</title>
+    <meta name="description" content="add your site description here">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/Round-Logo.png">
+    <link href="~/Content/Guest/jquery.css" rel="stylesheet" />
+    <link href="~/Content/Guest/meanmenu.css" rel="stylesheet" />
+    <link href="~/Content/Guest/jquery-ui-slider.css" rel="stylesheet" />
+    <link href="~/Content/Guest/nivo-slider.css" rel="stylesheet" />
+    <link href="~/Content/Guest/owl.transitions.css" rel="stylesheet" />
+    <link href="~/Content/Guest/owl.theme.css" rel="stylesheet" />
+    <link href="~/Content/Guest/owl.carousel.css" rel="stylesheet" />
+    <link href="~/Content/Guest/animate.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Poppins:200,300,400,500,600,700,800,900'
+          rel='stylesheet' type='text/css' />
+    <link href="https://fonts.googleapis.com/css?family=Abel" rel="stylesheet">
+    <link href="~/Content/Guest/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/Guest/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/Guest/style.css" rel="stylesheet" />
+    <link href="~/Content/Guest/responsive.css" rel="stylesheet" />
+    <link href="~/Content/Guest/new.css" rel="stylesheet" />
+    <script src="~/Scripts/Guest/modernizr.js"></script>
+</head>
+<body class="index-2">
+    <header class="header-area">
+        <div class="header-middle">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3 col-xs-6">
+                        <div class="logo">
+                            <a href="@Url.Action("Index","Home")"><img src="~/Images/Guest/logo.png"></a>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-5 col-xs-hide">
+                        <div class="category-search-area">
+                            <div class="search-form">
+                                <form action="#" method="post">
+                                    <input class="cat-search-box" placeholder="Search here.." type="text">
+                                    <a href="" class="cat-search-btn"><i class="fa fa-search"></i></a>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="header-right-menu col-md-4 col-xs-7">
+                        <nav class="account">
+                            <ul>
+                                @if (HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("SuperAdmin"))
+                                {
+                                    <li><a title="Logout" href="@Url.Action("Logout","Account")"><i class="fa fa-sign-in"></i></a></li>
+                                }
+                                else if (User.Identity.IsAuthenticated)
+                                {
+                                    <li><a title="Logout" href="@Url.Action("Logout","Account")"><i class="fa fa-sign-in"></i></a></li>
+                                }
+                                else
+                                {
+                                    <li><a title="Login" href="@Url.Action("Login","Account")"><i class="fa fa-sign-in"></i></a></li>
+                                    <li><a title="Register" href="@Url.Action("Register","Account")"><i class="fa fa-user-plus"></i></a></li>
+                                }
+                                <li>
+                                    @{Html.RenderAction("HeaderCart", "Shared");}
+                                </li>
+                            </ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="header-bottom" data-spy="affix" data-offset-top="60" data-offset-bottom="200">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-md-3">
+                        <div class="left-category-menu-area">
+                            <h3 class="cat-toggle-heading">category</h3>
+                            @{Html.RenderAction("GuestMenu", "Shared");}
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-9">
+                        <div class="mainmenu">
+                            <nav>
+                                <ul>
+                                    @if (HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("SuperAdmin"))
+                                    {
+                                        <li class="active"><a href="@Url.Action("Index", "Admin")">HOME</a></li>
+                                    }
+                                    else if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li class="active"><a href="@Url.Action("Index", "User")">HOME</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li class="active"><a href="@Url.Action("Index", "Home")">HOME</a></li>
+                                    }
+                                    <li>
+                                        <a href="javascript:void(0)">ABOUT</a><i class="fa fa-angle-down"></i>
+                                        <ul>
+                                            <li><a href="@Url.Action("About","Home")">ABOUT US</a></li>
+                                            <li><a href="@Url.Action("Membership","Home")">MEMBERSHIP</a></li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <a href="javascript:void(0)">SHOP</a><i class="fa fa-angle-down"></i>
+                                        <ul>
+                                            <li><a href="@Url.Action("Index","Product")">PRODUCT</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="@Url.Action("Index","Event")">EVENTS</a></li>
+                                    <li><a href="@Url.Action("Contact","Home")">Contact Us</a></li>
+                                    @if (HttpContext.Current.User.IsInRole("Admin") || HttpContext.Current.User.IsInRole("SuperAdmin"))
+                                    {
+                                        <li>
+                                            <a href="javascript:void(0)">@User.Identity.Name</a><i class="fa fa-angle-down"></i>
+                                            <ul>
+                                                <li><a href="@Url.Action("Index","Admin")">MY ACCOUNT</a></li>
+                                                <li><a href="@Url.Action("Logout", "Account")">LOGOUT</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                    else if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li>
+                                            <a href="javascript:void(0)">@User.Identity.Name</a><i class="fa fa-angle-down"></i>
+                                            <ul>
+                                                <li><a href="@Url.Action("Index","User")">MY ACCOUNT</a></li>
+                                                <li><a href="@Url.Action("Logout","Account")">LOGOUT</a></li>
+                                            </ul>
+                                        </li>
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12 mobile-menu-area">
+                        <div class="mobile-menu hidden-md hidden-lg" id="mob-menu">
+                            <span class="mobile-menu-title">Menu</span>
+                            <nav>
+                                <ul>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a href="@Url.Action("Index","User" )">HOME</a></li>
+                                    }
+                                    else
+                                    {
+                                        <li><a href="@Url.Action("Index","Home" )">HOME</a></li>
+                                    }
+                                    <li><a href="@Url.Action("About","Home")">ABOUT US</a></li>
+                                    <li><a href="@Url.Action("Membership","Home")">MEMBERSHIP</a></li>
+                                    <li><a href="@Url.Action("Index","Product")">PRODUCT</a></li>
+                                    <li><a href="@Url.Action("Index","Event")">EVENT</a></li>
+                                    <li><a href="@Url.Action("Cart","Product")">CART</a></li>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <li><a href="@Url.Action("Logout","Account")">LOGOUT</a></li>
+                                    }
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        @Html.Raw(TempData["Message"])
+    </div>
+    @RenderBody()
+    <footer class="footer-area">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <div class="single-footer">
+                            <h2>My Account</h2>
+                            <ul>
+                                <li><a href="@Url.Action("Login","Account")">Log in</a></li>
+                                <li><a href="@Url.Action("Register","Account")">Register</a></li>
+                                <li><a href="@Url.Action("Cart","Product")">My Cart</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <div class="single-footer">
+                            <h2>Support</h2>
+                            <ul>
+                                <li><a href="@Url.Action("About","Home")">About Us</a></li>
+                                <li><a href="@Url.Action("Contact","Home")">Contact Us</a></li>
+                                <li><a href="@Url.Action("AreaPromoter", "Account")">Area Promoter</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <!-- single-footer start -->
+                        <div class="single-footer">
+                            <h2>Useful Links</h2>
+                            <ul>
+                                <li><a href="@Url.Action("PrivacyPolicy","Home")">Privacy Policy</a></li>
+                                <li><a href="@Url.Action("TermsCondition","Home")">Terms Condition</a></li>
+                            </ul>
+                        </div>
+                        <!-- single-footer end -->
+                    </div>
+                    <div class="col-xs-6 col-sm-3 col-md-3">
+                        <div class="single-footer">
+                            <h2>Contact Us</h2>
+                            <div class="address-info">
+                                <p><strong>Email:  </strong> <span> <a href="mailto:YOU@ALLYOUMEDIA.COM">YOU@ALLYOUMEDIA.COM</a></span></p>
+                            </div>
+                            <span id="siteseal">
+                                <script async type="text/javascript" src="https://seal.godaddy.com/getSeal?sealID=srCq3txGgY4rjwpcGthd5zZsf9xUUrBfxS1Gzp208y7e3MYLrARcuVYUTVIr"></script>
+                            </span>
+
+                            <script type="text/javascript" src="https://cdn.ywxi.net/js/1.js" async></script>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-middle">
+            <div class="container">
+                <div class="t-b-border">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="newsletter-box">
+                                <form class="form-inline" method="post" action="#">
+                                    <div class="form-group news-form-group">
+                                        <h2>Newsletter</h2>
+                                        <input type="text" class="form-control news-form-con">
+                                        <button class="news-btn" type="submit"><i class="fa fa-angle-right"></i></button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="social-share">
+                                <div class="social-icon">
+                                    <h2>follow</h2>
+                                    <ul>
+                                        <li><a class="tw" href="#"><i class="fa fa-twitter"></i></a></li>
+                                        <li><a class="gp" href="#"><i class="fa fa-google-plus"></i></a></li>
+                                        <li><a class="fb" href="#"><i class="fa fa-facebook"></i></a></li>
+                                        <li><a class="li" href="#"><i class="fa fa-linkedin"></i></a></li>
+                                        <li><a class="yu" href="#"><i class="fa fa-youtube"></i></a></li>
+                                        <li><a class="be" href="#"><i class="fa fa-behance"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-4">
+                            <div class="payment-logo">
+                                <img src="/Images/Guest/payment_1.png" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="copy-right-area">
+                            <p class="copy-right">
+                                © <a href="http://allyoumedia.com/">All You Media Inc.</a> USA
+                            </p>
+                        </div>
+                        <!-- scroll-to-top-start -->
+                        <div class="scroll-to-top">
+                            <a href="#" class="greentech-scrollertop">scroll</a>
+                        </div>
+                        <!-- scroll-to-top-end -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="updateSpinner">
+        Please wait...
+    </div>
+    <script src="~/Scripts/Guest/jquery-1.11.3.min.js"></script>
+    <script src="~/Scripts/Guest/jqueryui.js"></script>
+    <script src="~/Scripts/Guest/jquery.meanmenu.js"></script>
+    <script src="~/Scripts/Guest/jquery.fancybox.js"></script>
+    <script src="~/Scripts/Guest/jquery.elevatezoom.js"></script>
+    <script src="~/Scripts/Guest/bootstrap.js"></script>
+    <script src="~/Scripts/Guest/owl.carousel.min.js"></script>
+    <script src="~/Scripts/Guest/jquery.nivo.slider.pack.js"></script>
+    <script src="~/Scripts/Guest/jquery.counterup.min.js"></script>
+    <script src="~/Scripts/Guest/main.js"></script>
+    <script src="~/Scripts/Guest/wow.js"></script>
+    <script>
+        new WOW().init();
+        $('#myAffix').affix({
+            offset: {
+                top: 100,
+                bottom: function () {
+                    return (this.bottom = $('.footer').outerHeight(true))
+                }
+            }
+        })
+    </script>
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('.updateSpinner').hide();
+        });
+    </script>
+</body>
+</html>

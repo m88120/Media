@@ -1,0 +1,56 @@
+﻿@model AllYouMedia.Models.ProductDetailModel
+
+<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 well">
+    <div class="single-product-img well">
+        <img class="img-responsive" src="@Model.MediaURL" />
+    </div>
+</div>
+<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+    <div class="single-product-description">
+        <div class="pro-desc">
+            Product Title: <h2>@Model.Name</h2>
+            Price: <span class="regular-price">@Model.RetailPrice</span>
+            <div class="product-content">
+                <p>Description: @Model.DESCRIPTION</p>
+            </div>
+        </div>
+        <div class="product-variation">
+            <div class="product-quantity">
+                <div class="cart-plus-minus">
+                    <label>Quantity: </label>
+                    @Html.TextBoxFor(model => model.Quantity, new { @class = "cart-plus-minus-box", @value = "1", @min = "1", @type = "number", @name = "qtybutton", @maxlength = "2" })
+                    @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "validation" })
+                </div>                           
+                <br />
+                <br />
+                <div class="pro-add-to-cart">
+                    <p>
+                        <a class="btn btn-info" title="click to view more Detail" href="@Url.Action("ProductDetail", "Product",new { UID= @Model.UID })">More Detail</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    function AjaxGoodRedirect(urlAction) {
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data: {},
+            datatype: "JSON",
+            contentType: "application/json; charset=utf-8",
+            success: function (returndata) {
+                if (returndata.ok) {
+                    window.location = returndata.newurl;
+                }
+                else
+                    window.alert("Error!");
+            }
+        }
+        );
+    }
+</script>

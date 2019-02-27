@@ -1,0 +1,108 @@
+﻿
+@{
+    ViewBag.Title = "Purchase History";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="col-md-12 profile-contain">
+
+        <div class="col-xl-12 col-md-12 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="Purchase">
+                        <h4 class="page-content-title">User Purchase History</h4>
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                            <div class="left-name-profile float-xs-left">LoginName :</div>
+                            <div class="form-group">
+                                <input type="text" id="txtLoginName" placeholder="Enter LoginName" ng-model="LoginName" class="form-control"
+                                       maxlength="50" />
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Date From :</div>
+                            <div class="form-group form-bootstrap-datetime">
+                                <div class='input-group' data-plugin="flatpickr" data-wrap="true">
+                                    <input type="text" id="txtDateFrom" placeholder="Select DateFrom" ng-model="From" class="form-control"
+                                           maxlength="10" data-input />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="user-name-profile col-xl-4 col-md-4 col-xs-12">
+                            <div class="left-name-profile float-xs-left">Date to :</div>
+                            <div class="form-group form-bootstrap-datetime">
+                                <div class='input-group' data-plugin="flatpickr" data-wrap="true">
+                                    <input type="text" id="txtDateTo" placeholder="Select DateTo" ng-model="To" class="form-control"
+                                           maxlength="10" data-input />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider-lg-spacing"></div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="tab-pane active btn-margin" id="basic-buttons">
+                                <button id="Search" ng-click="Search()" class="btn btn-outline-primary flat-buttons"
+                                        type="button">
+                                    Search
+                                </button>
+                            </div>
+                        </div>
+                        <div class="divider15"></div>
+                        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 responsive_table_main">
+                            <div class="input-group well col-md-4">
+                                <div class="col-md-4">
+                                    <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                            <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                        <th><a href="" ng-click="orderByField='Name'; reverseSort = !reverseSort">Name</a></th>
+                                        <th><a href="" ng-click="orderByField='EmailID'; reverseSort = !reverseSort">Email</a></th>
+                                        <th><a href="" ng-click="orderByField='Date'; reverseSort = !reverseSort">Date</a></th>
+                                        <th><a href="" ng-click="orderByField='OrderNumber'; reverseSort = !reverseSort">OrderNumber</a></th>
+                                        <th><a href="" ng-click="orderByField='Total'; reverseSort = !reverseSort">PaidAmount</a></th>
+                                        <th>View Invoice</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.Sno}}</td>
+                                        <td>{{data.Name}}</td>
+                                        <td>{{data.EmailID}}</td>
+                                        <td>{{data.Date}}</td>
+                                        <td>{{data.OrderNumber}}</td>
+                                        <td>{{data.PaidAmount}}</td>
+                                        <td>
+                                            <a data-ng-href="@Url.Action("Invoice", "Admin")/{{data.OrderNumber}}" class="btn btn-primary flat-buttons btn-sm" target="_self">View </a>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="!dataList.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                            </div>
+                            <div class="updateSpinner" ng-show="loader.loading">
+                                Please wait...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Content/AngularJs/PurchaseHistory.js")"></script>
+}
+
+
+
+

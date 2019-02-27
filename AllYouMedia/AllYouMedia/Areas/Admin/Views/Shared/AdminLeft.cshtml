@@ -1,0 +1,138 @@
+﻿@*<aside id="sidebar" class="material-menu">
+    <div class="material-left-back"></div>
+    <div id="material_navbar" class="material_navbar">
+        <div class="material_navbar_content">
+            <form class="material_navbar_form" style="border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+                <div class="hamburger hamburger--emphatic">
+                    <div class="hamburger-box">
+                        <div class="hamburger-inner"></div>
+                    </div>
+                </div>
+                <div class="sidebar-search">
+                    <input id="live-search-box" type="search" class="form-control input-sm" placeholder="Search...">
+                    <a href="javascript:void(0)"><i class="search-close icon_search"></i></a>
+                </div>
+            </form>
+            <div class="sidebar-menu">
+                <ul class="main-menu nav site-menu live-search-list" id="site-menu" data-plugin="custom-scroll"
+                    data-suppress-scroll-x="true" data-height="100%">
+                    <li class="sub-item">
+                        <a href="@Url.Action("Index", "Admin")" class="flat-buttons">
+                            <span class="icon_desktop header-icon material-icon"
+                                  aria-hidden="true"></span>DASHBOARD
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="@Url.Action("ChangePassword", "Admin")" class="flat-buttons">
+                            <span class="icon_key header-icon material-icon"
+                                  aria-hidden="true"></span>CHANGE PASSWORD
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="@Url.Action("Distributor", "Admin")" class="flat-buttons">
+                            <span class="icon_bag header-icon material-icon"
+                                  aria-hidden="true"></span>DISTRIBUTOR
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="@Url.Action("Membership", "Admin")" class="flat-buttons">
+                            <span class="icon_shield header-icon material-icon"
+                                  aria-hidden="true"></span>MEMBERSHIP REPORT
+                        </a>
+                    </li>
+                    <li class="sub-item">
+                        <a href="javascript:void(0)" class="flat-buttons">
+                            <span class="icon_profile header-icon material-icon"
+                                  aria-hidden="true"></span>AREA PROMOTER
+                            <span class="float-xs-right"><i class="icon_plus"></i></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("AddMediaPromoter", "Admin")">ADD</a>
+                            </li>
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("GenerateCode", "Admin")">Code</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sub-item">
+                        <a href="javascript:void(0)" class="flat-buttons">
+                            <span class="icon_grid-2x2 header-icon material-icon"
+                                  aria-hidden="true"></span>PRODUCT
+                            <span class="float-xs-right"><i class="icon_plus"></i></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("AddProduct", "Admin")">ADD PRODUCT</a>
+                            </li>
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("CategoryManagement", "Admin")">CATEGORY Mgmt.</a>
+                            </li>
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("SubCategoryManagement", "Admin")">SubCATEGORY Mgmt.</a>
+                            </li>
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("SuggestCategory", "Admin")">SUGGESTED CATEGORY</a>
+                            </li>
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("PurchaseHistory", "Admin")">PURCHASE HISTORY</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sub-item">
+                        <a href="javascript:void(0)" class="flat-buttons">
+                            <span class="icon_house header-icon material-icon"
+                                  aria-hidden="true"></span>TEAM
+                            <span class="float-xs-right"><i class="icon_plus"></i></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("GeneologyLevel", "Admin")">Geneology Level</a>
+                            </li>
+                            <li>
+                                <a class="flat-buttons" href="@Url.Action("GeneologyDownline", "Admin")">Geneology Downline</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="sub-item">
+                        <a href="@Url.Action("Message", "Admin")" class="flat-buttons">
+                            <span class="icon_mail header-icon material-icon"
+                                  aria-hidden="true"></span>MESSAGE<span class="tag tag-pill tag-success float-xs-right">@Convert.ToString(new BusinessEntity.ConcreateEntity.MasterDataEntity().GetTalentUnreadMessage())</span>
+                            </a>
+                        </li>
+                        <li class="sub-item">
+                            <a href="@Url.Action("Control", "Admin")" class="flat-buttons">
+                                <span class="icon_compass header-icon material-icon"
+                                      aria-hidden="true"></span>CONTROL
+                            </a>
+                        </li>
+                        <li class="sub-item">
+                            <a href="@Url.Action("PageManagement", "Admin")" class="flat-buttons">
+                                <span class="icon_pencil-edit header-icon material-icon"
+                                      aria-hidden="true"></span>PAGE MANAGEMENT
+                            </a>
+                        </li>
+                        <li class="sub-item">
+                            <a href="javascript:void(0)" class="flat-buttons">
+                                <span class="icon_cog header-icon material-icon"
+                                      aria-hidden="true"></span>EVENT
+                                <span class="float-xs-right"><i class="icon_plus"></i></span>
+                            </a>
+                            <ul class="sub-menu">
+                                <li>
+                                    <a class="flat-buttons" href="@Url.Action("Event", "Admin")">EVENT</a>
+                                </li>
+                                <li>
+                                    <a class="flat-buttons" href="@Url.Action("EventPerformer", "Admin")">PERFORMER</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </aside>*@
+
+
+
+<!-- Content Wrapper. Contains page content -->

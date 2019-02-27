@@ -1,0 +1,65 @@
+﻿@model AllYouMedia.Models.MediaPromoterCustomerModel
+@{
+    ViewBag.Title = "Customer Purchase";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<div class="col-md-12 profile-contain">
+
+        <div class="col-xl-12 col-md-12 col-xs-12">
+            <div class="content">
+                <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-controller="MediaPromoterCustomer">
+                        <h4 class="page-content-title">Customer Purchase History</h4>
+                          <div class="responsive_table_main">
+                            <div class="input-group well">
+                                <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                            </div>
+                            <div class="clearfix"></div>
+                            <table id="tblData" style="display:none;" class="table tablesaw tablesaw-stack">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                        <th><a href="" ng-click="orderByField='Name'; reverseSort = !reverseSort">Name</a></th>
+                                        <th><a href="" ng-click="orderByField='EmailID'; reverseSort = !reverseSort">EmailID</a></th>
+                                        <th><a href="" ng-click="orderByField='Date'; reverseSort = !reverseSort">Date</a></th>
+                                        <th><a href="" ng-click="orderByField='EventName'; reverseSort = !reverseSort">EventName</a></th>
+                                        <th><a href="" ng-click="orderByField='PaidAmount'; reverseSort = !reverseSort">PaidAmount</a></th>
+                                        <th><a href="" ng-click="orderByField='SeatQTY'; reverseSort = !reverseSort">SeatQTY</a></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.Sno}}</td>
+                                        <td>{{data.Name}}</td>
+                                        <td>{{data.EmailID}}</td>
+                                        <td>{{data.Date}}</td>
+                                        <td>{{data.EventName}}</td>
+                                        <td>{{data.PaidAmount}}</td>
+                                        <td>{{data.SeatQTY}}</td>
+                                    </tr>
+                                    <tr ng-show="!dataList.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                            </div>
+                            <div class="updateSpinner" ng-show="loader.loading">
+                                Please wait...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+</div>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/Content/AngularJs/FanPromoterCustomer.js")"></script>
+}

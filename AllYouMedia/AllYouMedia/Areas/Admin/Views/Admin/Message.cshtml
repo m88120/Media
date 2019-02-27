@@ -1,0 +1,320 @@
+﻿@model AllYouMedia.Areas.Admin.Models.ComposeModel
+@{
+    ViewBag.Title = "Message";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .compose_title input {
+        margin-left: 0 !important;
+        width: 100% !important;
+        margin-bottom: 5px !important;
+    }
+
+    .modal-dialog {
+        margin: 42px 10px 30px auto;
+    }
+
+    .modal-content {
+        border: 6px solid #087380;
+        border-radius: 6% !important;
+    }
+
+    .modal-open .modal {
+        overflow: hidden;
+    }
+</style>
+<div id="" class="col-md-12 mailbox_main">
+    <div class="col-xl-2 col-lg-4 col-md-4 sidebar_block">
+        <button aria-controls="collapseExample" aria-expanded="false" data-target="#collapseExample"
+                data-toggle="collapse" type="button" class="mail-toggle">
+            Mailbox
+            <span class="icon arrow_carrot-down float-xs-right"></span>
+        </button>
+        <div class="mail-divider-sm"></div>
+        <div class="sidebar_contain collapse" id="collapseExample">
+            <div class="mail_btn">
+                <button type="button" class="btn btn-primary btn-block mail_compose_btn flat-buttons" data-toggle="modal" data-target="#formmodal">Compose</button>
+            </div>
+            <ul class="mailbox_sidebar_contain">
+                <li>
+                    <button id="btnInbox" type="button" class="btn btn-success flat-buttons">
+                        Inbox
+                    </button>
+                </li>
+                <li>
+                    <button id="btnOutbox" type="button" class="btn btn-secondary flat-buttons">
+                        Outbox
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-xl-10 col-lg-8 col-md-8 right-sidebar_block">
+        <div id="divInbox" class="" ng-controller="Inbox">
+            <div class="content right_sidebar_contain">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mailbox_nav_bar">
+                    <h4 class="page-content-title">Inbox</h4>
+                </div>
+                <div class="mailbox_nav_bar">
+                    <div class="float-xs-right search_xs">
+                        <form action="#" class="mail_search">
+                            <div class="input-group">
+                                <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                                <a class="input-group-addon search_icon">
+                                    <i class="icon icon_search"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="float-xs-left search_xs">
+                        <a ng-click="Search()" class="mailbox_refresh flat-buttons">
+                            <i class="icon icon_refresh"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="mailbox_right_contain" ng-controller="Inbox">
+                        <div class="responsive_table_main">
+                            <div class="clearfix"></div>
+                            <table id="tblDataInbox" style="display:none;" class="table mail_table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                        <th><a href="" ng-click="orderByField='MailFrom'; reverseSort = !reverseSort">From</a></th>
+                                        <th><a href="" ng-click="orderByField='Subject'; reverseSort = !reverseSort">Subject</a></th>
+                                        <th><a href="" ng-click="orderByField='Message'; reverseSort = !reverseSort">Message</a></th>
+                                        <th><a href="" ng-click="orderByField='SentDate'; reverseSort = !reverseSort">SentDate</a></th>
+                                        <th>Read</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.Sno}}</td>
+                                        <td>{{data.MailFrom}}</td>
+                                        <td>{{data.Subject}}</td>
+                                        <td>{{data.Message| limitTo:numLimit}}</td>
+                                        <td>{{data.SentDate}}</td>
+                                        <td>
+                                            <button class="btn btn-primary" ng-click="Read(data.UID)">
+                                                Read
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr ng-show="!dataList.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                            </div>
+                            <div class="updateSpinner" ng-show="loader.loading">
+                                Please wait...
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade in hidden" id="ReadMessage1" tabindex="-1" role="dialog" aria-labelledby="formmodal" style="display:block">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" ng-click="Cancel()" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title text-center">Read Inbox Message</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            SentDate
+                                        </div>
+                                        <div class="col-md-10">
+                                            <input id="SentDate" class="form-control" readonly="readonly" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="divider15"></div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Subject
+                                        </div>
+                                        <div class="col-md-10">
+                                            <textarea id="Subject" class="form-control" readonly="readonly" rows="3"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="divider15"></div>
+                                    <div class="row">
+                                        <div class="col-md-2">
+                                            Message
+                                        </div>
+                                        <div class="col-md-10">
+                                            <textarea id="Message" class="form-control" readonly="readonly" rows="10"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="divider15"></div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" ng-click="Cancel()" class="btn btn-secondary flat-buttons">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="divOutbox" class="hidden" ng-controller="Outbox">
+            <div class="content right_sidebar_contain">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12 mailbox_nav_bar">
+                    <h4 class="page-content-title">Outbox</h4>
+                </div>
+                <div class="mailbox_nav_bar">
+                    <div class="float-xs-right search_xs">
+                        <form action="#" class="mail_search">
+                            <div class="input-group">
+                                <input class="form-control" ng-model="searchByKeyword" placeholder="Search Keyword..." type="text">
+                                <a class="input-group-addon search_icon">
+                                    <i class="icon icon_search"></i>
+                                </a>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="float-xs-left search_xs">
+                        <a ng-click="Search()" class="mailbox_refresh flat-buttons">
+                            <i class="icon icon_refresh"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="mailbox_right_contain">
+                        <div class="responsive_table_main">
+                            <div class="clearfix"></div>
+                            <table id="tblDataOutbox" style="display:none;" class="table mail_table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th><a href="" ng-click="orderByField='Sno'; reverseSort = !reverseSort">Sno</a></th>
+                                        <th><a href="" ng-click="orderByField='MailTo'; reverseSort = !reverseSort">To</a></th>
+                                        <th><a href="" ng-click="orderByField='Subject'; reverseSort = !reverseSort">Subject</a></th>
+                                        <th><a href="" ng-click="orderByField='Message'; reverseSort = !reverseSort">Message</a></th>
+                                        <th><a href="" ng-click="orderByField='SentDate'; reverseSort = !reverseSort">SentDate</a></th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr dir-paginate="data in dataList | filter:searchByKeyword| orderBy:orderByField:reverseSort| itemsPerPage: pageSize" current-page="currentPage">
+                                        <td>{{data.Sno}}</td>
+                                        <td>{{data.MailTo}}</td>
+                                        <td>{{data.Subject}}</td>
+                                        <td>{{data.Message| limitTo:numLimit}}</td>
+                                        <td>{{data.SentDate}}</td>
+                                        <td><button type="button" ng-click="delete(data.UID)" class="btn btn-outline-primary flat-buttons">Delete</button></td>
+                                    </tr>
+                                    <tr ng-show="!dataList.length">
+                                        <td colspan="12">
+                                            No data. Found
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="text-center">
+                                <dir-pagination-controls boundary-links="true" on-page-change="pageChangeHandler(newPageNumber)" template-url="~/Scripts/dirPagination.tpl.html"></dir-pagination-controls>
+                            </div>
+                            <div class="updateSpinner" ng-show="loader.loading">
+                                Please wait...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    @using (Ajax.BeginForm("Message", "Admin", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "formmodal" }))
+    {
+        <div class="modal fade" id="formmodal" tabindex="-1" role="dialog" aria-labelledby="formmodal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title">Compose Message</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div id="inline-radio" class="form-group compose_title">
+                                <label for="LoginName" class="form-control-label">Compose Type:</label>
+                                <div class="radio-inline">
+                                    <div class="radio-button">
+                                        @Html.RadioButtonFor(model => model.ComposeType, "A", new { id = "All", onclick = "Checkpanel();", @checked = "" })
+                                        <label for="All"></label>
+                                        <span>All</span>
+                                    </div>
+                                    <div class="radio-button">
+                                        @Html.RadioButtonFor(model => model.ComposeType, "N", new { id = "Name", onclick = "Checkpanel();", @checked = "checked" })
+                                        <label for="Name"></label>
+                                        <span>Login Name</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="divTo" class="form-group compose_title">
+                                <label for="LoginName" class="form-control-label">To:</label>
+                                @Html.TextBoxFor(model => model.LoginName, new { placeholder = "Enter LoginName" })
+                                <footer class="blockquote-footer">
+                                    You can enter more than one login name separated by coma(,).
+                                </footer>
+                            </div>
+                            <div class="form-group compose_title">
+                                <label for="Subject" class="form-control-label">Subject:</label>
+                                @Html.TextBoxFor(model => model.Subject, new { placeholder = "Enter Subject", maxlength = "50" })
+                                @Html.ValidationMessageFor(model => model.Subject, "", new { @class = "validation" })
+                            </div>
+                            <div class="form-group">
+                                <label for="Message" class="form-control-label">Message:</label>
+                                @Html.TextAreaFor(model => model.Message, new { @class = "form-control", placeholder = "Enter Message", @rows = "5", maxlength = "600" })
+                                @Html.ValidationMessageFor(model => model.Message, "", new { @class = "validation" })
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary flat-buttons" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary flat-buttons">Send Message</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    function Checkpanel() {
+        if ($("#All").is(':checked')) {
+            $("#divTo").css("display", "none");
+        }
+        if ($("#Name").is(':checked')) {
+
+            $("#divTo").css("display", "block");
+        }
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#btnInbox').on('click', function () {
+            $('#divOutbox').addClass("hidden");
+            $('#btnOutbox').addClass("btn btn-secondary flat-buttons").removeClass("btn btn-success flat-buttons");
+            $('#divInbox').removeClass("hidden");
+            $('#btnInbox').addClass("btn btn-success flat-buttons").removeClass("btn btn-secondary flat-buttons");
+        });
+        $('#btnOutbox').on('click', function () {
+            $('#divInbox').addClass("hidden");
+            $('#btnInbox').addClass("btn btn-secondary flat-buttons").removeClass("btn btn-success flat-buttons");
+            $('#divOutbox').removeClass("hidden");
+            $('#btnOutbox').addClass("btn btn-success flat-buttons").removeClass("btn btn-secondary flat-buttons");
+        });
+    });
+</script>
+@section scripts{
+    <script type="text/javascript" src="@Url.Content("~/Scripts/angular.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/dirPagination.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Areas/Admin/Content/AngularJs/Message.js")"></script>
+}
+

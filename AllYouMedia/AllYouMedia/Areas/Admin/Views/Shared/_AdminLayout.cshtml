@@ -1,0 +1,134 @@
+﻿<!DOCTYPE html>
+<html ng-app="Admin">
+<head>
+    <meta charset="utf-8">
+    <meta name="description" content="bootstrap default admin template">
+    <meta name="viewport" content="width=device-width">
+    <link rel="shortcut icon" type="image/x-icon" href="~/Images/Round-Logo.png">  
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />   
+    <link href="~/assets/global/plugins/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/assets/icons_fonts/elegant_font/elegant.css" rel="stylesheet" />
+    <link href="~/assets/layouts/layout-material-menu/css/color/light/color-default.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/switchery/dist/switchery.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/perfect-scrollbar/css/perfect-scrollbar.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/css-hamburgers/dist/hamburgers.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/morris.js/morris.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/owl.carousel/dist/assets/owl.carousel.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/owl.carousel/dist/assets/owl.theme.default.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/jqvmap/dist/jqvmap.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/chartist/dist/chartist.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-timepicker.css" rel="stylesheet" />
+    <link href="~/Content/datepicker.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/flatpickr/dist/flatpickr.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/filament-tablesaw/dist/tablesaw.min.css" rel="stylesheet" />
+    <link href="~/assets/global/plugins/jstree/dist/themes/default/style.css" rel="stylesheet" />
+    <link href="~/Content/sweetalert.css" rel="stylesheet" />
+    <link href="~/assets/global/css/components.css" rel="stylesheet" />
+    <link href="~/assets/layouts/layout-material-menu/css/layout.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="wrapper">
+        @{Html.RenderAction("AdminHeader", "Shared");}
+        <section id="main" class="container-fluid">
+            <div class="row">
+                @{Html.RenderAction("AdminLeft", "Shared");}
+                <section id="content-wrapper" class="form-elements">
+                    <div class="site-content-title">
+                        <div class="col-md-1 col-sm-1 col-xs-12">                         
+                        </div>
+                        <div class="col-md-5 col-sm-5 col-xs-12">
+                            <h2 class="float-xs-left content-title-main">@ViewBag.Title</h2>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            <h2 class="float-xs-right content-title-main">Hi.. @User.Identity.Name.ToUpper()</h2>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="col-md-12">
+                            <div class="col-md-12">
+                                <div class="col-md-12">
+                                    <div class="col-md-12">
+                                        @Html.Raw(TempData["Message"])
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="contain-inner dashboard-v3">
+                        <div class="row">
+                            @RenderBody()
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </section>
+        <footer id="footer">
+            Copyright&copy; 2017, All Rights Reserved.
+        </footer>
+    </div>
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <!-- START CORE JAVASCRIPT -->
+    <script type="text/javascript" src="~/assets/global/plugins/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/tether/dist/js/tether.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/switchery/dist/switchery.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/screenfull.js/dist/screenfull.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/Waves/dist/waves.min.js"></script>
+    <script src="~/assets/global/plugins/ModalWindowEffects/js/classie.js"></script>
+    <!-- END CORE JAVASCRIPT -->
+    <!-- START PAGE PLUGINS -->
+    <script type="text/javascript" src="~/assets/global/plugins/chartist/dist/chartist.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/arcseldon-jquery.sparkline/dist/jquery.sparkline.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/raphael/raphael.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/morris.js/morris.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/owl.carousel/dist/owl.carousel.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/jqvmap/dist/jquery.vmap.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/jqvmap/dist/maps/jquery.vmap.world.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/waypoints/lib/jquery.waypoints.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/Counter-Up/jquery.counterup.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/raphael/raphael.min.js"></script>
+    <!-- END PAGE PLUGINS -->
+    <!-- START GLOBAL JAVASCRIPT -->
+    <script src="~/Scripts/jQuery.print.js"></script>
+    <script src="~/assets/global/plugins/jstree/dist/jstree.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.js"></script>
+    <script src="~/Scripts/bootstrap-timepicker.js"></script>
+    <script type="text/javascript" src="~/assets/global/plugins/flatpickr/dist/flatpickr.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/js/site.min.js"></script>
+    <script type="text/javascript" src="~/assets/global/js/site-settings.min.js"></script>
+    <!-- END GLOBAL JAVASCRIPT -->
+    <!-- START PAGE JAVASCRIPT -->
+    <script src="~/assets/global/plugins/filament-tablesaw/dist/tablesaw.js"></script>
+    <script src="~/assets/global/plugins/filament-tablesaw/dist/tablesaw-init.js"></script>
+    <script src="~/assets/global/js/global/treeview.js"></script>
+    <script type="text/javascript" src="~/assets/global/js/global/dashboard_v3.min.js"></script>
+    <script src="~/assets/global/js/global/invoice.js"></script>
+    <script src="~/assets/global/js/global/invoice.min.js"></script>
+    <script src="~/Scripts/sweetalert-dev.js"></script>
+    <!-- END PAGE JAVASCRIPT -->
+    <!-- START THEME LAYOUT JAVASCRIPT -->
+    <script type="text/javascript" src="~/assets/layouts/layout-material-menu/js/layout.js"></script>
+    <script type="text/javascript">
+        $('.time').timepicker({
+            'minTime': '11:00am',
+            'maxTime': '11:00pm',
+            'showDuration': true
+        });
+    </script>
+    <script type="text/javascript">
+        $('.datepicker').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+    </script>
+
+    @RenderSection("scripts", required: false)
+</body>
+
+</html>

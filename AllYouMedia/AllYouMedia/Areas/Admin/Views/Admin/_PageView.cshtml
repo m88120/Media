@@ -1,0 +1,90 @@
+﻿@model IEnumerable<AllYouMedia.Areas.Admin.Models.PageModel>
+
+<style>
+    .htmlborder {
+        border: 1px solid #999;
+    }
+</style>
+<div class="profile-contain">
+    <div class="content">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                @foreach (var item in Model)
+                {
+                    <div class="user-name-profile col-xl-6 col-md-6 col-xs-12">
+                        Page Url
+                        <div class="form-group">
+                            <label class="form-control dotted" id="Url">@Html.Raw(item.PageUrl)</label>
+                            <input type="hidden" name="Url" value="@Html.Raw(item.PageUrl)" />
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-xl-12 col-md-12 col-xs-12">
+                        <div class="panel panel-white">
+                            <div class="panel-heading panel-primary">
+                                <h4 class="panel-title">
+                                    <i class="fa fa-list margin-right-5"></i>Page Html
+                                </h4>
+                            </div>
+                            <div class="panel-body">
+                                <label id="Html" class="">@Html.Raw(item.PageHTML)</label>
+                            </div>
+                            <input type="hidden" name="Html" maxlength="8000" value='@Html.Raw(item.PageHTML)' />
+                        </div>
+                    </div>                  
+                    <div class="divider20"></div>
+                    <div class="col-md-2 col-xs-12">
+                        <button id="BackToEdit" class="btn btn-outline-primary flat-buttons waves-effect"
+                                type="button">
+                            Back To Edit
+                        </button>
+                    </div>
+                    <div class="col-md-10 col-xs-12">
+                        <button id="Update" class="btn btn-primary active flat-buttons waves-effect waves-button pull-right"
+                                type="button">
+                            Update
+                        </button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    $(function () {
+        $("#BackToEdit").click(function () {
+            $("#divPageView").addClass("hidden");
+            $("#divPageEdit").removeClass("hidden");
+            jQuery(".PageHtml").ckeditor();
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#Update").click(function () {
+            var AAA = $('input[name = \'Url\']').val();
+            var BBB = $('input[name = \'Html\']').val();
+            $.ajax({
+                type: "POST",
+                url: '/Admin/Admin/PageUpdate',
+                data: { Url: AAA, Html: BBB },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.flag == "1") {
+                        swal("Success!", data.msg, "success");
+                        location.reload();
+                    }
+                    else if (data.flag == "0") {
+                        swal("Error!", data.msg, "error");
+                    }
+                },
+                error: function () {
+                    swal("Ooops!", "Something Went Wrong! Try Again", "error");
+                }
+            });
+        });
+    });
+</script>
+

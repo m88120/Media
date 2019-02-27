@@ -1,0 +1,87 @@
+﻿
+.single-category-box h1, h2, h3, h4, h5, h6 {
+    color: #454545;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 24px;
+    margin: 0;
+}
+
+.single-category-box {
+    border: 1px solid #e1e1e1;
+    margin-bottom: 30px;
+    overflow: hidden;
+    padding: 20px;
+}
+
+.shop-category-item h5 a {
+    color: #00a9e0;
+}
+.shop-category-item h2 a {
+    color: #00a9e0;
+}
+
+.shop-category-item {
+    float: left;
+    margin-right: 10px;
+    width: 100%;
+}
+
+    .shop-category-item h6 {
+        color: #454545 !important;
+        font-family: "Open Sans",sans-serif;
+        font-size: 8px !important;
+        font-weight: 500 !important;
+        line-height: 10px !important;
+        margin: 0;
+    }
+
+h2 {
+    border-bottom: 1px solid #e4e4e4;
+    font-size: 16px;
+    padding-bottom: 10px;
+    text-transform: uppercase;
+}
+
+.switchery-small {
+    background-color: tomato !important;
+}
+
+p {
+    line-height: 15px;
+    padding-bottom: 3px;
+}
+
+.strikediag {
+    background: linear-gradient(to left bottom, transparent 47.75%, currentColor 49.5%, #FF0000 50.5%, transparent 52.25%);
+}
+
+.coming {
+    color: red !important;
+    font-size: 10px;
+    margin-bottom: -1px !important;
+    margin-left: 5px;
+}
+
+hr {
+    margin: 1em 0 !important;
+}
+.updateSpinner {
+    background-color: #fff;
+    background-image: url("/Images/spinner.gif");
+    background-position: 35px 10px;
+    background-repeat: no-repeat;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    box-shadow: 0 5px 100px #939191;
+    font-family: Verdana;
+    font-size: 12px;
+    left: 50%;
+    margin-left: -60px;
+    padding: 60px 10px 10px;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    width: 120px;
+    z-index: 10001;
+}

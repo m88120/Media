@@ -1,0 +1,13 @@
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\PayeezyDataEntity\bin\Release\PayeezyDataEntity.dll.config
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\PayeezyDataEntity\bin\Release\PayeezyDataEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\PayeezyDataEntity\bin\Release\PayeezyDataEntity.pdb
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\PayeezyDataEntity\obj\Release\PayeezyDataEntity.csprojResolveAssemblyReference.cache
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\PayeezyDataEntity\obj\Release\PayeezyDataEntity.dll
+D:\Work\Mahaveerji\AllYouMedia\allyoumedia\PayeezyDataEntity\obj\Release\PayeezyDataEntity.pdb
+D:\2019\AllYouMedia\PayeezyDataEntity\bin\Release\PayeezyDataEntity.dll.config
+D:\2019\AllYouMedia\PayeezyDataEntity\bin\Release\PayeezyDataEntity.dll
+D:\2019\AllYouMedia\PayeezyDataEntity\bin\Release\PayeezyDataEntity.pdb
+D:\2019\AllYouMedia\PayeezyDataEntity\obj\Release\PayeezyDataEntity.csprojAssemblyReference.cache
+D:\2019\AllYouMedia\PayeezyDataEntity\obj\Release\PayeezyDataEntity.csproj.CoreCompileInputs.cache
+D:\2019\AllYouMedia\PayeezyDataEntity\obj\Release\PayeezyDataEntity.dll
+D:\2019\AllYouMedia\PayeezyDataEntity\obj\Release\PayeezyDataEntity.pdb

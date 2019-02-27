@@ -1,0 +1,51 @@
+﻿<div class="shoort-by pull-right">
+    <label>Sort by</label>
+    <div class="short-select-option">
+        @Html.DropDownList("Price", new List<SelectListItem>
+        {
+            new SelectListItem{ Text="Sort Product", Value = "0", Selected = true },
+            new SelectListItem{ Text="Price: Low to High", Value = "1" },
+            new SelectListItem{ Text="Price: High to Low", Value = "2" },
+            new SelectListItem{ Text="Category", Value = "3" },
+        }, new { @id = "PriceSort", @class = "form-control" })
+    </div>
+</div>
+<div class="col-md-4">
+    <input type="text" class="form-control" id="txtSearch" placeholder="enter Product name or Title" onkeyup="Search()" />
+</div>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#PriceSort").change(function () {
+            $.ajax({
+                url: '@Url.Action("ProductSearch", "Product")',
+                type: 'POST',
+                datatype: "html",
+                data: { PriceSort: $("#PriceSort").val() },
+                success: function (data) {
+                    $("#divAllProduct").html(data);
+                },
+                error: function () {
+                    alert("Content load failed.");
+                }
+            });
+        });
+    });
+</script>
+<script type="text/javascript">
+    function Search() {
+        var searchVal = $("#txtSearch").val();
+        $.ajax({
+            url: '@Url.Action("ProductSearch", "Product")',
+            type: 'POST',
+            datatype: "html",
+            data: { PriceSort: 11, Name: searchVal },
+            success: function (data) {
+                $("#divAllProduct").html(data);
+            },
+            error: function () {
+                alert("Content load failed.");
+            }
+        });
+    }
+</script>

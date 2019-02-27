@@ -1,0 +1,361 @@
+﻿@model AllYouMedia.Models.EventDetailModel
+@{
+    ViewBag.Title = "EventDetail";
+    Layout = "~/Views/Shared/_GuestLayout.cshtml";
+}
+<link href="~/Content/Guest/style1.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-timepicker.css" rel="stylesheet" />
+<section class="main-content-area" style="margin-bottom:50px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="greentect_bradcame">
+                    <ul>
+                        <li><a href="@Url.Action("Index","Home")">home</a></li>
+                        <li><a href="@Url.Action("Index","Event")">Event</a></li>
+                        <li>Event Detail</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="single-product-page-area">
+            <div class="row">              
+                <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+                    <section class="vc_row wpb_row vc_row-fluid vc_custom_1442517270559" style="color: ">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <img id="imgEventImage" src="@Model.EventImage" class="img-responsive" alt="alt"
+                                         style="border: 4px solid #ccc; border-radius: 10px">
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="vc_row wpb_row vc_row-fluid" style="color: ">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <h1 class="section-title ">
+                                        <span data-animation="fadeInRight" data-animation-delay="500" class="title-inner animated fadeInRight visible">
+                                            <span class="title">Event Description </span>
+                                        </span>
+                                    </h1>
+                                    <div class="wpb_raw_code wpb_content_element wpb_raw_html">
+                                        <div class="wpb_wrapper">
+                                            <p class="font_roboto font_size16 well">
+                                                @Model.Remark
+                                            </p>
+                                            <p class="font_roboto font_size16 well" style="color:#00A9E0; font-size:16px">
+                                                Fee: &nbsp;&nbsp; $@Model.Fee
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <a href="javascript:AjaxGoodRedirect('@Url.Action("AddEventCart", "Event",new { UID= Model.UID })')" style="margin: 0px 20px 20px 0px"
+                                       class="btn btn-theme" title="Click to Get Event Ticket!">
+                                        Get Ticket <i class="fa fa-arrow-circle-right "></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <section class="vc_row wpb_row vc_row-fluid vc_custom_1442524374272" style="margin-bottom: 35px;">
+                        <div class="wpb_column vc_column_container vc_col-sm-12">
+                            <div class="vc_column-inner ">
+                                <div class="wpb_wrapper">
+                                    <div class="schedule-wrapper schedule-alt clear  animated fadeIn visible" data-animation="fadeIn"
+                                         data-animation-delay="200">
+                                        <div class="schedule-tabs lv1">
+                                            <ul id="tabs-lv1" class="nav nav-justified">
+                                                <li class="active" style="float: left; width: 32%">
+                                                    <a href="#tab-day-01" data-toggle="tab"
+                                                       aria-expanded="true"><span class="line1">Performer Detail</span></a>
+                                                </li>
+                                                <li class="" style="float: left; width: 38%">
+                                                    <a href="#tab-day-02" data-toggle="tab"
+                                                       aria-expanded="false"><span class="line1">Become a Performer</span></a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="tab-content lv1">
+                                            <div id="tab-day-01" class="tab-pane fade active in">
+                                                <div class="tab-content lv2">
+                                                    <div id="tab-lv2-hall-a" class="tab-pane fade in active">
+                                                        <div class="timeline">
+                                                            @foreach (var item in Model.PerformerDetail)
+                                                            {
+                                                                <article class="post-wrap animated fadeInUp visible" style="border: 1px solid #ccc;
+                                                                        padding: 10px;" data-animation="fadeInUp" data-animation-delay="300">
+                                                                    <div class="media">
+                                                                        <div class="post-media  pull-left">
+                                                                            <img class="media-object" src="@item.PerformerImage" />
+                                                                            <span class="about">
+                                                                                <strong>
+                                                                                </strong>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="col-md-9 pull-right">
+                                                                            <div class="post-header">
+                                                                                <div class="row">
+                                                                                    <div class="post-meta">
+                                                                                        <div class="col-md-4">
+                                                                                            <h2 class="post-title">
+                                                                                                @item.PerformarCategory
+                                                                                            </h2>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <span class="post-date">
+                                                                                                <i class="fa fa-calendar-o">                                                                                                   
+                                                                                                </i>@item.Date
+                                                                                            </span>
+                                                                                        </div>
+                                                                                        <div class="col-md-4">
+                                                                                            <span class="post-date">
+                                                                                                <i class="fa fa-clock-o">                                                                                                    
+                                                                                                </i>@item.Time
+                                                                                            </span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <div class="post-body">
+                                                                                    <div class="post-excerpt">
+                                                                                        @item.PerformarDescription
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-12">
+                                                                                <div class="post-footer">
+                                                                                    <span class="post-readmore">
+                                                                                        <i class="fa fa-microphone"></i><a target="_blank" href="mailto:mail@sitename.com">
+                                                                                            <i class="fa fa-envelope">&nbsp;</i>
+                                                                                        </a><a target="_blank" href="https://facebook.com">
+                                                                                            <i class="fa fa-facebook">&nbsp;</i>
+                                                                                        </a><a target="_blank" href="https://twitter.com/">
+                                                                                            <i class="fa fa-twitter">&nbsp;</i>
+                                                                                        </a>
+                                                                                    </span>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </article>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="tab-day-02" class="tab-pane fade">
+                                                <div class="tab-content lv2">
+                                                    @using (Ajax.BeginForm("PerformerEdit", "Event", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "PerformerEdit" }))
+                                                    {
+                                                        <div id="PerformerEdit">
+                                                            <div class="col-md-12 ">
+                                                                <div class="col-md-4">
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label class="text-center" style="margin-bottom: 25px; margin-top: 25px; color: #00A9E0;
+                                                                font-size: 25px;">
+                                                                        Please Fill Your Details
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-6">
+                                                                    <label>
+                                                                        Name*
+                                                                    </label>
+                                                                    @Html.TextBoxFor(model => model.Performer.Name, new { @class = "form-control", placeholder = "Enter Name", maxlength = "50" })
+                                                                    @Html.ValidationMessageFor(model => model.Performer.Name, "", new { @class = "validation" })
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>
+                                                                        Email*
+                                                                    </label>
+                                                                    @Html.TextBoxFor(model => model.Performer.Email, new { @class = "form-control", placeholder = "Enter Email", maxlength = "100" })
+                                                                    @Html.ValidationMessageFor(model => model.Performer.Email, "", new { @class = "validation" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-6">
+                                                                    <label>
+                                                                        Mobile*
+                                                                    </label>
+                                                                    @Html.TextBoxFor(model => model.Performer.Phone, new { @class = "form-control", placeholder = "Enter Mobile", maxlength = "50" })
+                                                                    @Html.ValidationMessageFor(model => model.Performer.Phone, "", new { @class = "validation" })
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>
+                                                                        Category*
+                                                                    </label>
+                                                                    @Html.TextBoxFor(model => model.Performer.Category, new { @class = "form-control", placeholder = "What Are you?  Singer, Dancer, Etc.", maxlength = "50" })
+                                                                    @Html.ValidationMessageFor(model => model.Performer.Category, "", new { @class = "validation" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-6">
+                                                                    <label>
+                                                                        Time From*
+                                                                    </label>
+                                                                    @Html.TextBoxFor(model => model.Performer.TimeFrom, new { @class = "time form-control", placeholder = "Select Time From", maxlength = "50" })
+                                                                    @Html.ValidationMessageFor(model => model.Performer.TimeFrom, "", new { @class = "validation" })
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <label>
+                                                                        Time To*
+                                                                    </label>
+                                                                    @Html.TextBoxFor(model => model.Performer.TimeTo, new { @class = "time form-control", placeholder = "Select Time To", maxlength = "50" })
+                                                                    @Html.ValidationMessageFor(model => model.Performer.TimeTo, "", new { @class = "validation" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-12">
+                                                                <div class="col-md-12">
+                                                                    <label>
+                                                                        Message*
+                                                                    </label>
+                                                                    @Html.TextBoxFor(model => model.Performer.Message, new { @class = "form-control", placeholder = "Enter Message", maxlength = "150" })
+                                                                    @Html.ValidationMessageFor(model => model.Performer.Message, "", new { @class = "validation" })
+                                                                </div>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <div class="col-md-12" style="margin-top:20px;">
+                                                                    <button type="submit" class="btn btn-primary pull-left">Submit</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+                <hr class="page-divider transparent visible-xs">
+                <aside id="sidebar" class="sidebar col-lg-3 col-md-3 col-sm-3 col-xs-12">
+                    <div class="widget google-map-widget">
+                        <div id="divMap">
+                            @Html.Raw(@Model.MapUrl)
+                          
+                        </div>
+                        <a href="#" class="link"><i class="fa fa-map-marker"></i>Go to location</a>
+                    </div>
+                    <div class="widget">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true"
+                                           aria-controls="collapseOne">When &amp; Where</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <ul>
+                                            <li>
+                                                <strong>
+                                                    <a href="javascript:void(0)">
+                                                        <label>
+                                                            Host:
+                                                        </label>
+                                                        @Model.Host
+                                                    </a>
+                                                </strong>
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    Venue:
+                                                </label>
+                                                @Model.Venue
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    State:
+                                                </label>
+                                                @Model.State
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    Country:
+                                                </label>
+                                                @Model.Country
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    Start Date:
+                                                </label>
+                                                @Model.DateFrom
+                                            </li>
+                                            <li>
+                                                <label>
+                                                    Time:
+                                                </label>
+                                                @Model.Time
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"
+                                           aria-expanded="false" aria-controls="collapseTwo">Organizer</a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <p>
+                                            <label>
+                                                @Model.Host
+                                            </label>
+                                        </p>
+                                        <ul>
+                                            <li><i class="fa fa-facebook"></i>&nbsp;&nbsp;facebook.com/imorganiser</li>
+                                            <li><i class="fa fa-twitter"></i>&nbsp;&nbsp;imorganiser</li>
+                                            <li><i class="fa fa-globe"></i>&nbsp;&nbsp; http://www.organiserweb.com</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/bootstrap-timepicker.js"></script>
+<script type="text/javascript">
+    $('.time').timepicker({
+        'minTime': '11:00am',
+        'maxTime': '11:00pm',
+        'showDuration': true
+    });
+</script>
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script>
+    function AjaxGoodRedirect(urlAction) {
+        $.ajax({
+            type: "POST",
+            url: urlAction,
+            data: {},
+            datatype: "JSON",
+            contentType: "application/json; charset=utf-8",
+            success: function (returndata) {
+                if (returndata.ok) {
+                    window.location = returndata.newurl;
+                }
+                else
+                    window.alert("Error!");
+            }
+        }
+        );
+    }
+</script>
