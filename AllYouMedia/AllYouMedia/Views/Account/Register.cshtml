@@ -96,11 +96,11 @@
                             <select class="form-control" id="Attribute" name="AttributeID"></select>
                         </p>
                         @*<p id="container_Attribute">
-            <select class="js-example-basic-multiple form-control" name="states[]" multiple="multiple">
-                <option value="AL">Alabama</option>
-                <option value="WY">Wyoming</option>
-            </select>
-        </p>*@
+                                <select class="js-example-basic-multiple form-control" name="states[]" multiple="multiple">
+                                    <option value="AL">Alabama</option>
+                                    <option value="WY">Wyoming</option>
+                                </select>
+                            </p>*@
                         <p><button class="btn" type="button" onclick="goToUserDetails();" style="margin-right:10px;" id="btnNext">Next</button></p>
                     </div>
                     <div id="userDetailsSection">
@@ -189,7 +189,7 @@
             });
             getAndBindCategoryType();
         });
-      
+
         function getAndBindCategoryType() {
 
             var membershipType = Number($("#MembershipType").val());
@@ -227,20 +227,19 @@
             $("#Genre").parent().hide()
             $("#Instrument").parent().hide()
             $("#InstrumentSpecification").parent().hide()
-            //lert
-            debugger;
+
             var category = $(elem).val();
-            var categoryExtended = $(elem).attr('data-extended');
-            alert(categoryExtended);
+            var categoryExtended = $(elem).find(':selected').data('extended');
+
             if (Number(category) > 0) {
                 if (Number($("#CategoryType").val()) == 15 || Number($("#CategoryType").val()) == 6) {
-                    if (Number(category) == 87 || Number(category) == 88 || Number(category) == 97 || Number(category) == 98 || Number(category) == 99 || Number(category) == 100 || Number(category) == 101 || Number(category) == 92) { 
-                        if (categoryExtended == "Yes") { alert("Done!"); }
+                    // if (Number(category) == 87 || Number(category) == 88 || Number(category) == 97 || Number(category) == 98 || Number(category) == 99 || Number(category) == 100 || Number(category) == 101 || Number(category) == 92) {
+                    if (categoryExtended == "Yes") {
                         createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, GenderTypeID: category }, $("#GenderSpecific"), true);
-                }
-                else {
+                    }
+                    else {
                         createDropdown('/Account/GetGenreType', { MembershipType: membershipType, GenreTypeID: category }, $("#Genre"), true);
-            }
+                    }
                 }
                 else {
                     createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, GenderTypeID: category }, $("#GenderSpecific"), true);
@@ -253,8 +252,7 @@
             $("#InstrumentSpecification").parent().hide()
             var membershipType = Number($("#MembershipType").val());
             var genderType = $(elem).val();
-            if (Number(genderType) > 0)
-                {
+            if (Number(genderType) > 0) {
                 if (Number($("#CategoryType").val()) == 15) {
                     createDropdown('/Account/GetGenderSpecificGenreType', { MembershipType: membershipType, GenderTypeID: genderType }, $("#Genre"), true);
                 }
@@ -265,7 +263,7 @@
             $("#InstrumentSpecification").parent().hide()
             var membershipType = Number($("#MembershipType").val());
             var genreType = $(elem).val();
-            if (Number(genreType)>0) {
+            if (Number(genreType) > 0) {
                 if (Number($("#CategoryType").val()) == 15)
                     createDropdown('/Account/GetinstrumentGenreType', { MembershipType: membershipType, GenreTypeID: genreType }, $("#Instrument"), true);
             }
@@ -275,7 +273,7 @@
             $("#InstrumentSpecification").parent().hide()
             var membershipType = Number($("#MembershipType").val());
             var InstrumentID = $(elem).val();
-            if (Number(InstrumentID)> 0) {
+            if (Number(InstrumentID) > 0) {
                 if (Number($("#CategoryType").val()) == 15) {
                     createDropdown('/Account/GetinstrumentType', { MembershipType: membershipType, InstrumentID: InstrumentID }, $("#InstrumentSpecification"), true);
                 }
@@ -297,17 +295,17 @@
                         ddl.empty();
                         if (addDefault === true)
                             ddl.append('<option value=""></option>');
-                      
+
                         if (returnData.Data == null) {
                             console.log(returnData.Data)
                             return;
                         }
                         if (returnData.Data.length > 0) {
-                            
+
                             $(returnData.Data).each(function () {
-                               
+
                                 ddl.append('<option value="' + this.Value + '">' + this.Text + '</option>');
-                               
+
                             });
                             ddl.parent().show();
                         }
@@ -342,7 +340,7 @@
 
                             $(returnData.Data).each(function () {
 
-                                ddl.append('<option data-extended="' + this.IsExtended +'" value="' + this.Value + '">' + this.Text + '</option>');
+                                ddl.append('<option data-extended="' + this.IsExtended + '" value="' + this.Value + '">' + this.Text + '</option>');
 
                             });
                             ddl.parent().show();
@@ -358,7 +356,7 @@
             });
         }
 
- 
+
         function goToUserDetails() {
             $("#categorySection").hide();
             $("#userDetailsSection").show();

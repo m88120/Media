@@ -27,3 +27,13 @@ D:\2019\AllYouMedia\PayPalDataEntity\obj\Debug\PayPalDataEntity.csproj.CoreCompi
 D:\2019\AllYouMedia\PayPalDataEntity\obj\Debug\PayPalDataEntity.csproj.CopyComplete
 D:\2019\AllYouMedia\PayPalDataEntity\obj\Debug\PayPalDataEntity.dll
 D:\2019\AllYouMedia\PayPalDataEntity\obj\Debug\PayPalDataEntity.pdb
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\bin\Debug\PayPalDataEntity.dll
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\bin\Debug\PayPalDataEntity.pdb
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\bin\Debug\Newtonsoft.Json.dll
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\bin\Debug\PayPal.dll
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\bin\Debug\Newtonsoft.Json.xml
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\bin\Debug\PayPal.xml
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\obj\Debug\PayPalDataEntity.csprojResolveAssemblyReference.cache
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\obj\Debug\PayPalDataEntity.csproj.CoreCompileInputs.cache
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\obj\Debug\PayPalDataEntity.dll
+E:\Projects\Robin2019\Media\AllYouMedia\PayPalDataEntity\obj\Debug\PayPalDataEntity.pdb
