@@ -15,10 +15,12 @@ namespace AllYouMedia
         public static int BuldVersion = 7;
         protected void Application_BeginRequest()
         {
+			
             //if (Request.IsSecureConnection == false && Request.IsLocal == false)
             //{
             //    Response.Redirect(Request.Url.AbsoluteUri.Replace("http://www.", "https://www.").Replace("http://", "https://"));
             //}
+			
         }
         protected void Application_Start()
         {
