@@ -12,77 +12,103 @@
         color: white;
         padding: 2px 7px;
     }
+
     td.details-control {
         background: url('/Content/Images/details_open.png') no-repeat center center;
         cursor: pointer;
     }
-    td{
-        font-weight:bold;
+
+    td {
+        font-weight: bold;
     }
+
     tr.shown td.details-control {
         background: url('/Content/Images/details_close.png') no-repeat center center;
     }
+
+    .image-userlist img {
+        width: 102px !important;
+        height: 86px !important
+    }
+
+    .userlist-content .col-md-1.col-xs-12 {
+        margin: 10px;
+    }
+    h5.name-userlist {
+        font-size: 10px;
+        text-align: center;
+        width: 100%;
+    }
+    h6.post-userlist {
+        font-size: 10px;
+        text-align: center;
+        width: 100%;
+    }
+    .userlist-box.text-xs-center h4 {
+        font-size: 12px;
+    }
+
 </style>
 <div class="row">
     @if (ViewBag.Type == 1)
     {
-    <div class="col-md-8 col-sm-12">
-       
-        <div class="box box-primary">
-            <div class="pull-right box-tools">
+        <div class="col-md-8 col-sm-12">
 
-                <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;margin-top: 5px" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-            </div>
-            <div class="box-body box-profile" style="overflow:hidden;clear:both;">
+            <div class="box box-primary">
+                <div class="pull-right box-tools">
 
-                <h3>IMPORTANT THING TO KNOW SELLING PRODUCTS WITH ALL YOU MEDIA</h3>
-                <ul>
-                    <li>
-                        All You Media only acts as a marketplace, payment gateway and marketing conduit for your product. We may act as a liaison if a dispute arises between you and the buyer. We strongly suggest you and the buyer work things out before all you media is requested to act as a liaison, if we act as a liaison it is at our own discretion.
-                    </li>
-                    <li>
-                        You are Responsible for ensuring your customer  receives your products.
-                    </li>
-                    <li>
-                        Once a order has been placed you must ship your product within 3 business days, The sooner you ship, the sooner will be paid.
-                    </li>
-                    <li>
-                        Once your products has been shipped you must input shipping information (Traking Information) into our system and forward to seller.
-                    </li>
-                    <li>
-                        At this current time we pay a maximum of 30 days and we strive to get your payments in less time as we move forward.
-                    </li>
-                    <li>
-                        Once you provide a delivery confirmation to your buyer, we will attempt to get you paid in as short of time as possible.
-                    </li>
-                    <li>
-                        You must offer a return policy of 7 Days, it is our customer policy.
-                    </li>
-                    <li>
-                        We strongly recommend you insure any products that you ship to your customer.
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-sm-12">
-        
-        <div class="box box-primary">
-            <div class="pull-right box-tools">
+                    <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px;margin-top: 5px" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="box-body box-profile" style="overflow:hidden;clear:both;">
 
-                <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px; margin-top: 5px" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-            </div>
-            <div class="box-body box-profile" style="overflow:hidden;clear:both;">
-                <h4>Shipping services information</h4>
-                <div class="col-md-12" style="min-height: 207px">
-                    <p>Link to united states postal services</p>
-                    <p>Link to UPS (United Parcel Services)</p>
-                    <p>Link to FEDEX</p>
-                    <p>Link to DHL</p>
+                    <h3>IMPORTANT THING TO KNOW SELLING PRODUCTS WITH ALL YOU MEDIA</h3>
+                    <ul>
+                        <li>
+                            All You Media only acts as a marketplace, payment gateway and marketing conduit for your product. We may act as a liaison if a dispute arises between you and the buyer. We strongly suggest you and the buyer work things out before all you media is requested to act as a liaison, if we act as a liaison it is at our own discretion.
+                        </li>
+                        <li>
+                            You are Responsible for ensuring your customer  receives your products.
+                        </li>
+                        <li>
+                            Once a order has been placed you must ship your product within 3 business days, The sooner you ship, the sooner will be paid.
+                        </li>
+                        <li>
+                            Once your products has been shipped you must input shipping information (Traking Information) into our system and forward to seller.
+                        </li>
+                        <li>
+                            At this current time we pay a maximum of 30 days and we strive to get your payments in less time as we move forward.
+                        </li>
+                        <li>
+                            Once you provide a delivery confirmation to your buyer, we will attempt to get you paid in as short of time as possible.
+                        </li>
+                        <li>
+                            You must offer a return policy of 7 Days, it is our customer policy.
+                        </li>
+                        <li>
+                            We strongly recommend you insure any products that you ship to your customer.
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
-    </div>
+        <div class="col-md-4 col-sm-12">
+
+            <div class="box box-primary">
+                <div class="pull-right box-tools">
+
+                    <button class="btn btn-primary btn-sm pull-right" data-widget="collapse" data-toggle="tooltip" title="" style="margin-right: 5px; margin-top: 5px" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                </div>
+                <div class="box-body box-profile" style="overflow:hidden;clear:both;">
+                    <h4>Shipping services information</h4>
+                    <div class="col-md-12" style="min-height: 207px">
+                        <p>Link to united states postal services</p>
+                        <p>Link to UPS (United Parcel Services)</p>
+                        <p>Link to FEDEX</p>
+                        <p>Link to DHL</p>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="col-md-12 col-sm-12">
             <div class="box">
@@ -161,8 +187,8 @@
                                         <td><button class="btn">View</button></td>
                                     </tr>
                                 </tbody>
-                                    </table>
-</div>
+                            </table>
+                        </div>
                     </div>
                 </div><!-- /.box-body -->
             </div>
@@ -176,7 +202,7 @@
                     <div class="">
                         <div class="content userlist-content">
                             <div class="col-md-12 col-sm-12 col-xs-12">
-                                <div class="dashboard-box">
+                                <div class="dashboard-box" style="display:none;">
                                     <div class="table-badges-section">
                                         <div class="col-md-3 col-sm-12 col-xs-12">
                                             <button type="button" id="btnMUSIC" class="btn btn-primary flat-buttons">Online MUSIC Production</button>
@@ -204,105 +230,155 @@
                                 </div>
                                 <div class="clearfix"></div>
                                 <div class="row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+
+                                                <h5 class="name-userlist">EXECUTIVE PRODUCER</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage1.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">NEW YORK</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">SINGER</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage2.jpg" height="102" width="102">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">ATLANTA, GEORGIA</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">GUITAR</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage3.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">CHENNAI INDIA</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">KEYBOARD</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage4.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">LONDON ENGLAND</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">GUITAR</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage5.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">SHANGHAI CHINA</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">DRUMMER</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage6.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">GHANA AFRICA</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">SAXOPHONE</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage7.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">AMMEN JORDAN</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">SINGER</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage8.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">RIO DE JANEIRO BRAZIL</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">HARP</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage9.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">NEW DELHI INDIA</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">WRITER</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage10.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">TORONTO CANADA</h6>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="userlist-box text-xs-center">
+                                                <h5 class="name-userlist">ARRANGER</h5>
+                                                <div class="image-userlist">
+                                                    <img alt="user image" src="/Images/MediaProduction/mediaimage11.jpg">
+                                                </div>
+
+                                                <div class="border-userlist"></div>
+                                                <h6 class="post-userlist">LOS ANGELES CALIFORNIA</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
                                     <div class="col-md-2 col-sm-2 col-xs-12">
                                         <div class="userlist-box text-xs-center" style="margin-top:-20px;">
-                                            <h4>Organizer</h4>
-                                            <div class="image-userlist">
-                                                <img alt="user image" src="/Images/User/Talent/09185664724951306212655.jpg">
+                                            <div>
+                                                <h4>MUSIC PRODUCTION HOST</h4>
+                                                <h4>STUDIO TIME: 7:23</h4>
+                                                <h4>COST: $1,455.33</h4>
                                             </div>
-                                            <h5 class="name-userlist">Henry</h5>
+                                            <h4>YOUR VIDEO FEED</h4>
+                                            <div class="image-userlist">
+                                                <img alt="user image" src="~/Images/MediaProduction/1HOSTJASONBROWN.jpg">
+                                            </div>
+                                            <h5 class="name-userlist" style="text-align:left">YOUR TALENT:</h5>
                                             <div class="border-userlist"></div>
                                             <h6 class="post-userlist"></h6>
-                                            <h6 class="post-userlist">United States</h6>
+                                            <h6 class="post-userlist" style="text-align:left">SINGER</h6>
                                         </div>
                                     </div>
-                                    <div class="col-md-10 col-sm-10 col-xs-12">
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="userlist-box text-xs-center">
-                                                <div class="image-userlist">
-                                                    <img alt="user image" src="/Images/MediaProduction/Img3.jpg">
-                                                </div>
-                                                <h5 class="name-userlist">SINGER</h5>
-                                                <div class="border-userlist"></div>
-                                                <h6 class="post-userlist">LONDON</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="userlist-box text-xs-center">
-                                                <div class="image-userlist">
-                                                    <img alt="user image" src="/Images/MediaProduction/Img8.jpg">
-                                                </div>
-                                                <h5 class="name-userlist">SINGER</h5>
-                                                <div class="border-userlist"></div>
-                                                <h6 class="post-userlist">PARIS</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="userlist-box text-xs-center">
-                                                <div class="image-userlist">
-                                                    <img alt="user image" src="/Images/MediaProduction/Img2.jpg">
-                                                </div>
-                                                <h5 class="name-userlist">DRUMMER</h5>
-                                                <div class="border-userlist"></div>
-                                                <h6 class="post-userlist">NEW-YORK</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="userlist-box text-xs-center">
-                                                <div class="image-userlist">
-                                                    <img alt="user image" src="/Images/MediaProduction/Img1.jpg">
-                                                </div>
-                                                <h5 class="name-userlist">GUITARIST</h5>
-                                                <div class="border-userlist"></div>
-                                                <h6 class="post-userlist">CHINA</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="userlist-box text-xs-center">
-                                                <div class="image-userlist">
-                                                    <img alt="user image" src="/Images/MediaProduction/Img7.jpg">
-                                                </div>
-                                                <h5 class="name-userlist">GUITARIST</h5>
-                                                <div class="border-userlist"></div>
-                                                <h6 class="post-userlist">CANADA</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="userlist-box text-xs-center">
-                                                <div class="image-userlist">
-                                                    <img alt="user image" src="/Images/MediaProduction/Img4.jpg">
-                                                </div>
-                                                <h5 class="name-userlist">KEYBOARD</h5>
-                                                <div class="border-userlist"></div>
-                                                <h6 class="post-userlist">ANGELES</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="userlist-box text-xs-center">
-                                                <div class="image-userlist">
-                                                    <img alt="user image" src="/Images/MediaProduction/Img5.jpg">
-                                                </div>
-                                                <h5 class="name-userlist">WRITER</h5>
-                                                <div class="border-userlist"></div>
-                                                <h6 class="post-userlist">BRAZIL</h6>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-3 col-xs-12">
-                                            <div class="userlist-box text-xs-center">
-                                                <div class="image-userlist">
-                                                    <img alt="user image" src="/Images/MediaProduction/Img6.jpg">
-                                                </div>
-                                                <h5 class="name-userlist">RAPPER</h5>
-                                                <div class="border-userlist"></div>
-                                                <h6 class="post-userlist">ATLANTA</h6>
-                                            </div>
-                                        </div>
-                                    </div>
+
                                     <div class="divider15"></div>
                                     <div class="col-md-2 col-sm-2 col-xs-12"></div>
                                     <div class="col-md-10 col-sm-10 col-xs-12">
                                         <div class="col-md-12 col-sm-12 col-xs-12">
-                                            <img src="/Images/MediaProduction/Media1.png">
+                                            <img src="/Images/MediaProduction/MUSICPRODUCTONVIRTUALSOUNDBOARD.jpg">
                                         </div>
                                     </div>
                                 </div>
@@ -421,6 +497,6 @@
         $(document).ready(function () {
             $('#Order').DataTable({ "searching": false, "paging": false, "info": false });
         });
-    
+
     </script>
 }

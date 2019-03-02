@@ -384,9 +384,17 @@
     <Compile Include="Migrations\201902241308091_instrumentSpecification.Designer.cs">
       <DependentUpon>201902241308091_instrumentSpecification.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201902270432463_Test_category.cs" />
-    <Compile Include="Migrations\201902270432463_Test_category.Designer.cs">
-      <DependentUpon>201902270432463_Test_category.cs</DependentUpon>
+    <Compile Include="Migrations\201902280424029_usertest_category.cs" />
+    <Compile Include="Migrations\201902280424029_usertest_category.Designer.cs">
+      <DependentUpon>201902280424029_usertest_category.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902280428161_updateusecatrgory.cs" />
+    <Compile Include="Migrations\201902280428161_updateusecatrgory.Designer.cs">
+      <DependentUpon>201902280428161_updateusecatrgory.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902280515300_updatecategory_attribute.cs" />
+    <Compile Include="Migrations\201902280515300_updatecategory_attribute.Designer.cs">
+      <DependentUpon>201902280515300_updatecategory_attribute.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2275,6 +2283,7 @@
     <Content Include="Views\AllYouMediaMailer\FanSharingRequestToFan.cshtml" />
     <Content Include="Views\User\NewMembership.cshtml" />
     <Content Include="Views\User\VirtualAudition.cshtml" />
+    <Content Include="Views\Shared\_UserLayout44.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2361,8 +2370,14 @@
     <EmbeddedResource Include="Migrations\201902241308091_instrumentSpecification.resx">
       <DependentUpon>201902241308091_instrumentSpecification.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902270432463_Test_category.resx">
-      <DependentUpon>201902270432463_Test_category.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201902280424029_usertest_category.resx">
+      <DependentUpon>201902280424029_usertest_category.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280428161_updateusecatrgory.resx">
+      <DependentUpon>201902280428161_updateusecatrgory.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902280515300_updatecategory_attribute.resx">
+      <DependentUpon>201902280515300_updatecategory_attribute.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

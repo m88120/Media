@@ -173,21 +173,35 @@ namespace AllYouMedia.Controllers
                     userService.AddToAspNetUserHierarchy(user.Id, parentUserID);
                     if (userType == SharedLibrary.MemberTypeEnum.AllTalent || userType == SharedLibrary.MemberTypeEnum.Production)
                     {
-                        userCategoryMapService.Insert(new AllYouMedia.DataAccess.EntityLayer.DBEntity.UserCategoryMap
-                        {
-                            AspNetUserRoleID = userService.GetAspNetUserRoleIDByUserAndRole(user.Id, userType.ToString()),
-                            AttributeID = model.AttributeID,
-                            CategoryID = model.CategoryID,
-                            CategoryTypeID = model.CategoryTypeID,
-                            SubCategoryID = model.SubCategoryID
-                        });
-                    }
+                        //userCategoryMapService.Insert(new AllYouMedia.DataAccess.EntityLayer.DBEntity.UserCategoryMap
+                        //{
+                        //    AspNetUserRoleID = userService.GetAspNetUserRoleIDByUserAndRole(user.Id, userType.ToString()),
+                        //   // AttributeID = model.AttributeID,
+                        //    CategoryID = model.CategoryID,
+                        //    CategoryTypeID = model.CategoryTypeID,
+                        //   // SubCategoryID = model.SubCategoryID
+                        //});
+                        AllYouMedia.DataAccess.EntityLayer.DBEntity.UserCategoryMap _model = new AllYouMedia.DataAccess.EntityLayer.DBEntity.UserCategoryMap();
+                        _model.AspNetUserRoleID = userService.GetAspNetUserRoleIDByUserAndRole(user.Id, userType.ToString());
+                       // AttributeID = model.AttributeID,
+                        _model.CategoryTypeID = model.CategoryTypeID;
+                        _model.CategoryID = model.CategoryID;
+                        _model.GenderID = model.GenderID;
+                        _model.GenreID = model.GenreId;
+                        _model.InstrumentID = model.InstrumentId;
+                        _model.InstrumentSpeciID = model.InstrumentSpecificationId;
+                        _model.CreatedOn = DateTime.Now;
+                        _model.ModifiedOn = DateTime.Now;
+                        _model.IsActive = true;
+                        userCategoryMapService.Insert(_model);
+                    
+                }
                     else
                     {
-                        model.CategoryID = -1;
-                        model.SubCategoryID = -1;
-                        model.CategoryTypeID = -1;
-                        model.AttributeID = -1;
+                        //model.CategoryID = -1;
+                        //model.SubCategoryID = -1;
+                        //model.CategoryTypeID = -1;
+                        //model.AttributeID = -1;
                     }
                     //////////////// SEND User Confirmation email
                     AllYouMediaMailer mailer = new AllYouMediaMailer();

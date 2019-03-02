@@ -140,13 +140,13 @@
                                 <li class="list-group-item">
                                     <b>@roleList[userCategoryMap.AspNetUserRole.RoleId]</b>
                                     <span class="pull-right">
-                                        @if (userCategoryMap.CategoryTypeID != -1)
+                                        @if (userCategoryMap.CategoryTypeID != 0)
                                         {<a class="label label-primary">@userCategoryMap.CategoryType.Name</a>}
-                                        @if (userCategoryMap.CategoryID != -1)
+                                        @if (userCategoryMap.CategoryID != 0)
                                         {<a class="label label-primary">@userCategoryMap.Category.Name</a>}
-                                        @if (userCategoryMap.SubCategoryID != -1)
+                                        @if (userCategoryMap.SubCategoryID != null)
                                         {<a class="label label-primary">@userCategoryMap.SubCategory.Name</a>}
-                                        @if (userCategoryMap.AttributeID != -1)
+                                        @if (userCategoryMap.AttributeID != null)
                                         {<a class="label label-primary">@userCategoryMap.Attribute.Name</a>}
                                     </span>
                                 </li>

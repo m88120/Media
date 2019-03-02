@@ -40,8 +40,12 @@ namespace AllYouMedia.Models
 
         public long CategoryTypeID { get; set; }
         public long CategoryID { get; set; }
-        public long SubCategoryID { get; set; }
-        public long AttributeID { get; set; }
+        public long? SubCategoryID { get; set; }
+        public long? AttributeID { get; set; }
+        public long? GenderID { get; set; }
+        public long? GenreId { get; set; }
+        public long? InstrumentId { get; set; }
+        public long? InstrumentSpecificationId { get; set; }
     }
 
     public class ForgotPaasWordModel

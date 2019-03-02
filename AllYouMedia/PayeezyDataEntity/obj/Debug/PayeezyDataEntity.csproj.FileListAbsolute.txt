@@ -13,7 +13,7 @@ D:\Work\Mahaveerji\AllYouMedia\allyoumedia\PayeezyDataEntity\obj\Debug\PayeezyDa
 D:\2019\AllYouMedia\PayeezyDataEntity\bin\Debug\PayeezyDataEntity.dll.config
 D:\2019\AllYouMedia\PayeezyDataEntity\bin\Debug\PayeezyDataEntity.dll
 D:\2019\AllYouMedia\PayeezyDataEntity\bin\Debug\PayeezyDataEntity.pdb
+D:\2019\AllYouMedia\PayeezyDataEntity\obj\Debug\PayeezyDataEntity.csprojAssemblyReference.cache
 D:\2019\AllYouMedia\PayeezyDataEntity\obj\Debug\PayeezyDataEntity.csproj.CoreCompileInputs.cache
 D:\2019\AllYouMedia\PayeezyDataEntity\obj\Debug\PayeezyDataEntity.dll
 D:\2019\AllYouMedia\PayeezyDataEntity\obj\Debug\PayeezyDataEntity.pdb
-D:\2019\AllYouMedia\PayeezyDataEntity\obj\Debug\PayeezyDataEntity.csprojAssemblyReference.cache

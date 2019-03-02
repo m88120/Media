@@ -64,7 +64,7 @@
                     <p>@Html.DropDownListFor(x => x.MembershipType, membershipList, new { @class = "input-feild", required = "" }) @Html.ValidationMessageFor(x => x.MembershipType)</p>
                     <div id="categorySection">
                         <p id="container_CategoryType" style="display:none;">
-                            <label>All Talent Categories</label>
+                            <label>Industry</label>
                             <select class="form-control" id="CategoryType" name="CategoryTypeID" onchange="categoryTypeChanged(this);"></select>
                         </p>
                         <p id="container_Category" style="display:none;">
@@ -77,15 +77,15 @@
                         </p>
                         <p id="container_Genre" style="display:none;">
                             <label>Genre</label>
-                            <select class="form-control" id="Genre" name="Genre" onchange="GenreChanged(this);"></select>
+                            <select class="form-control" id="Genre" name="GenreId" onchange="GenreChanged(this);"></select>
                         </p>
                         <p id="container_Instrument" style="display:none;">
                             <label>Instrument</label>
-                            <select class="form-control" id="Instrument" name="Instrument" onchange="InstrumentChanged(this);"></select>
+                            <select class="form-control" id="Instrument" name="InstrumentId" onchange="InstrumentChanged(this);"></select>
                         </p>
                         <p id="container_Instrument" style="display:none;">
                             <label>Instrument Specification</label>
-                            <select class="form-control" id="InstrumentSpecification" name="InstrumentSpecification"></select>
+                            <select class="form-control" id="InstrumentSpecification" name="InstrumentSpecificationId"></select>
                         </p>
                         <p id="container_SubCategory" style="display:none;">
                             <label>Level 2 Category</label>
@@ -230,8 +230,8 @@
             //lert
             var category = $(elem).val();
             if (Number(category) > 0) {
-                if (Number($("#CategoryType").val()) == 15) {
-                    if (Number(category) == 95 || Number(category) == 96 || Number(category) == 100 || Number(category) == 106 || Number(category) == 107 || Number(category) == 108 || Number(category) == 109 || Number(category) == 105) { 
+                if (Number($("#CategoryType").val()) == 15 || Number($("#CategoryType").val()) == 6) {
+                    if (Number(category) == 87 || Number(category) == 88 || Number(category) == 97 || Number(category) == 98 || Number(category) == 99 || Number(category) == 100 || Number(category) == 101 || Number(category) == 92) { 
                     createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, CategoryID: category }, $("#GenderSpecific"), true);
                 }
                 else {
@@ -258,7 +258,7 @@
             $("#InstrumentSpecification").parent().hide()
             var membershipType = Number($("#MembershipType").val());
             var genreType = $(elem).val();
-            //if (Number($("#CategoryType").val()) == 15) {
+            if (Number($("#CategoryType").val()) == 15)
                 createDropdown('/Account/GetinstrumentGenreType', { MembershipType: membershipType, GenreTypeID: genreType }, $("#Instrument"), true);
 
         }
@@ -286,7 +286,7 @@
                     if (returnData.Result == "OK") {
                         ddl.empty();
                         if (addDefault === true)
-                            ddl.append('<option value="-1"></option>');
+                            ddl.append('<option value=""></option>');
                       
                         if (returnData.Data == null) {
                             console.log(returnData.Data)

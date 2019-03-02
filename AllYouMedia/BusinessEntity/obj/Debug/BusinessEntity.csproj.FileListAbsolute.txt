@@ -10,7 +10,7 @@ D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\obj\Debug\BusinessEnti
 D:\Work\Mahaveerji\AllYouMedia\allyoumedia\BusinessEntity\obj\Debug\BusinessEntity.pdb
 D:\2019\AllYouMedia\BusinessEntity\bin\Debug\BusinessEntity.dll
 D:\2019\AllYouMedia\BusinessEntity\bin\Debug\BusinessEntity.pdb
+D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.csprojAssemblyReference.cache
 D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.csproj.CoreCompileInputs.cache
 D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.dll
 D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.pdb
-D:\2019\AllYouMedia\BusinessEntity\obj\Debug\BusinessEntity.csprojAssemblyReference.cache
