@@ -213,7 +213,7 @@
             $("#GenderSpecific").parent().hide()
             var membershipType = Number($("#MembershipType").val());
             var categoryType = $(elem).val();
-            createDropdown('/Account/GetCategoryByCategoryTypeMembershipType', { MembershipType: membershipType, CategoryTypeID: categoryType }, $("#Category"), true);
+            createDropdownWithExtendedProp('/Account/GetCategoryByCategoryTypeMembershipTypeWithExtendedProp', { MembershipType: membershipType, CategoryTypeID: categoryType }, $("#Category"), true);
             if (membershipType == 2) {
                 if (Number(categoryType) === -100)
                     toastr.info('ALL MUSIC SINGLES AT $1.24<br/>ALL MUSIC ALBUMS (UP TO 15 MUSIC SLOTS) AT $15.99<br/>', 'Alert');
@@ -228,18 +228,22 @@
             $("#Instrument").parent().hide()
             $("#InstrumentSpecification").parent().hide()
             //lert
+            debugger;
             var category = $(elem).val();
+            var categoryExtended = $(elem).attr('data-extended');
+            alert(categoryExtended);
             if (Number(category) > 0) {
                 if (Number($("#CategoryType").val()) == 15 || Number($("#CategoryType").val()) == 6) {
                     if (Number(category) == 87 || Number(category) == 88 || Number(category) == 97 || Number(category) == 98 || Number(category) == 99 || Number(category) == 100 || Number(category) == 101 || Number(category) == 92) { 
-                    createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, CategoryID: category }, $("#GenderSpecific"), true);
+                        if (categoryExtended == "Yes") { alert("Done!"); }
+                        createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, GenderTypeID: category }, $("#GenderSpecific"), true);
                 }
                 else {
-                    createDropdown('/Account/GetGenreType', { MembershipType: membershipType, CategoryID: category }, $("#Genre"), true);
+                        createDropdown('/Account/GetGenreType', { MembershipType: membershipType, GenreTypeID: category }, $("#Genre"), true);
             }
                 }
                 else {
-                    createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, CategoryID: category }, $("#GenderSpecific"), true);
+                    createDropdown('/Account/GetGenderSpecificType', { MembershipType: membershipType, GenderTypeID: category }, $("#GenderSpecific"), true);
                 }
             }
         }
@@ -249,8 +253,11 @@
             $("#InstrumentSpecification").parent().hide()
             var membershipType = Number($("#MembershipType").val());
             var genderType = $(elem).val();
-            if (Number($("#CategoryType").val()) == 15) {
-                createDropdown('/Account/GetGenderSpecificGenreType', { MembershipType: membershipType, GenderTypeID: genderType }, $("#Genre"), true);
+            if (Number(genderType) > 0)
+                {
+                if (Number($("#CategoryType").val()) == 15) {
+                    createDropdown('/Account/GetGenderSpecificGenreType', { MembershipType: membershipType, GenderTypeID: genderType }, $("#Genre"), true);
+                }
             }
         }
         function GenreChanged(elem) {
@@ -258,17 +265,20 @@
             $("#InstrumentSpecification").parent().hide()
             var membershipType = Number($("#MembershipType").val());
             var genreType = $(elem).val();
-            if (Number($("#CategoryType").val()) == 15)
-                createDropdown('/Account/GetinstrumentGenreType', { MembershipType: membershipType, GenreTypeID: genreType }, $("#Instrument"), true);
+            if (Number(genreType)>0) {
+                if (Number($("#CategoryType").val()) == 15)
+                    createDropdown('/Account/GetinstrumentGenreType', { MembershipType: membershipType, GenreTypeID: genreType }, $("#Instrument"), true);
+            }
 
         }
         function InstrumentChanged(elem) {
             $("#InstrumentSpecification").parent().hide()
             var membershipType = Number($("#MembershipType").val());
             var InstrumentID = $(elem).val();
-            if (Number($("#CategoryType").val()) == 15) {
-                createDropdown('/Account/GetinstrumentType', { MembershipType: membershipType, InstrumentID: InstrumentID }, $("#InstrumentSpecification"), true);
-
+            if (Number(InstrumentID)> 0) {
+                if (Number($("#CategoryType").val()) == 15) {
+                    createDropdown('/Account/GetinstrumentType', { MembershipType: membershipType, InstrumentID: InstrumentID }, $("#InstrumentSpecification"), true);
+                }
             }
         }
         function subCategoryChanged(elem) {
@@ -298,6 +308,42 @@
                                
                                 ddl.append('<option value="' + this.Value + '">' + this.Text + '</option>');
                                
+                            });
+                            ddl.parent().show();
+                        }
+                        else {
+                            ddl.parent().hide();
+                        }
+                        if (addDefault === true || returnData.Data.length > 0)
+                            ddl.change();
+                    } else alert("Ops! Something went wrong. Please try again later.");
+                },
+                error: function () { alert("Ops! Something went wrong. Please try again later."); }
+            });
+        }
+
+        function createDropdownWithExtendedProp(url, data, ddl, addDefault) {
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                data: data,
+                success: function (returnData) {
+                    if (returnData.Result == "OK") {
+                        ddl.empty();
+                        if (addDefault === true)
+                            ddl.append('<option data-extended="No" value=""></option>');
+
+                        if (returnData.Data == null) {
+                            console.log(returnData.Data)
+                            return;
+                        }
+                        if (returnData.Data.length > 0) {
+
+                            $(returnData.Data).each(function () {
+
+                                ddl.append('<option data-extended="' + this.IsExtended +'" value="' + this.Value + '">' + this.Text + '</option>');
+
                             });
                             ddl.parent().show();
                         }

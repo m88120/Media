@@ -278,30 +278,35 @@ namespace AllYouMedia.Controllers
             return Json(new { Result = "OK", Data = categoryService.CategoryCboByCategoryTypeMembershipType(MembershipType, CategoryTypeID) });
         }
         [AllowAnonymous]
-        public JsonResult GetGenderSpecificType(int MembershipType, long CategoryID)
+        public JsonResult GetCategoryByCategoryTypeMembershipTypeWithExtendedProp(int MembershipType, long CategoryTypeID)
         {
-            return Json(new { Result = "OK", Data = categoryService.GenderSpecific(MembershipType, CategoryID) });
+            return Json(new { Result = "OK", Data = categoryService.CategoryCboByCategoryTypeMembershipTypeWithExtendedProp(MembershipType, CategoryTypeID) });
         }
         [AllowAnonymous]
-        public JsonResult GetGenreType(int MembershipType, long CategoryID)
+        public JsonResult GetGenderSpecificType(int MembershipType, long? GenderTypeID)
         {
-            return Json(new { Result = "OK", Data = categoryService.GetGenreCategory(MembershipType, CategoryID) });
+            return Json(new { Result = "OK", Data = categoryService.GenderSpecific(MembershipType, GenderTypeID.Value) });
         }
         [AllowAnonymous]
-        public JsonResult GetGenderSpecificGenreType(int MembershipType, long GenderTypeID)
+        public JsonResult GetGenreType(int MembershipType, long? GenreTypeID)
         {
-            return Json(new { Result = "OK", Data = genderService.GenderGenreCategory(MembershipType, GenderTypeID) });
+            return Json(new { Result = "OK", Data = categoryService.GetGenreCategory(MembershipType, GenreTypeID.Value) });
         }
         [AllowAnonymous]
-        public JsonResult GetinstrumentGenreType(int MembershipType, long GenreTypeID)
+        public JsonResult GetGenderSpecificGenreType(int MembershipType, long? GenderTypeID)
         {
-            return Json(new { Result = "OK", Data = genreService.GenreInstrumentCategory(MembershipType, GenreTypeID) });
+            return Json(new { Result = "OK", Data = genderService.GenderGenreCategory(MembershipType, GenderTypeID??0) });
+        }
+        [AllowAnonymous]
+        public JsonResult GetinstrumentGenreType(int MembershipType, long? GenreTypeID)
+        {
+            return Json(new { Result = "OK", Data = genreService.GenreInstrumentCategory(MembershipType, GenreTypeID.Value) });
         }
 
         [AllowAnonymous]
-        public JsonResult GetinstrumentType(int MembershipType, long InstrumentID)
+        public JsonResult GetinstrumentType(int MembershipType, long? InstrumentID)
         {
-            return Json(new { Result = "OK", Data = instrumentSpecification.InstrumentSpecificationCategory(MembershipType, InstrumentID) });
+            return Json(new { Result = "OK", Data = instrumentSpecification.InstrumentSpecificationCategory(MembershipType, InstrumentID.Value) });
         }
         [AllowAnonymous]
         public JsonResult GetSubCategoryByCategoryMembershipType(int MembershipType, long CategoryID)

@@ -5,6 +5,7 @@
     using System.Linq;
     using AllYouMedia.DataAccess.EntityLayer;
     using AllYouMedia.DataAccess.EntityLayer.DBEntity;
+    using AllYouMedia.Models;
 
     public class CategoryService : ICategoryService
     {
@@ -75,7 +76,7 @@
         {
             if (MembershipType == 2)
             {
-                
+
                 return this.entityRepository.GetByQuery(x => x.IsTalent == true && x.CategoryTypeID == CategoryTypeID).Select(x => new System.Web.Mvc.SelectListItem { Text = x.Name, Value = x.ID.ToString() }).OrderBy(x => x.Text).ToList();
             }
             else
@@ -86,11 +87,11 @@
             // if (MembershipType == 2)
             // {
 
-         var data=   this.entityRepository.GetByQuery(x => x.IsTalent == true && x.ID== CategoryID).Select(x =>x.GenderSpecific).FirstOrDefault();
+            var data = this.entityRepository.GetByQuery(x => x.IsTalent == true && x.ID == CategoryID).Select(x => x.GenderSpecific).FirstOrDefault();
             if (data != null)
                 return data.Select(x => new System.Web.Mvc.SelectListItem { Text = x.Name, Value = x.ID.ToString() }).OrderBy(x => x.Value).ToList();
-             else
-                    return null;
+            else
+                return null;
             //this.entityRepository.GetByQuery(x => x.IsTalent == true && x.CategoryTypeID == CategoryID).Select(x => new System.Web.Mvc.SelectListItem { Text = x.GenderSpecific., Value = x.ID.ToString() }).OrderBy(x => x.Text).ToList();
             //}
             // else
@@ -103,11 +104,22 @@
 
             var data = this.entityRepository.GetByQuery(x => x.IsTalent == true && x.ID == CategoryID).Select(x => x.GenreCategory).FirstOrDefault();
 
-            return data.OrderBy(x=>x.ID).Select(x => new System.Web.Mvc.SelectListItem { Text = x.Name, Value = x.ID.ToString() }).ToList();
+            return data.OrderBy(x => x.ID).Select(x => new System.Web.Mvc.SelectListItem { Text = x.Name, Value = x.ID.ToString() }).ToList();
             //this.entityRepository.GetByQuery(x => x.IsTalent == true && x.CategoryTypeID == CategoryID).Select(x => new System.Web.Mvc.SelectListItem { Text = x.GenderSpecific., Value = x.ID.ToString() }).OrderBy(x => x.Text).ToList();
             //}
             // else
             //   return this.entityRepository.GetByQuery(x => x.IsProduction == true && x.CategoryTypeID == CategoryID).Select(x => new System.Web.Mvc.SelectListItem { Text = x.Name, Value = x.ID.ToString() }).OrderBy(x => x.Text).ToList();
+        }
+
+        public List<DropdownModel> CategoryCboByCategoryTypeMembershipTypeWithExtendedProp(int MembershipType, long CategoryTypeID)
+        {
+            if (MembershipType == 2)
+            {
+
+                return this.entityRepository.GetByQuery(x => x.IsTalent == true && x.CategoryTypeID == CategoryTypeID).Select(x => new DropdownModel { Text = x.Name, Value = x.ID.ToString(), IsExtended = x.IsExtended == false ? "No" : "Yes" }).OrderBy(x => x.Text).ToList();
+            }
+            else
+                return this.entityRepository.GetByQuery(x => x.IsProduction == true && x.CategoryTypeID == CategoryTypeID).Select(x => new DropdownModel { Text = x.Name, Value = x.ID.ToString(), IsExtended = x.IsExtended == false ? "No" : "Yes" }).OrderBy(x => x.Text).ToList();
         }
     }
 }

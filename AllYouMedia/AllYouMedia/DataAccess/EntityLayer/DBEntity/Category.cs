@@ -21,6 +21,7 @@ namespace AllYouMedia.DataAccess.EntityLayer.DBEntity
         public string PhotoIMG { get; set; }
         public bool IsTalent { get; set; }
         public bool IsProduction { get; set; }
+        public bool IsExtended { get; set; }
         public virtual ICollection<SubCategory> SubCategories { get; set; }
         public virtual ICollection<UserCategoryMap> TalentCategoryMaps { get; set; }
         public virtual ICollection<GenderSpecific> GenderSpecific { get; set; }

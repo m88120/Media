@@ -124,7 +124,7 @@
            cs.MapRightKey("InstrumentCategoryId");
            cs.ToTable("InstrumentCategoryGener");
        });
-
+         
         }
     }
 }

@@ -21,6 +21,8 @@
         Tuple<List<Category>, int> GetForDT(string search, int start, int length);
 
         List<System.Web.Mvc.SelectListItem> CategoryCboByCategoryTypeMembershipType(int MembershipType, long CategoryTypeID);
+
+        List<DropdownModel> CategoryCboByCategoryTypeMembershipTypeWithExtendedProp(int MembershipType, long CategoryTypeID);
         List<System.Web.Mvc.SelectListItem> GenderSpecific(int MembershipType, long CategoryID);
         List<System.Web.Mvc.SelectListItem> GetGenreCategory(int MembershipType, long CategoryID);
 

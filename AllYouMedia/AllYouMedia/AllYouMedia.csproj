@@ -396,9 +396,14 @@
     <Compile Include="Migrations\201902280515300_updatecategory_attribute.Designer.cs">
       <DependentUpon>201902280515300_updatecategory_attribute.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201903021738389_categoryExtended.cs" />
+    <Compile Include="Migrations\201903021738389_categoryExtended.Designer.cs">
+      <DependentUpon>201903021738389_categoryExtended.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\CategoryResponseModel.cs" />
+    <Compile Include="Models\DropdownModel.cs" />
     <Compile Include="Models\GuestModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\UserModel.cs" />
@@ -2378,6 +2383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902280515300_updatecategory_attribute.resx">
       <DependentUpon>201902280515300_updatecategory_attribute.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201903021738389_categoryExtended.resx">
+      <DependentUpon>201903021738389_categoryExtended.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
